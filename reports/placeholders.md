@@ -6,4 +6,4 @@ The site shows no placeholders (checked by C12). These build settings are still 
 |---|---|---|
 | `SITE_URL` | empty | Live domain for canonical URLs, sitemaps and schema. The build uses https://www.sthuthi.example until it is set. |
 | `PUBLIC_CONSULT_ENDPOINT` | empty | Form endpoint. Until it is set, the form hands every request to WhatsApp only. |
-| `CONTACT_EMAIL` | empty | Email address. Until it is set, no email is shown anywhere. |
+| `CONTACT_EMAIL` | set | Email address. Until it is set, no email is shown anywhere. |

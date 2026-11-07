@@ -107,12 +107,12 @@ Both are applied from `data/owner-resolutions.json`; your master files are not r
 3. **"Indicative price".** The CSV calls every price indicative, but SDM-02 and SDM-11 are now charged that exact amount.
    - Their label reads "Price, paid in full online", and they carry an Offer in the schema.
    - The other 31 keep "Indicative price".
-4. **Hosting now needs Node.** Checkout and the webhook run in `server/server.mjs`, which also serves the site. A static-only host is no longer enough.
+4. **Hosting.** On Vercel (https://sthuthi-mandir.vercel.app) the three payment routes run as Vercel Functions (`api/*.mjs`), and orders are kept in Stripe on each PaymentIntent, because Vercel's disk does not persist. On any other Node host, `server/server.mjs` serves the site and the routes and stores orders as files. C16/C17 run the full payment flow against both. Cycle 9 (7 November): 0 flags.
 5. **UPI.** The Stripe test account offers card and Link only. If you want UPI, enable it in the Stripe dashboard; no code change is needed.
 6. **`STRIPE_PUBLISHABLE_KEY`** is read but not needed: hosted Checkout opens through a server-side redirect.
 7. **Grievance policy, step 1** says "Email or call the Grievance Officer", but there is no email yet. It is kept word for word.
 8. **No Diwali banner exists** on the site, so none was changed or added. Send the wording if you want one; it would reserve a consultation slot only.
-9. **`SITE_URL`** is still the example domain in canonicals, sitemaps and schema. Set it before deploying.
+9. **`SITE_URL`** is still the example domain in canonicals, sitemaps and schema. On Vercel, set it to `https://sthuthi-mandir.vercel.app` (or the custom domain) in the project's environment variables, together with `PAYMENTS_ENABLED=true`; the live build currently has neither, so SDM-02 and SDM-11 still show the WhatsApp button there.
 
 ## Dependency note
 - `stripe` 23.0.1 was added (released 22 October 2026).

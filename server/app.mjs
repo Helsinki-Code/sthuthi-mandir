@@ -11,6 +11,11 @@
  *                             stores it, sends it to ORDER_ENDPOINT, and makes it visible to the confirmation page.
  *   GET  /api/order-status    Used by /order/confirmed/. "confirmed" only after the verified webhook.
  *
+ * Orders are kept in one of two stores (ORDER_STORE):
+ *   file    (default) one JSON file per order in ORDERS_DIR, for a long-running Node host.
+ *   stripe  on serverless hosts such as Vercel, where the disk does not persist: the verified webhook writes the
+ *           order status onto the PaymentIntent's metadata in Stripe, and the status page reads it back from there.
+ *
  * Keys come from environment variables only: STRIPE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY, STRIPE_WEBHOOK_SECRET.
  */
 import fs from 'node:fs';
@@ -29,11 +34,12 @@ const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.json', '.xml', '.txt', '
 const cache = new Map();
 const SESSION_RE = /^cs_(test|live)_[A-Za-z0-9]{10,200}$/;
 
-export function createApp({ root, env = process.env, stripe = null, fetchImpl = globalThis.fetch, log = console }) {
+export function createApp({ root, env = process.env, stripe = null, fetchImpl = globalThis.fetch, log = console, catalog = null, business = null }) {
   const dist = path.join(root, 'dist');
-  const catalog = JSON.parse(fs.readFileSync(path.join(root, 'src/generated/catalog.json'), 'utf8'));
-  const business = JSON.parse(fs.readFileSync(path.join(root, 'data/business.json'), 'utf8'));
+  catalog ||= JSON.parse(fs.readFileSync(path.join(root, 'src/generated/catalog.json'), 'utf8'));
+  business ||= JSON.parse(fs.readFileSync(path.join(root, 'data/business.json'), 'utf8'));
   const ordersDir = path.resolve(root, env.ORDERS_DIR || 'var/orders');
+  const storeKind = String(env.ORDER_STORE || 'file').trim() === 'stripe' ? 'stripe' : 'file';
   const paymentsEnabled = String(env.PAYMENTS_ENABLED || '').trim() === 'true';
   const maxInr = Number(env.FULL_PAYMENT_MAX_INR || 500000);
   const orderEndpoint = (env.ORDER_ENDPOINT || env.PUBLIC_CONSULT_ENDPOINT || '').trim();
@@ -116,8 +122,56 @@ export function createApp({ root, env = process.env, stripe = null, fetchImpl = 
     }
   }
 
-  /* ---------------------------------------------------------------- webhook */
+  /* ---------------------------------------------------------------- order store */
+  const piId = (s) => (s.payment_intent && typeof s.payment_intent === 'object' ? s.payment_intent.id : s.payment_intent) || null;
+  function buildOrder(s, mark) {
+    const p = product(s.metadata?.sku);
+    const md = s.metadata || {};
+    return {
+      orderRef: mark.orderRef || `STH-${s.id.slice(-10).toUpperCase()}`, sessionId: s.id, status: mark.status,
+      confirmedAt: mark.confirmedAt, eventId: mark.eventId, livemode: !!s.livemode,
+      sku: p?.sku || md.sku, name: p?.name || '', priceINR: p?.priceINR ?? null, amountPaidINR: (s.amount_total || 0) / 100, currency: s.currency,
+      paymentIntent: piId(s),
+      customer: { name: s.customer_details?.name || '', email: s.customer_details?.email || '', phone: s.customer_details?.phone || '' },
+      shipping: s.collected_information?.shipping_details || s.shipping_details || null,
+      delivery: { pin: md.delivery_pin, roomCm: md.room_cm, fitVerdict: md.fit_verdict, edition: md.edition },
+      consent: { policies: md.policy_consent, policiesEffective: md.policies_effective, at: md.consent_at },
+      ...(mark.notified === undefined ? {} : { notified: mark.notified }),
+    };
+  }
   const orderFile = (id) => path.join(ordersDir, `${id}.json`);
+  const stores = {
+    file: {
+      async get(id) { return fs.existsSync(orderFile(id)) ? JSON.parse(fs.readFileSync(orderFile(id), 'utf8')) : null; },
+      async put(o) {
+        fs.mkdirSync(ordersDir, { recursive: true });
+        fs.writeFileSync(orderFile(o.sessionId) + '.tmp', JSON.stringify(o, null, 2));
+        fs.renameSync(orderFile(o.sessionId) + '.tmp', orderFile(o.sessionId));
+      },
+    },
+    stripe: {
+      // The order status lives on the PaymentIntent (metadata keys sthuthi_*), written only by the verified webhook.
+      async get(id) {
+        let s;
+        try { s = await stripe.checkout.sessions.retrieve(id, { expand: ['payment_intent'] }); }
+        catch (e) { if (e?.statusCode === 404 || e?.code === 'resource_missing') return null; throw e; }
+        const m = (s.payment_intent && typeof s.payment_intent === 'object' && s.payment_intent.metadata) || {};
+        if (!m.sthuthi_status) return null;
+        return buildOrder(s, { status: m.sthuthi_status, orderRef: m.sthuthi_order_ref, confirmedAt: m.sthuthi_confirmed_at, eventId: m.sthuthi_event,
+          notified: m.sthuthi_notified ? m.sthuthi_notified === 'true' : undefined });
+      },
+      async put(o) {
+        if (!o.paymentIntent) throw new Error(`order ${o.orderRef}: the session has no PaymentIntent to record the order on`);
+        await stripe.paymentIntents.update(o.paymentIntent, { metadata: {
+          sthuthi_status: o.status, sthuthi_order_ref: o.orderRef, sthuthi_confirmed_at: o.confirmedAt, sthuthi_event: o.eventId,
+          sthuthi_notified: o.notified === undefined ? '' : String(o.notified),
+        } });
+      },
+    },
+  };
+  const store = stores[storeKind];
+
+  /* ---------------------------------------------------------------- webhook */
   async function webhook(req, res) {
     const secret = env.STRIPE_WEBHOOK_SECRET || '';
     if (!stripe || !secret) return send(res, 503, { error: 'webhook_not_configured' });
@@ -128,40 +182,29 @@ export function createApp({ root, env = process.env, stripe = null, fetchImpl = 
     const s = event.data.object;
     if (s.payment_status !== 'paid') return send(res, 200, { received: true, status: 'awaiting_payment' });
     if (!SESSION_RE.test(s.id)) return send(res, 400, { error: 'bad_session' });
-    if (fs.existsSync(orderFile(s.id))) return send(res, 200, { received: true, status: 'already_confirmed' });
+    if (await store.get(s.id)) return send(res, 200, { received: true, status: 'already_confirmed' });
     const p = product(s.metadata?.sku);
     const ok = p && tier(p) === 'buy' && s.currency === 'inr' && s.amount_total === p.priceINR * 100;
-    const md = s.metadata || {};
-    const order = {
-      orderRef: `STH-${s.id.slice(-10).toUpperCase()}`, sessionId: s.id, status: ok ? 'confirmed' : 'needs_review',
-      confirmedAt: new Date().toISOString(), eventId: event.id, livemode: !!s.livemode,
-      sku: p?.sku || md.sku, name: p?.name || '', priceINR: p?.priceINR ?? null, amountPaidINR: (s.amount_total || 0) / 100, currency: s.currency,
-      paymentIntent: s.payment_intent || null,
-      customer: { name: s.customer_details?.name || '', email: s.customer_details?.email || '', phone: s.customer_details?.phone || '' },
-      shipping: s.collected_information?.shipping_details || s.shipping_details || null,
-      delivery: { pin: md.delivery_pin, roomCm: md.room_cm, fitVerdict: md.fit_verdict, edition: md.edition },
-      consent: { policies: md.policy_consent, policiesEffective: md.policies_effective, at: md.consent_at },
-    };
-    fs.mkdirSync(ordersDir, { recursive: true });
-    fs.writeFileSync(orderFile(s.id) + '.tmp', JSON.stringify(order, null, 2));
-    fs.renameSync(orderFile(s.id) + '.tmp', orderFile(s.id));
+    const order = buildOrder(s, { status: ok ? 'confirmed' : 'needs_review', confirmedAt: new Date().toISOString(), eventId: event.id });
+    await store.put(order);
     if (!ok) log.error(`order ${order.orderRef}: amount or product does not match the catalog; marked needs_review`);
     if (orderEndpoint) {
       try {
         const r = await fetchImpl(orderEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'sthuthi.order', order }) });
         order.notified = r.ok;
       } catch (e) { order.notified = false; log.error('order endpoint error', e?.message || e); }
-      fs.writeFileSync(orderFile(s.id), JSON.stringify(order, null, 2));
+      await store.put(order);
     }
     return send(res, 200, { received: true, status: order.status });
   }
 
   /* ---------------------------------------------------------------- order status */
-  function orderStatus(req, res, url) {
+  async function orderStatus(req, res, url) {
     const id = url.searchParams.get('session_id') || '';
     if (!SESSION_RE.test(id)) return send(res, 400, { error: 'bad_session' });
-    if (!fs.existsSync(orderFile(id))) return send(res, 200, { status: 'pending' });
-    const o = JSON.parse(fs.readFileSync(orderFile(id), 'utf8'));
+    if (storeKind === 'stripe' && !stripe) return send(res, 200, { status: 'pending' });
+    const o = await store.get(id);
+    if (!o) return send(res, 200, { status: 'pending' });
     if (o.status !== 'confirmed') return send(res, 200, { status: 'review', whatsapp: wa(`Hello Sthuthi, I have paid for order ${o.orderRef} and would like to check its status.`) });
     const p = product(o.sku);
     return send(res, 200, {
@@ -209,7 +252,7 @@ export function createApp({ root, env = process.env, stripe = null, fetchImpl = 
     try {
       if (url.pathname === '/api/checkout') return req.method === 'POST' ? await checkout(req, res) : send(res, 405, { error: 'method_not_allowed' });
       if (url.pathname === '/api/stripe-webhook') return req.method === 'POST' ? await webhook(req, res) : send(res, 405, { error: 'method_not_allowed' });
-      if (url.pathname === '/api/order-status') return req.method === 'GET' ? orderStatus(req, res, url) : send(res, 405, { error: 'method_not_allowed' });
+      if (url.pathname === '/api/order-status') return req.method === 'GET' ? await orderStatus(req, res, url) : send(res, 405, { error: 'method_not_allowed' });
       if (url.pathname.startsWith('/api/')) return send(res, 404, { error: 'not_found' });
       if (req.method !== 'GET' && req.method !== 'HEAD') return send(res, 405, 'Method not allowed');
       return serveStatic(req, res, url);

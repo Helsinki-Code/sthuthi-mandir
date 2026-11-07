@@ -52,7 +52,9 @@ const BUSINESS = JSON.parse(read(path.join(DATA, 'business.json')));
 const POLICY_MD = read(path.join(DATA, 'store-policies.md'));
 const policyLines = POLICY_MD.split('\n').map((l) => l.trim()).filter((l) => l && !/^\|[\s:|-]+\|$/.test(l));
 const policyStrings = policyLines.flatMap((l) => (l.startsWith('|') ? l.replace(/^\||\|$/g, '').split('|').map((c) => c.trim()) : [l.replace(/^(#+|-|\d+\.)\s+/, '')])).filter(Boolean);
-const ownerStrings = [...policyStrings, ...JSON.stringify(BUSINESS).match(/"(?:[^"\\]|\\.)*"/g).map((x) => JSON.parse(x))].filter((v) => v.length > 3);
+// The contact email is the owner's own setting (CONTACT_EMAIL in .env or the host's environment), so it is sourced too.
+const ownerEmail = (process.env.CONTACT_EMAIL ?? (fs.existsSync(path.join(ROOT, '.env')) ? fs.readFileSync(path.join(ROOT, '.env'), 'utf8').match(/^CONTACT_EMAIL=(.*)$/m)?.[1] : '') ?? '').trim();
+const ownerStrings = [...policyStrings, ...(ownerEmail ? [ownerEmail] : []), ...JSON.stringify(BUSINESS).match(/"(?:[^"\\]|\\.)*"/g).map((x) => JSON.parse(x))].filter((v) => v.length > 3);
 const val = (v) => (v && typeof v === 'object' ? (v.result ?? v.richText?.map((t) => t.text).join('') ?? v.text ?? null) : v);
 const sheet = (name) => {
   const ws = wb.getWorksheet(name); const rows = []; let h;
@@ -567,17 +569,22 @@ for (const r of csv) {
     }
   }
 
-  // Live flow: run the real payment server against a local Stripe stand-in (test key; nothing leaves this machine).
+  // Live flow, run twice against a local Stripe stand-in (test key; nothing leaves this machine):
+  //   "node server": server/server.mjs with orders kept as files (a long-running Node host);
+  //   "vercel":      the exact Vercel Functions in api/, with orders kept in Stripe (ORDER_STORE=stripe).
   const { spawn } = await import('node:child_process');
   const { default: Stripe } = await import('stripe');
   const { startStripeMock } = await import('./lib/stripe-mock.mjs');
+  for (const [runner, script, store] of [['node server', 'server/server.mjs', 'file'], ['vercel', 'scripts/lib/vercel-local.mjs', 'stripe']]) {
+  const ok16 = (cond, msg) => (cond ? pass('C16') : flag('C16', `[${runner}] ${msg}`));
+  const ok17 = (cond, msg) => (cond ? pass('C17') : flag('C17', `[${runner}] ${msg}`));
   const mock = await startStripeMock();
   const ordersTmp = fs.mkdtempSync(path.join(os.tmpdir(), 'sthuthi-orders-'));
   const WHSEC = 'whsec_auditmock0000000000000000';
   const port = 4600 + Math.floor(Math.random() * 300);
-  const srv = spawn(process.execPath, ['server/server.mjs', '--port', String(port)], { cwd: ROOT, env: { ...process.env,
+  const srv = spawn(process.execPath, [script, '--port', String(port)], { cwd: ROOT, env: { ...process.env,
     STRIPE_SECRET_KEY: 'sk_test_auditmock000000', STRIPE_API_HOST: '127.0.0.1', STRIPE_API_PORT: String(mock.port), STRIPE_API_PROTOCOL: 'http',
-    STRIPE_WEBHOOK_SECRET: WHSEC, ORDER_ENDPOINT: `http://127.0.0.1:${mock.port}/orders`, ORDERS_DIR: ordersTmp, SITE_URL: '',
+    STRIPE_WEBHOOK_SECRET: WHSEC, ORDER_ENDPOINT: `http://127.0.0.1:${mock.port}/orders`, ORDERS_DIR: ordersTmp, ORDER_STORE: store, SITE_URL: '',
     PAYMENTS_ENABLED: String(PAYMENTS_ENABLED), FULL_PAYMENT_MAX_INR: String(THRESHOLD) }, stdio: ['ignore', 'pipe', 'pipe'] });
   let srvErr = '';
   srv.stderr.on('data', (d) => { srvErr += d; });
@@ -620,7 +627,7 @@ for (const r of csv) {
         ok16(call?.auth === 'Bearer sk_test_auditmock000000', `${r.SKU}: secret key not sent server-side`);
         // Confirmation only through a verified webhook
         const session = { id: call.id, object: 'checkout.session', mode: 'payment', payment_status: 'paid', amount_total: price * 100, currency: 'inr', livemode: false,
-          metadata: Object.fromEntries(Object.entries(P).filter(([k]) => k.startsWith('metadata[')).map(([k, v]) => [k.slice(9, -1), v])), customer_details: { name: 'Audit Buyer' }, payment_intent: 'pi_audit' };
+          metadata: Object.fromEntries(Object.entries(P).filter(([k]) => k.startsWith('metadata[')).map(([k, v]) => [k.slice(9, -1), v])), customer_details: { name: 'Audit Buyer' }, payment_intent: call.pi };
         ok17((await status(call.id)).status === 'pending', `${r.SKU}: order shown before the webhook`);
         ok17((await hook(session, 'whsec_wrongsecret000000000')) === 400 && (await status(call.id)).status === 'pending', `${r.SKU}: webhook with a bad signature was accepted`);
         ok17((await hook({ ...session, payment_status: 'unpaid' })) === 200 && (await status(call.id)).status === 'pending', `${r.SKU}: unpaid session confirmed the order`);
@@ -630,7 +637,7 @@ for (const r of csv) {
         ok16(mock.orders.some((o) => o.order?.sku === r.SKU && o.order?.status === 'confirmed'), `${r.SKU}: order not sent to the business endpoint`);
         // A paid session whose amount differs from the catalog is never shown as confirmed
         const res2 = await post(good); const call2 = mock.calls[mock.calls.length - 1];
-        await hook({ ...session, id: call2.id, amount_total: price * 100 - 100 });
+        await hook({ ...session, id: call2.id, payment_intent: call2.pi, amount_total: price * 100 - 100 });
         ok17(res2.status === 200 && (await status(call2.id)).status === 'review', `${r.SKU}: amount mismatch was confirmed`);
       } else {
         const res = await post(good);
@@ -638,9 +645,20 @@ for (const r of csv) {
         ok16(res.status === 403 && res.body.whatsapp === want && mock.calls.length === before, `${r.SKU}: WhatsApp-only product accepted a checkout request (${res.status})`);
       }
     }
-    ok16((await fetch(`${base}/mandirs/`)).status === 200 && (await fetch(`${base}/nope/`)).status === 404, 'payment server does not serve the site');
+    if (store === 'file') ok16((await fetch(`${base}/mandirs/`)).status === 200 && (await fetch(`${base}/nope/`)).status === 404, 'payment server does not serve the site');
+    else {
+      // Orders kept in Stripe: the status is written onto the PaymentIntent only by the verified webhook.
+      const confirmed = Object.values(mock.intents).filter((m) => m.sthuthi_status === 'confirmed').length;
+      const buyCount = csv.filter((r) => tierCsv(r) === 'buy').length;
+      ok16(confirmed === buyCount, `expected ${buyCount} PaymentIntents marked confirmed in Stripe, found ${confirmed}`);
+      ok17(Object.values(mock.intents).filter((m) => m.sthuthi_status === 'needs_review').length === buyCount, 'amount mismatch not recorded as needs_review in Stripe');
+      ok17((await status('cs_test_unknownsession000000')).status === 'pending', 'unknown session not reported as pending');
+      ok16(fs.existsSync(path.join(ROOT, 'vercel.json')) && JSON.parse(read(path.join(ROOT, 'vercel.json'))).functions?.['api/*.mjs'], 'vercel.json does not configure the api functions');
+      ok16(fs.readdirSync(ordersTmp).length === 0, 'Vercel functions wrote orders to disk');
+    }
   } finally {
     srv.kill(); await mock.close(); fs.rmSync(ordersTmp, { recursive: true, force: true });
+  }
   }
 }
 

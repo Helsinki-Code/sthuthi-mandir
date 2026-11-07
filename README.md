@@ -34,6 +34,7 @@ Payment server settings (environment variables, or `site/.env`; restart the serv
 | `STRIPE_WEBHOOK_SECRET` | Signing secret of the webhook endpoint `https://<domain>/api/stripe-webhook` (events: `checkout.session.completed`, `checkout.session.async_payment_succeeded`). Orders are confirmed only by a verified webhook. |
 | `ORDER_ENDPOINT` | URL that receives each confirmed order as JSON (`POST`). Falls back to `PUBLIC_CONSULT_ENDPOINT`. |
 | `ORDERS_DIR` | Where confirmed orders are stored as JSON (default `var/orders`). Keep it on persistent disk and out of the web root. |
+| `ORDER_STORE` | `file` (default for `server/server.mjs`) keeps orders in `ORDERS_DIR`. `stripe` (always used by the Vercel functions) records each order's status on its PaymentIntent in Stripe, because serverless disks do not persist. |
 
 Phone, WhatsApp number, seller identity, grievance officer and lead times are in `data/business.json`.
 
@@ -76,12 +77,30 @@ Test mode: `stripe listen --forward-to localhost:4321/api/stripe-webhook` gives 
 Nothing about a product is typed into the site's code. The audit's C8 check changes a price and a height in a temporary copy, rebuilds, and confirms every page picks up the change.
 
 ## Deploying
+
+### Vercel (current: https://sthuthi-mandir.vercel.app)
+Vercel builds the pages (`npm run build` → `dist/`) and runs `api/checkout.mjs`, `api/stripe-webhook.mjs` and `api/order-status.mjs` as Vercel Functions (all logic in `server/app.mjs`; entry `server/vercel.mjs`). Orders are kept in Stripe (`ORDER_STORE=stripe`).
+
+Set these in Vercel → Project → Settings → Environment Variables, then redeploy (build settings only take effect on a new build):
+
+| Variable | Value |
+|---|---|
+| `SITE_URL` | `https://sthuthi-mandir.vercel.app` (or the custom domain) |
+| `PAYMENTS_ENABLED` | `true` |
+| `FULL_PAYMENT_MAX_INR` | `500000` |
+| `STRIPE_SECRET_KEY` | `sk_test_…` (test mode), later the live key |
+| `STRIPE_WEBHOOK_SECRET` | `whsec_…` of the webhook endpoint below |
+| `ORDER_ENDPOINT`, `PUBLIC_CONSULT_ENDPOINT`, `CONTACT_EMAIL` | optional |
+
+Stripe webhook endpoint: `https://sthuthi-mandir.vercel.app/api/stripe-webhook`, events `checkout.session.completed` and `checkout.session.async_payment_succeeded`. Test-mode and live-mode endpoints are separate, each with its own `whsec_…`.
+
+### Any Node host
 ```bash
 cd site
 SITE_URL=https://www.your-domain.in npm run build
 PORT=8080 HOST=0.0.0.0 node server/server.mjs
 ```
-The site now needs a Node 20+ host (a VPS, Render, Railway, Fly.io, or similar) because Stripe Checkout and the webhook run on the server. Put HTTPS in front (a reverse proxy or the platform's own). `server/server.mjs` serves `dist/` with long cache headers for `/img/` and `/_astro/` and `404.html` for missing paths, so no separate static host is needed. If you prefer a static host for the pages, deploy `dist/` there and the three `/api/*` routes (`server/app.mjs`) as functions on the same domain.
+On a VPS, Render, Railway, Fly.io or similar (Node 20+), `server/server.mjs` serves `dist/` with long cache headers for `/img/` and `/_astro/` and `404.html` for missing paths, plus the three `/api/*` routes. Put HTTPS in front (a reverse proxy or the platform's own).
 
 ## Reports
 - `reports/data-audit.md`: join results, CSV/workbook conflicts, SEO rewrites, image matching

@@ -1,5 +1,5 @@
 # Data audit
-Generated 2026-11-06T17:44:37.299Z from `mandir-catalogue.csv` and `Sthuthi_Mandir_Measurements.xlsx`.
+Generated 2026-11-07T10:36:08.235Z from `mandir-catalogue.csv` and `Sthuthi_Mandir_Measurements.xlsx`.
 
 ## Join
 - CSV SKUs: 33; workbook structure SKUs: 33

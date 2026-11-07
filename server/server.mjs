@@ -7,8 +7,8 @@ import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import Stripe from 'stripe';
 import { createApp } from './app.mjs';
+import { makeStripe, stripeMode } from './stripe-client.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const envFile = path.join(ROOT, '.env');
@@ -22,17 +22,8 @@ const arg = (name, dflt) => { const i = process.argv.indexOf(`--${name}`); retur
 const port = Number(arg('port', process.env.PORT || 4321));
 const host = arg('host', process.env.HOST || '127.0.0.1');
 
-const key = (process.env.STRIPE_SECRET_KEY || '').trim();
-let stripe = null;
-if (key) {
-  const opts = {};
-  // A local Stripe API stand-in is allowed for automated tests, and only with a test-mode key.
-  if (process.env.STRIPE_API_HOST && key.startsWith('sk_test_')) {
-    Object.assign(opts, { host: process.env.STRIPE_API_HOST, port: Number(process.env.STRIPE_API_PORT || 443), protocol: process.env.STRIPE_API_PROTOCOL || 'https' });
-  }
-  stripe = new Stripe(key, opts);
-}
-const mode = !key ? 'no Stripe key (Buy now returns "not available")' : key.startsWith('sk_test_') ? 'Stripe TEST mode' : 'Stripe LIVE mode';
+const stripe = makeStripe(process.env);
+const mode = stripeMode(process.env);
 http.createServer(createApp({ root: ROOT, env: process.env, stripe })).listen(port, host, () => {
-  console.log(`Sthuthi on http://${host}:${port}/  (${mode}; payments ${process.env.PAYMENTS_ENABLED === 'true' ? 'on' : 'off'} below ₹${process.env.FULL_PAYMENT_MAX_INR || 500000})`);
+  console.log(`Sthuthi on http://${host}:${port}/  (${mode}; orders in ${process.env.ORDER_STORE === 'stripe' ? 'Stripe' : 'files'}; payments ${process.env.PAYMENTS_ENABLED === 'true' ? 'on' : 'off'} below ₹${process.env.FULL_PAYMENT_MAX_INR || 500000})`);
 });
