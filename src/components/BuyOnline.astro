@@ -1,0 +1,45 @@
+---
+// "Buy now" panel for products priced below FULL_PAYMENT_MAX_INR. Payment is blocked until the delivery
+// PIN is valid, the room passes the fit check and the policy consent is ticked; the server checks all three again.
+import { compact, std } from '../lib/catalog.js';
+import { BUSINESS, leadTime, waLink } from '../site.config.js';
+import { enquiryMessage } from '../lib/tier.js';
+import { formatINR } from '../lib/units.js';
+interface Props { p: any }
+const { p } = Astro.props;
+const data = { std: { ceilingClearance: std.ceilingClearance }, product: compact(p) };
+const wa = waLink(enquiryMessage(p.sku, p.name, p.priceINR));
+---
+<section class="buy" id="buy" aria-labelledby="buy-h" data-buy data-sku={p.sku} data-wa={BUSINESS.phone.whatsapp}>
+  <p class="note buy-cancelled" data-buy-cancelled hidden>Payment was cancelled, and nothing was charged. You can try again below.</p>
+  <div class="buy-head">
+    <h2 id="buy-h">Buy this mandir online</h2>
+    <p class="muted">Pay <strong class="num">{formatINR(p.priceINR)}</strong> in full through Stripe's secure checkout. Delivery and installation in India are included, and it is made to order in {leadTime(p)}, {BUSINESS.leadTimes.basis}. Before you pay, we check that it fits your room.</p>
+  </div>
+  <form class="form buy-form" novalidate>
+    <div class="field"><label for="b-pin">Delivery PIN code</label><input id="b-pin" name="pin" inputmode="numeric" autocomplete="postal-code" maxlength="6" required aria-describedby="b-pin-e" /><p class="error" id="b-pin-e"></p></div>
+    <div class="field"><label for="b-w">Room width (cm)</label><input id="b-w" name="w" type="number" inputmode="numeric" min="50" max="3000" required /></div>
+    <div class="field"><label for="b-d">Room depth (cm)</label><input id="b-d" name="d" type="number" inputmode="numeric" min="50" max="3000" required /></div>
+    <div class="field"><label for="b-c">Ceiling height (cm)</label><input id="b-c" name="c" type="number" inputmode="numeric" min="150" max="1500" required /></div>
+    <p class="hint full" style="margin:0">Measure wall to wall. Ceiling height is to the underside of any false ceiling or beam. <a class="link" href="/size-guide/#measure">How to measure</a></p>
+    <div class="full buy-fit" data-buy-fit aria-live="polite"></div>
+    <div class="full buy-fail" data-buy-fail hidden>
+      <p style="margin:0 0 .6rem">It cannot be paid for online unless it fits. A designer can suggest a mandir that does.</p>
+      <a class="btn btn-ghost" data-buy-wa href={wa} target="_blank" rel="noopener">Chat on WhatsApp</a>
+    </div>
+    <div class="field full">
+      <label class="optin" for="b-consent" style="font-size:.95rem;color:var(--ink)"><input id="b-consent" name="consent" type="checkbox" required />
+        <span>I have read the <a class="link" href="/policies/delivery-installation/">Delivery &amp; Installation</a>, <a class="link" href="/policies/deposit-payment-cancellation/">Cancellation</a> and <a class="link" href="/policies/refunds/">Refund</a> policies</span></label>
+    </div>
+    <div class="full row">
+      <button class="btn btn-primary" type="submit" data-buy-submit disabled>Continue to secure payment</button>
+      <span class="muted" style="font-size:var(--fs-sm)" data-buy-why>Enter your PIN code and room to continue.</span>
+    </div>
+    <div class="full form-status" role="status" aria-live="polite" data-buy-status hidden></div>
+  </form>
+  <p class="muted" style="font-size:var(--fs-sm);margin:var(--s-4) 0 0">You enter your delivery address and payment details on Stripe's page. Your order is confirmed once Stripe confirms the payment.</p>
+  <script type="application/json" data-buy-json set:html={JSON.stringify(data)} />
+</section>
+<script>
+  import '../scripts/buy.js';
+</script>

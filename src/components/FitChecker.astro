@@ -1,0 +1,39 @@
+---
+// Product mode: pass `p`. Room mode (size guide): pass `all` = true to check every mandir.
+import { compact, products, std } from '../lib/catalog.js';
+interface Props { p?: any; all?: boolean; id?: string; headingLevel?: 2 | 3 }
+const { p, all = false, id = 'fit', headingLevel = 2 } = Astro.props;
+const data = { std: { ceilingClearance: std.ceilingClearance }, products: all ? products.map(compact) : [compact(p)] };
+const H = headingLevel === 2 ? 'h2' : 'h3';
+---
+<section class="fit" id={id} data-fit data-mode={all ? 'all' : 'one'} aria-labelledby={`${id}-h`}>
+  <H id={`${id}-h`} style="margin-bottom:.4rem">{all ? 'Which mandirs fit my room?' : 'Will it fit my space?'}</H>
+  <p class="muted" style="max-width:60ch;margin:0">
+    {all
+      ? 'Enter the wall-to-wall width and depth of the space, and the clear ceiling height (to the underside of any false ceiling or beam).'
+      : `Enter your room. We compare it with this mandir's measurements and the ${std.ceilingClearance} cm ceiling clearance our installers need above the tallest point.`}
+  </p>
+  <form novalidate>
+    <label>Units
+      <select name="units"><option value="cm">Centimetres</option><option value="ft">Feet and inches</option></select>
+    </label>
+    {[['w', 'Room width'], ['d', 'Room depth'], ['c', 'Ceiling height']].map(([k, l]) => (
+      <div>
+        <label data-u="cm">{l} (cm)<input name={k} type="number" inputmode="decimal" min="1" max="2000" step="1" required /></label>
+        <div data-u="ft" hidden>
+          <span style="font-size:var(--fs-sm);color:var(--on-dark-2)">{l}</span>
+          <div class="ftin">
+            <label><span class="visually-hidden">{l} feet</span><input name={`${k}ft`} type="number" inputmode="numeric" min="0" max="60" placeholder="ft" /></label>
+            <label><span class="visually-hidden">{l} inches</span><input name={`${k}in`} type="number" inputmode="numeric" min="0" max="11" placeholder="in" /></label>
+          </div>
+        </div>
+      </div>
+    ))}
+    <button class="btn btn-primary" type="submit">Check the fit</button>
+  </form>
+  <div class="fit-result" data-result aria-live="polite" hidden></div>
+  <script type="application/json" data-fit-json set:html={JSON.stringify(data)} />
+</section>
+<script>
+  import '../scripts/fit-ui.js';
+</script>

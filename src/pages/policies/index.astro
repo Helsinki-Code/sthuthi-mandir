@@ -1,0 +1,11 @@
+---
+import PolicyPage from '../../components/PolicyPage.astro';
+import { policies, policyUrl, policyDoc } from '../../lib/policies.js';
+---
+<PolicyPage blocks={policyDoc.intro} title={policyDoc.title} path="/policies/" crumbName="Policies"
+  description="The policies that apply to every Sthuthi order: delivery and installation, payment and cancellation, refunds, warranty, privacy, terms of use and grievance redressal.">
+  <h2>The seven policies</h2>
+  <ol class="policy-index">
+    {policies.map((p) => <li><a class="link" href={policyUrl(p)}>{p.title}</a><span class="muted">{p.lede}</span></li>)}
+  </ol>
+</PolicyPage>

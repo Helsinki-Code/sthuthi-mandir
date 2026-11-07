@@ -1,0 +1,38 @@
+---
+import GuidePage from '../../components/GuidePage.astro';
+import { products, std, standards } from '../../lib/catalog.js';
+import { formatLakh } from '../../lib/units.js';
+const cab = products.filter((p) => p.structure.walkIn);
+const box = products.filter((p) => !p.structure.walkIn);
+const r = (arr, f) => { const v = arr.map(f); const a = Math.min(...v), b = Math.max(...v); return a === b ? `${a}` : `${a}–${b}`; };
+const rows = [
+  ['Designs', `${cab.length}`, `${box.length}`],
+  ['Width (cm)', r(cab, (p) => p.structure.widthCm), r(box, (p) => p.structure.widthCm)],
+  ['Depth (cm)', r(cab, (p) => p.structure.depthCm), r(box, (p) => p.structure.depthCm)],
+  ['Height (cm)', r(cab, (p) => p.structure.heightCm), r(box, (p) => p.structure.heightCm)],
+  ['Footprint (m²)', r(cab, (p) => p.structure.footprintM2), r(box, (p) => p.structure.footprintM2)],
+  ['Maximum weight (kg)', r(cab, (p) => p.structure.weightMax), r(box, (p) => p.structure.weightMax)],
+  ['Ceiling needed (cm)', r(cab, (p) => p.structure.hasApartmentEdition ? p.structure.aptMinCeilingCm : p.structure.minCeilingCm) + ' (apartment edition)', r(box, (p) => p.structure.minCeilingCm)],
+  ['Structural sign-off', `${cab.filter((p) => p.structure.structuralSignOff).length} of ${cab.length}`, `${box.filter((p) => p.structure.structuralSignOff).length} of ${box.length}`],
+  ['Indicative price', `${formatLakh(Math.min(...cab.map((p) => p.priceINR)))} – ${formatLakh(Math.max(...cab.map((p) => p.priceINR)))}`, `${formatLakh(Math.min(...box.map((p) => p.priceINR)))} – ${formatLakh(Math.max(...box.map((p) => p.priceINR)))}`],
+];
+---
+<GuidePage slug="walk-in-pooja-cabin-or-mandir-cabinet" lede="A walk-in cabin is a small room you step into; a cabinet stands against a wall. The numbers make the choice clearer.">
+  <div class="table-wrap" style="margin-bottom:var(--s-6)">
+    <table class="spec data">
+      <caption>Ranges across all current designs, from the Sthuthi measurements sheet.</caption>
+      <thead><tr><th scope="col">Range figure</th><th scope="col">Walk-in cabins</th><th scope="col">Cabinets</th></tr></thead>
+      <tbody>{rows.map(([k, a, b]) => <tr><th scope="row">{k}</th><td class="num">{a}</td><td class="num">{b}</td></tr>)}</tbody>
+    </table>
+  </div>
+  <h2>Choose a walk-in cabin if</h2>
+  <ul>
+    <li>You want to sit inside for abhishekam or meditation. Cabins have {std.cabinInteriorHeight} cm of standing height and a {standards.cabinDoor.value} cm door.</li>
+    <li>You have a dedicated room, terrace or courtyard, and a floor that can be signed off by a structural engineer.</li>
+  </ul>
+  <h2>Choose a cabinet if</h2>
+  <ul>
+    <li>The mandir will stand against a wall in a living room, bedroom or study.</li>
+    <li>You want a standard RCC floor with no structural sign-off. Most cabinets need none; the heaviest stone and large rosewood pieces do.</li>
+  </ul>
+</GuidePage>

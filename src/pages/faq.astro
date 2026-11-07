@@ -1,0 +1,57 @@
+---
+import Page from '../layouts/Page.astro';
+import { BUSINESS, SITE, WHATSAPP_URL, tierOf } from '../site.config.js';
+import { policies, policyUrl } from '../lib/policies.js';
+import { products, collections, std, standards, facets } from '../lib/catalog.js';
+import { faqLd } from '../lib/seo.js';
+import { formatLakh } from '../lib/units.js';
+const cabins = products.filter((p) => p.structure?.walkIn);
+const cab = products.filter((p) => p.structure && !p.structure.walkIn);
+const signOff = products.filter((p) => p.structure?.structuralSignOff);
+const configurable = products.filter((p) => p.configurable);
+const lt = BUSINESS.leadTimes;
+const buyCount = products.filter((p) => tierOf(p) === 'buy').length;
+const max = formatLakh(SITE.fullPaymentMaxInr);
+const pol = (slug) => policies.find((p) => p.slug === slug);
+const rng = (a) => `${Math.min(...a)}–${Math.max(...a)}`;
+// Answers are written from the product data and the confirmed business model only.
+const groups = [
+  { title: 'Buying', items: [
+    { q: 'What is included in the price?', a: 'The structure, its idols, the pooja items, and delivery and installation anywhere in India. Each product page lists every idol and pooja item with its size and material.' },
+    { q: 'Can I buy a mandir online?', a: buyCount
+      ? `Yes, if it is priced under ${max}: ${buyCount} of our ${products.length} designs can be paid for in full online. Before you pay, the mandir is checked against your room's measurements and you confirm that you have read the delivery and installation, cancellation and refund policies. Mandirs priced at ${max} and above are not sold online; chat with us on WhatsApp or book a design consultation.`
+      : 'No. Every mandir is made to order, so a commission starts with a design consultation, and you approve the design and price before anything is made.' },
+    { q: 'What do the mandirs cost?', a: `Indicative prices run from ${formatLakh(facets.price[0])} to ${formatLakh(facets.price[1])} across ${products.length} designs. ${buyCount ? `For mandirs sold online, the price shown is the price you pay; for every other design the` : 'The'} final price is confirmed on your approved design.` },
+    { q: 'How long does a mandir take?', a: `Production takes ${lt.cabinet} for cabinets and ${lt.walkInCabin} for walk-in cabins, ${lt.basis}. Your delivery and installation date is set in your Order Confirmation.`, link: pol('delivery-installation') },
+    { q: 'How are payments made?', a: `${buyCount ? `Mandirs priced under ${max} are paid in full online through Stripe's secure checkout. For mandirs at ${max} and above, nothing is paid on this website: you` : 'Not on this website. You'} pay in four stages, each tied to a milestone: a 10% design fee at booking, a 40% production advance when you approve the final drawings, a 40% pre-dispatch payment once you approve the finished mandir, and 10% on handover. Each payment receives an invoice.`, link: pol('deposit-payment-cancellation') },
+    { q: 'What does the warranty cover?', a: 'Manufacturing and installation defects, from the date of the Handover Certificate: 3 years on structure and joinery and on carving, stone and marble; 1 year on finishes, idols, hardware, integrated lighting and installation workmanship.', link: pol('warranty') },
+  ] },
+  { title: 'Size and space', items: [
+    { q: 'What ceiling height do I need?', a: `The mandir's height plus ${std.ceilingClearance} cm. Across the range that means a clear ceiling of ${facets.minCeiling[0]} cm to ${Math.max(...products.map((p) => p.structure.minCeilingCm))} cm, depending on the design and edition.` },
+    { q: 'What is the apartment edition?', a: `${standards.aptMaxHeight.detail} ${cabins.filter((p) => p.structure.hasApartmentEdition).length} walk-in cabins have one, at most ${std.aptMaxHeight} cm tall.` },
+    { q: 'How big are the walk-in cabins?', a: `Between ${rng(cabins.map((p) => p.structure.widthCm))} cm wide and ${rng(cabins.map((p) => p.structure.depthCm))} cm deep, with ${std.cabinInteriorHeight} cm of standing height inside and a ${standards.cabinDoor.value} cm door.` },
+    { q: 'Will it fit through my lift and doors?', a: `Cabins and large cabinets travel as modules. Wood modules are at most ${standards.moduleWood.value}; stone and marble modules at most ${standards.moduleStone.value}.` },
+    { q: 'Do I need a structural engineer?', a: `For ${signOff.length} of our ${products.length} designs, yes. Walk-in cabins whose floor load exceeds ${std.floorLoad} kg/m², and cabinets heavier than ${std.signOffWeight} kg, are installed after a structural engineer signs off the floor. Each product page states this plainly.` },
+  ] },
+  { title: 'Deities, idols and design', items: [
+    { q: 'Can I choose the deities?', a: `${configurable.length} Regional Heritage altars come with two deity sets to choose from, and can also be supplied empty for your own idols. Signature mandirs can have their idol material and size changed on request.` },
+    { q: 'Are the designs affiliated with the temples that inspire them?', a: 'No. Temple-inspired designs are original Sthuthi work inspired by a temple tradition. Sthuthi has no affiliation with any temple or temple trust.' },
+    { q: 'Is real ivory used?', a: 'No. Ivory-finish paint. No animal ivory used.' },
+    { q: 'Are the images photographs?', a: 'No. The images on this site are visualisations of made-to-order designs and are labelled as such.' },
+  ] },
+];
+const all = groups.flatMap((g) => g.items);
+---
+<Page title="Frequently asked questions" h1="Questions, answered" path="/faq/" crumbName="FAQ"
+  description="What is included, ceiling heights, apartment editions, lift access, structural sign-off, deity sets and more: answers about Sthuthi home mandirs."
+  lede="Answers drawn from our product records. If yours is not here, ask it at the consultation." jsonld={[faqLd(all.map((x) => ({ q: x.q, text: x.a })))]}>
+  <div class="wrap narrow section-tight">
+    {groups.map((g) => (
+      <section aria-labelledby={`g-${g.title}`} style="margin-bottom:var(--s-7)">
+        <h2 id={`g-${g.title}`}>{g.title}</h2>
+        {g.items.map((x) => <div class="qa"><h3>{x.q}</h3><p>{x.a}{x.link && <> <a class="link" href={policyUrl(x.link)}>{x.link.title}</a></>}</p></div>)}
+      </section>
+    ))}
+    <div class="row"><a class="btn btn-primary" href="/book-consultation/">Book a design consultation</a><a class="btn btn-ghost" href={WHATSAPP_URL} target="_blank" rel="noopener">Chat on WhatsApp</a></div>
+  </div>
+</Page>

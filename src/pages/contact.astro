@@ -1,0 +1,56 @@
+---
+import Page from '../layouts/Page.astro';
+import { BUSINESS, PHONE, SITE, TEL_URL, WHATSAPP_URL } from '../site.config.js';
+import { policies, policyUrl } from '../lib/policies.js';
+const s = BUSINESS.seller;
+const g = BUSINESS.grievanceOfficer;
+const grievance = policies.find((p) => p.slug === 'grievance-redressal');
+---
+<Page title="Contact Sthuthi" path="/contact/" crumbName="Contact"
+  description="Call or WhatsApp Sthuthi on +91 8951618186 about a home mandir or walk-in pooja cabin, or book a design consultation with your room's measurements."
+  lede="The quickest way to start is a design consultation. Share your room's measurements and a designer will reply, or message us on WhatsApp.">
+  <section class="wrap section-tight">
+    <div class="grid cols-2">
+      <div class="callout" style="align-self:start">
+        <h2 style="font-size:1.5rem">Design consultation</h2>
+        <p class="muted">Tell us the mandir, the room and your budget.</p>
+        <div class="row">
+          <a class="btn btn-primary" href="/book-consultation/">Book a design consultation</a>
+          <a class="btn btn-ghost" href={WHATSAPP_URL} target="_blank" rel="noopener">Chat on WhatsApp</a>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="spec">
+          <caption>Sthuthi is a brand of {s.legalName}.</caption>
+          <tbody>
+            <tr><th scope="row">Phone / WhatsApp</th><td><a class="link" href={TEL_URL}>{PHONE.display}</a> <span class="sub"><a class="link" href={WHATSAPP_URL} target="_blank" rel="noopener">Chat on WhatsApp</a></span></td></tr>
+            {SITE.contactEmail && <tr><th scope="row">Email</th><td><a class="link" href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a></td></tr>}
+            <tr><th scope="row">Seller</th><td>{s.legalName}</td></tr>
+            <tr><th scope="row">CIN</th><td class="num">{s.cin}</td></tr>
+            <tr><th scope="row">PAN</th><td class="num">{s.pan}</td></tr>
+            <tr><th scope="row">Registered office</th><td>{s.registeredOffice}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section class="wrap section-tight" aria-labelledby="gr-h">
+    <div class="split">
+      <div>
+        <h2 id="gr-h">Grievance Officer</h2>
+        <p class="muted" style="max-width:40ch">{grievance.lede} <a class="link" href={policyUrl(grievance)}>How to raise a complaint</a></p>
+      </div>
+      <div class="table-wrap">
+        <table class="spec">
+          <tbody>
+            <tr><th scope="row">Name</th><td>{g.name}, {g.designation}</td></tr>
+            <tr><th scope="row">Address</th><td>{s.registeredOffice}</td></tr>
+            <tr><th scope="row">Phone / WhatsApp</th><td><a class="link" href={TEL_URL}>{PHONE.display}</a></td></tr>
+            {SITE.contactEmail && <tr><th scope="row">Email</th><td><a class="link" href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a></td></tr>}
+            <tr><th scope="row">Hours</th><td>{g.hours}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</Page>

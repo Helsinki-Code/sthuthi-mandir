@@ -1,0 +1,13 @@
+import puppeteer from 'puppeteer-core';
+import lighthouse from 'lighthouse';
+const url = process.argv[2];
+const b = await puppeteer.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: true });
+const r = await lighthouse(url, { port: +new URL(b.wsEndpoint()).port, output: 'json', logLevel: 'error', onlyCategories: ['performance'] });
+const a = r.lhr.audits;
+console.log('score', r.lhr.categories.performance.score, 'FCP', a['first-contentful-paint'].displayValue, 'LCP', a['largest-contentful-paint'].displayValue, 'CLS', a['cumulative-layout-shift'].displayValue, 'TBT', a['total-blocking-time'].displayValue);
+console.log('LCP el', JSON.stringify(a['largest-contentful-paint-element']?.details?.items?.[0]?.items?.[0]?.node?.snippet));
+console.log('LCP breakdown', JSON.stringify(a['largest-contentful-paint-element']?.details?.items?.[1]?.items));
+console.log('CLS', JSON.stringify((a['layout-shifts']?.details?.items||[]).slice(0,4).map(i=>[i.node?.snippet?.slice(0,120), i.score])));
+console.log('render-blocking', JSON.stringify((a['render-blocking-insight']?.details?.items||a['render-blocking-resources']?.details?.items||[]).map(i=>i.url)));
+console.log('fonts', JSON.stringify((a['network-requests'].details.items).filter(i=>/woff2|css/.test(i.url)).map(i=>[i.url.split('/').pop(), i.transferSize])));
+await b.close();

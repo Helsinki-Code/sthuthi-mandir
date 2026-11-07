@@ -1,0 +1,60 @@
+---
+import { collections, collectionUrl } from '../lib/catalog.js';
+import { BUSINESS, PHONE, SITE, TEL_URL, WHATSAPP_URL } from '../site.config.js';
+import { policies, policyUrl } from '../lib/policies.js';
+import brand from '../generated/brand.json';
+const full = brand.variants.find((v) => v.name === 'logo-full');
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-plate"><img src="/brand/logo-full.webp" width={full.width} height={full.height} alt="Sthuthi" loading="lazy" style="height:84px;width:auto" /></span>
+        <p class="muted" style="margin-top:1rem;max-width:28ch">Complete home mandirs: structure, idols, pooja items, delivery and installation anywhere in India.</p>
+        <ul class="footer-contact">
+          <li><a href={TEL_URL}>Call {PHONE.display}</a></li>
+          <li><a href={WHATSAPP_URL} target="_blank" rel="noopener">Chat on WhatsApp</a></li>
+          {SITE.contactEmail && <li><a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a></li>}
+        </ul>
+      </div>
+      <div>
+        <h2>Mandirs</h2>
+        <ul>
+          <li><a href="/mandirs/">All mandirs</a></li>
+          {collections.map((c) => <li><a href={collectionUrl(c)}>{c.shortName}</a></li>)}
+          <li><a href="/compare/">Compare</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Plan</h2>
+        <ul>
+          <li><a href="/how-it-works/">How it works</a></li>
+          <li><a href="/complete-sanctum/">What's included</a></li>
+          <li><a href="/size-guide/">Size and space guide</a></li>
+          <li><a href="/materials-craftsmanship/">Materials and craft</a></li>
+          <li><a href="/journal/">Journal</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Sthuthi</h2>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/book-consultation/">Book a design consultation</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2><a href="/policies/">Policies</a></h2>
+        <ul>
+          {policies.map((p) => <li><a href={policyUrl(p)}>{p.label}</a></li>)}
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>© {year} Sthuthi. {BUSINESS.footerLine}</span>
+      <span>Images are visualisations of made-to-order designs. Sthuthi designs are inspired by temple traditions and have no affiliation with any temple.</span>
+    </div>
+  </div>
+</footer>

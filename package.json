@@ -1,0 +1,35 @@
+{
+  "name": "sthuthi-store",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "data": "node scripts/build-data.mjs",
+    "logo": "node scripts/logo-variants.mjs",
+    "dev": "npm run data && astro dev",
+    "build": "npm run data && astro build && node scripts/postbuild.mjs",
+    "preview": "node server/server.mjs",
+    "start": "node server/server.mjs",
+    "audit": "node scripts/audit.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/cormorant-garamond": "5.3.0",
+    "@fontsource-variable/noto-sans": "5.3.0",
+    "@fontsource-variable/noto-sans-devanagari": "5.3.0",
+    "@fontsource-variable/noto-sans-kannada": "5.3.0",
+    "@fontsource-variable/noto-sans-malayalam": "5.3.0",
+    "@fontsource-variable/noto-sans-tamil": "5.3.0",
+    "@fontsource-variable/noto-sans-telugu": "5.3.0",
+    "@fontsource-variable/noto-serif-devanagari": "5.3.0",
+    "astro": "7.4.1",
+    "csv-parse": "7.0.3",
+    "exceljs": "4.4.0",
+    "sanitize-html": "2.18.1",
+    "sharp": "0.35.5",
+    "stripe": "23.0.1"
+  },
+  "devDependencies": {
+    "axe-core": "^4.14.0",
+    "lighthouse": "^13.5.0"
+  }
+}

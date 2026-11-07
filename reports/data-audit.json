@@ -1,0 +1,1877 @@
+{
+  "generatedAt": "2026-11-06T17:44:37.299Z",
+  "errors": [],
+  "warnings": [],
+  "conflicts": [
+    {
+      "sku": "JYL-01",
+      "field": "Dimensions",
+      "csv": "Walk-in pavilion, approx. 8 ft x 8 ft footprint; height to finial varies by design (indicative, confirm per order)",
+      "workbook": "240 W × 270 D × 330 H cm (7' 10\" × 8' 10\" × 10' 10\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "JYL-02",
+      "field": "Material",
+      "csv": "Carved rosewood with gilded vimana",
+      "workbook": "Carved rosewood, gilded vimana",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "JYL-02",
+      "field": "Dimensions",
+      "csv": "Walk-in pavilion, approx. 8 ft x 8 ft footprint; height to finial varies by design (indicative, confirm per order)",
+      "workbook": "240 W × 240 D × 320 H cm (7' 10\" × 7' 10\" × 10' 6\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "JYL-03",
+      "field": "Material",
+      "csv": "Carved rosewood",
+      "workbook": "Carved rosewood, silver-clad sanctum",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "JYL-03",
+      "field": "Dimensions",
+      "csv": "Walk-in pavilion, approx. 8 ft x 8 ft footprint; height to finial varies by design (indicative, confirm per order)",
+      "workbook": "240 W × 240 D × 330 H cm (7' 10\" × 7' 10\" × 10' 10\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "JYL-04",
+      "field": "Dimensions",
+      "csv": "Walk-in pavilion, approx. 8 ft x 8 ft footprint; height to finial varies by design (indicative, confirm per order)",
+      "workbook": "210 W × 210 D × 305 H cm (6' 11\" × 6' 11\" × 10' 0\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "JYL-05",
+      "field": "Dimensions",
+      "csv": "Walk-in pavilion, approx. 8 ft x 8 ft footprint; height to finial varies by design (indicative, confirm per order)",
+      "workbook": "210 W × 240 D × 300 H cm (6' 11\" × 7' 10\" × 9' 10\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "JYL-06",
+      "field": "Material",
+      "csv": "Teak with black stone-finish shikhara",
+      "workbook": "Teak, black stone-finish shikhara",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "JYL-06",
+      "field": "Dimensions",
+      "csv": "Walk-in pavilion, approx. 8 ft x 8 ft footprint; height to finial varies by design (indicative, confirm per order)",
+      "workbook": "180 W × 180 D × 300 H cm (5' 11\" × 5' 11\" × 9' 10\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "JYL-07",
+      "field": "Material",
+      "csv": "Carved rosewood",
+      "workbook": "Carved rosewood, gold-plated dome + spire",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "JYL-07",
+      "field": "Dimensions",
+      "csv": "Walk-in pavilion, approx. 8 ft x 8 ft footprint; height to finial varies by design (indicative, confirm per order)",
+      "workbook": "240 W × 240 D × 325 H cm (7' 10\" × 7' 10\" × 10' 8\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "JYL-08",
+      "field": "Material",
+      "csv": "Dark-stained hardwood with black stone-finish roof",
+      "workbook": "Dark-stained hardwood, black stone-finish roof",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "JYL-08",
+      "field": "Dimensions",
+      "csv": "Walk-in pavilion, approx. 8 ft x 8 ft footprint; height to finial varies by design (indicative, confirm per order)",
+      "workbook": "210 W × 240 D × 315 H cm (6' 11\" × 7' 10\" × 10' 4\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "JYL-09",
+      "field": "Material",
+      "csv": "Teak with ivory-finish shikhara",
+      "workbook": "Teak, ivory-finish shikhara",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "JYL-09",
+      "field": "Dimensions",
+      "csv": "Walk-in pavilion, approx. 8 ft x 8 ft footprint; height to finial varies by design (indicative, confirm per order)",
+      "workbook": "180 W × 180 D × 305 H cm (5' 11\" × 5' 11\" × 10' 0\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "JYL-10",
+      "field": "Material",
+      "csv": "Carved teak with red-finish shikhara",
+      "workbook": "Carved teak, red-finish shikhara",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "JYL-10",
+      "field": "Dimensions",
+      "csv": "Walk-in pavilion, approx. 8 ft x 8 ft footprint; height to finial varies by design (indicative, confirm per order)",
+      "workbook": "210 W × 210 D × 305 H cm (6' 11\" × 6' 11\" × 10' 0\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "JYL-11",
+      "field": "Material",
+      "csv": "Rosewood with ivory-finish gopuram",
+      "workbook": "Rosewood, ivory-finish gopuram",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "JYL-11",
+      "field": "Dimensions",
+      "csv": "Walk-in pavilion, approx. 8 ft x 8 ft footprint; height to finial varies by design (indicative, confirm per order)",
+      "workbook": "240 W × 300 D × 330 H cm (7' 10\" × 9' 10\" × 10' 10\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "JYL-12",
+      "field": "Material",
+      "csv": "Red-stained hardwood with carved pink shikhara",
+      "workbook": "Red-stained hardwood, carved pink shikhara",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "JYL-12",
+      "field": "Dimensions",
+      "csv": "Walk-in pavilion, approx. 8 ft x 8 ft footprint; height to finial varies by design (indicative, confirm per order)",
+      "workbook": "210 W × 210 D × 320 H cm (6' 11\" × 6' 11\" × 10' 6\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "RHM-01",
+      "field": "Material",
+      "csv": "Deodar (Himalayan cedar) with slate roof and stone bands",
+      "workbook": "Deodar, slate roof, stone bands",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "RHM-01",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "120 W × 65 D × 225 H cm (3' 11\" × 2' 2\" × 7' 5\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "RHM-02",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "120 W × 65 D × 230 H cm (3' 11\" × 2' 2\" × 7' 7\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "RHM-03",
+      "field": "Material",
+      "csv": "Terracotta-finish carved wood with clay tile roof",
+      "workbook": "Terracotta-finish carved wood, clay tile roof",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "RHM-03",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "115 W × 60 D × 215 H cm (3' 9\" × 2' 0\" × 7' 1\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "RHM-04",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "120 W × 65 D × 230 H cm (3' 11\" × 2' 2\" × 7' 7\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "RHM-05",
+      "field": "Material",
+      "csv": "Solid teak with copper-sheet roof",
+      "workbook": "Solid teak, copper-sheet roof",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "RHM-05",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "125 W × 65 D × 225 H cm (4' 1\" × 2' 2\" × 7' 5\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-01",
+      "field": "Material",
+      "csv": "Teak with copper-tile roof",
+      "workbook": "Teak, copper-tile roof",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "SDM-01",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "105 W × 65 D × 215 H cm (3' 5\" × 2' 2\" × 7' 1\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-02",
+      "field": "Material",
+      "csv": "Dark oak",
+      "workbook": "Dark oak, fluted glass doors",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "SDM-02",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "90 W × 55 D × 195 H cm (2' 11\" × 1' 10\" × 6' 5\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-03",
+      "field": "Material",
+      "csv": "Ivory-finish wood with indigo trim",
+      "workbook": "Ivory-finish wood, indigo trim",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "SDM-03",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "110 W × 95 D × 220 H cm (3' 7\" × 3' 1\" × 7' 3\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-04",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "120 W × 70 D × 240 H cm (3' 11\" × 2' 4\" × 7' 10\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-05",
+      "field": "Material",
+      "csv": "Veneered wood",
+      "workbook": "Veneered wood, fluted glass doors",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "SDM-05",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "95 W × 55 D × 205 H cm (3' 1\" × 1' 10\" × 6' 9\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-06",
+      "field": "Material",
+      "csv": "Ivory-finish wood",
+      "workbook": "Ivory-finish wood, jaali arches",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "SDM-06",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "100 W × 60 D × 215 H cm (3' 3\" × 2' 0\" × 7' 1\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-07",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "100 W × 60 D × 220 H cm (3' 3\" × 2' 0\" × 7' 3\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-08",
+      "field": "Material",
+      "csv": "Rosewood with red lacquer",
+      "workbook": "Rosewood, red lacquer",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "SDM-08",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "105 W × 60 D × 220 H cm (3' 5\" × 2' 0\" × 7' 3\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-09",
+      "field": "Material",
+      "csv": "Rosewood",
+      "workbook": "Rosewood, gopuram crown",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "SDM-09",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "150 W × 75 D × 240 H cm (4' 11\" × 2' 6\" × 7' 10\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-10",
+      "field": "Material",
+      "csv": "Rosewood",
+      "workbook": "Rosewood, amber glass, tiled plinth",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "SDM-10",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "150 W × 75 D × 245 H cm (4' 11\" × 2' 6\" × 8' 0\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-11",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "90 W × 55 D × 200 H cm (2' 11\" × 1' 10\" × 6' 7\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-12",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "90 W × 55 D × 200 H cm (2' 11\" × 1' 10\" × 6' 7\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-13",
+      "field": "Material",
+      "csv": "Ivory and terracotta-red finish wood",
+      "workbook": "Ivory + terracotta-red finish wood",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "SDM-13",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "105 W × 65 D × 235 H cm (3' 5\" × 2' 2\" × 7' 9\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-14",
+      "field": "Material",
+      "csv": "Carved rosewood",
+      "workbook": "Carved rosewood, peacock doors",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "SDM-14",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "100 W × 60 D × 220 H cm (3' 3\" × 2' 0\" × 7' 3\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-15",
+      "field": "Material",
+      "csv": "Carved rosewood",
+      "workbook": "Carved rosewood, red silk-lined niche",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "SDM-15",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "100 W × 60 D × 220 H cm (3' 3\" × 2' 0\" × 7' 3\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    },
+    {
+      "sku": "SDM-16",
+      "field": "Material",
+      "csv": "Carved teak with ivory-finish inlay panels",
+      "workbook": "Carved teak, ivory-finish inlay panels",
+      "note": "Wording differs. CSV \"Primary Material\" is shown as the material; workbook \"Main material\" is not displayed."
+    },
+    {
+      "sku": "SDM-16",
+      "field": "Dimensions",
+      "csv": "Approx. 6 ft H x 3.5 ft W x 2 ft D (indicative, confirm per order)",
+      "workbook": "105 W × 60 D × 225 H cm (3' 5\" × 2' 0\" × 7' 5\")",
+      "note": "CSV \"Indicative Dimensions\" (also repeated in the long description) differs from the workbook. Workbook values are shown; the CSV size line is not displayed."
+    }
+  ],
+  "sanitised": [
+    {
+      "sku": "JYL-01",
+      "field": "Focus Keyword",
+      "from": "somnath temple replica pooja room",
+      "to": "somnath temple-inspired pooja room"
+    },
+    {
+      "sku": "JYL-01",
+      "field": "Tags",
+      "from": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, somnath temple replica pooja room, walk-in pooja room, jyotirlinga mandir, teak wood mandir, shiva temple for home, pooja cabin",
+      "to": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, somnath temple-inspired pooja room, walk-in pooja room, jyotirlinga mandir, teak wood mandir, shiva temple for home, pooja cabin"
+    },
+    {
+      "sku": "JYL-02",
+      "field": "Secondary Keywords",
+      "from": "south indian pooja room, walk-in pooja room, rosewood mandir, shiva lingam temple for home, srisailam temple replica",
+      "to": "south indian pooja room, walk-in pooja room, rosewood mandir, shiva lingam temple for home, srisailam temple-inspired"
+    },
+    {
+      "sku": "JYL-02",
+      "field": "Tags",
+      "from": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, mallikarjuna jyotirlinga mandir, south indian pooja room, walk-in pooja room, rosewood mandir, shiva lingam temple for home, srisailam temple replica",
+      "to": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, mallikarjuna jyotirlinga mandir, south indian pooja room, walk-in pooja room, rosewood mandir, shiva lingam temple for home, srisailam temple-inspired"
+    },
+    {
+      "sku": "JYL-03",
+      "field": "Focus Keyword",
+      "from": "mahakaleshwar temple replica mandir",
+      "to": "mahakaleshwar temple-inspired mandir"
+    },
+    {
+      "sku": "JYL-03",
+      "field": "Tags",
+      "from": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, mahakaleshwar temple replica mandir, silver mandir for home, shiva temple for home, walk-in pooja room, jyotirlinga pooja room, mahakal mandir",
+      "to": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, mahakaleshwar temple-inspired mandir, silver mandir for home, shiva temple for home, walk-in pooja room, jyotirlinga pooja room, mahakal mandir"
+    },
+    {
+      "sku": "JYL-05",
+      "field": "Meta Title",
+      "from": "Kedarnath Pooja Cabin | Himalayan Stone Temple Replica",
+      "to": "Kedarnath Pooja Cabin | Himalayan Stone Temple-Inspired"
+    },
+    {
+      "sku": "JYL-05",
+      "field": "Focus Keyword",
+      "from": "kedarnath temple replica for home",
+      "to": "kedarnath temple-inspired for home"
+    },
+    {
+      "sku": "JYL-05",
+      "field": "Tags",
+      "from": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, kedarnath temple replica for home, himalayan pooja room, walk-in pooja room, jyotirlinga mandir, stone mandir for home, kedarnath mandir",
+      "to": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, kedarnath temple-inspired for home, himalayan pooja room, walk-in pooja room, jyotirlinga mandir, stone mandir for home, kedarnath mandir"
+    },
+    {
+      "sku": "JYL-07",
+      "field": "Focus Keyword",
+      "from": "kashi vishwanath temple replica mandir",
+      "to": "kashi vishwanath temple-inspired mandir"
+    },
+    {
+      "sku": "JYL-07",
+      "field": "Tags",
+      "from": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, kashi vishwanath temple replica mandir, golden mandir for home, shiva temple for home, walk-in pooja room, varanasi temple, jyotirlinga pooja room",
+      "to": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, kashi vishwanath temple-inspired mandir, golden mandir for home, shiva temple for home, walk-in pooja room, varanasi temple, jyotirlinga pooja room"
+    },
+    {
+      "sku": "JYL-08",
+      "field": "Secondary Keywords",
+      "from": "shiva temple for home, walk-in pooja room, black stone mandir, nashik temple replica, pooja cabin",
+      "to": "shiva temple for home, walk-in pooja room, black stone mandir, nashik temple-inspired, pooja cabin"
+    },
+    {
+      "sku": "JYL-08",
+      "field": "Tags",
+      "from": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, trimbakeshwar jyotirlinga mandir, shiva temple for home, walk-in pooja room, black stone mandir, nashik temple replica, pooja cabin",
+      "to": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, trimbakeshwar jyotirlinga mandir, shiva temple for home, walk-in pooja room, black stone mandir, nashik temple-inspired, pooja cabin"
+    },
+    {
+      "sku": "JYL-11",
+      "field": "Focus Keyword",
+      "from": "rameswaram temple replica pooja room",
+      "to": "rameswaram temple-inspired pooja room"
+    },
+    {
+      "sku": "JYL-11",
+      "field": "Tags",
+      "from": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, rameswaram temple replica pooja room, south indian pooja room, gopuram mandir, walk-in pooja room, jyotirlinga mandir, rosewood temple for home",
+      "to": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, rameswaram temple-inspired pooja room, south indian pooja room, gopuram mandir, walk-in pooja room, jyotirlinga mandir, rosewood temple for home"
+    },
+    {
+      "sku": "JYL-12",
+      "field": "Secondary Keywords",
+      "from": "shiva temple for home, walk-in pooja room, ellora temple replica, red mandir for home, pooja cabin",
+      "to": "shiva temple for home, walk-in pooja room, ellora temple-inspired, red mandir for home, pooja cabin"
+    },
+    {
+      "sku": "JYL-12",
+      "field": "Tags",
+      "from": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, grishneshwar jyotirlinga mandir, shiva temple for home, walk-in pooja room, ellora temple replica, red mandir for home, pooja cabin",
+      "to": "Jyotirlinga Pooja Cabin, Walk-in Pooja Cabin, pooja mandir, mandir for home, home temple, NRI, grishneshwar jyotirlinga mandir, shiva temple for home, walk-in pooja room, ellora temple-inspired, red mandir for home, pooja cabin"
+    }
+  ],
+  "join": {
+    "csvCount": 33,
+    "workbookCount": 33,
+    "inCsvNotWorkbook": [],
+    "inWorkbookNotCsv": [],
+    "idolSkusNotInCsv": [],
+    "kitSkusNotInCsv": [],
+    "csvSkusWithoutIdols": [],
+    "csvSkusWithoutKit": []
+  },
+  "images": {
+    "matched": [
+      {
+        "sku": "JYL-01",
+        "file": "somnath-carved-teak-shikhara-pooja-cabin/somnath-carved-teak-shikhara-pooja-cabin-front-view-marble-wall.png",
+        "alt": "Somnath Carved Teak Shikhara Pooja Cabin – Front view marble wall",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-01",
+        "file": "somnath-carved-teak-shikhara-pooja-cabin/somnath-carved-teak-shikhara-pooja-cabin-front-view-arch-dusk.png",
+        "alt": "Somnath Carved Teak Shikhara Pooja Cabin – Front view arch dusk",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-01",
+        "file": "somnath-carved-teak-shikhara-pooja-cabin/somnath-carved-teak-shikhara-pooja-cabin-shiva-linga-golden-lotus-backdrop-closeup.png",
+        "alt": "Somnath Carved Teak Shikhara Pooja Cabin – Shiva linga golden lotus backdrop closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-01",
+        "file": "somnath-carved-teak-shikhara-pooja-cabin/somnath-carved-teak-shikhara-pooja-cabin-three-quarter-view-living-room.png",
+        "alt": "Somnath Carved Teak Shikhara Pooja Cabin – Three quarter view living room",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-01",
+        "file": "somnath-carved-teak-shikhara-pooja-cabin/somnath-carved-teak-shikhara-pooja-cabin-three-quarter-view-maroon-wall.png",
+        "alt": "Somnath Carved Teak Shikhara Pooja Cabin – Three quarter view maroon wall",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-02",
+        "file": "mallikarjuna-golden-vimana-pooja-cabin/Luxury Mallikarjuna Shiva Lingam Pavilion-1.png",
+        "alt": "Mallikarjuna Golden Vimana Pooja Cabin – Luxury Mallikarjuna Shiva Lingam Pavilion",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-02",
+        "file": "mallikarjuna-golden-vimana-pooja-cabin/Gilded gopuram and carved rosewood pavilion-3.png",
+        "alt": "Mallikarjuna Golden Vimana Pooja Cabin – Gilded gopuram and carved rosewood pavilion",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-02",
+        "file": "mallikarjuna-golden-vimana-pooja-cabin/Mallikarjuna Shiva Lingam Altar Pavilion-6.png",
+        "alt": "Mallikarjuna Golden Vimana Pooja Cabin – Mallikarjuna Shiva Lingam Altar Pavilion",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-02",
+        "file": "mallikarjuna-golden-vimana-pooja-cabin/mallikarjuna-golden-vimana-pooja-cabin-front-view-courtyard.png",
+        "alt": "Mallikarjuna Golden Vimana Pooja Cabin – Front view courtyard",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-02",
+        "file": "mallikarjuna-golden-vimana-pooja-cabin/Polished Shiva lingam with golden Naga canopy-5.png",
+        "alt": "Mallikarjuna Golden Vimana Pooja Cabin – Polished Shiva lingam with golden Naga canopy",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-02",
+        "file": "mallikarjuna-golden-vimana-pooja-cabin/Rosewood Pavilion with Golden Gopuram-2.png",
+        "alt": "Mallikarjuna Golden Vimana Pooja Cabin – Rosewood Pavilion with Golden Gopuram",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-02",
+        "file": "mallikarjuna-golden-vimana-pooja-cabin/Twilight Gold-Crowned Rosewood Pavilion-4.png",
+        "alt": "Mallikarjuna Golden Vimana Pooja Cabin – Twilight Gold Crowned Rosewood Pavilion",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-03",
+        "file": "mahakaleshwar-timber-shikhara-pooja-cabin/Majestic Mahakaal Shiva Mandir Pavilion-1.png",
+        "alt": "Mahakaleshwar Timber Shikhara Pooja Cabin – Majestic Mahakaal Shiva Mandir Pavilion",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-03",
+        "file": "mahakaleshwar-timber-shikhara-pooja-cabin/Luxury Mahakaal Shiva Pavilion-1.png",
+        "alt": "Mahakaleshwar Timber Shikhara Pooja Cabin – Luxury Mahakaal Shiva Pavilion",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-03",
+        "file": "mahakaleshwar-timber-shikhara-pooja-cabin/Mahakaal Lingam in a Silver Shrine-2.png",
+        "alt": "Mahakaleshwar Timber Shikhara Pooja Cabin – Mahakaal Lingam in a Silver Shrine",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-03",
+        "file": "mahakaleshwar-timber-shikhara-pooja-cabin/Mahakaal Shiva Lingam and Silver Nandi-4.png",
+        "alt": "Mahakaleshwar Timber Shikhara Pooja Cabin – Mahakaal Shiva Lingam and Silver Nandi",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-03",
+        "file": "mahakaleshwar-timber-shikhara-pooja-cabin/Mahakaal Shiva Shikhara with Silver Sanctum-2.png",
+        "alt": "Mahakaleshwar Timber Shikhara Pooja Cabin – Mahakaal Shiva Shikhara with Silver Sanctum",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-03",
+        "file": "mahakaleshwar-timber-shikhara-pooja-cabin/mahakaleshwar-timber-shikhara-pooja-cabin-front-view-silver-shrine.png",
+        "alt": "Mahakaleshwar Timber Shikhara Pooja Cabin – Front view silver shrine",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-03",
+        "file": "mahakaleshwar-timber-shikhara-pooja-cabin/Rosewood Mahakaal pavilion at blue hour-3.png",
+        "alt": "Mahakaleshwar Timber Shikhara Pooja Cabin – Rosewood Mahakaal pavilion at blue hour",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-04",
+        "file": "omkareshwar-pink-sandstone-pooja-cabin/Luxury Omkareshwar Shiva Mandir Pavilion-1.png",
+        "alt": "Omkareshwar Pink Sandstone Pooja Cabin – Luxury Omkareshwar Shiva Mandir Pavilion",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-04",
+        "file": "omkareshwar-pink-sandstone-pooja-cabin/Luxury Omkareshwar Shiva Temple Pavilion-2.png",
+        "alt": "Omkareshwar Pink Sandstone Pooja Cabin – Luxury Omkareshwar Shiva Temple Pavilion",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-04",
+        "file": "omkareshwar-pink-sandstone-pooja-cabin/Luxury Omkareshwar teak mandir with silver cobra-9.png",
+        "alt": "Omkareshwar Pink Sandstone Pooja Cabin – Luxury Omkareshwar teak mandir with silver cobra",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-04",
+        "file": "omkareshwar-pink-sandstone-pooja-cabin/Omkareshwar Lingam with Silver Cobra Hood-6.png",
+        "alt": "Omkareshwar Pink Sandstone Pooja Cabin – Omkareshwar Lingam with Silver Cobra Hood",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-04",
+        "file": "omkareshwar-pink-sandstone-pooja-cabin/Omkareshwar Pavilion with Pink Shikhara-4.png",
+        "alt": "Omkareshwar Pink Sandstone Pooja Cabin – Omkareshwar Pavilion with Pink Shikhara",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-04",
+        "file": "omkareshwar-pink-sandstone-pooja-cabin/Omkareshwar Shivling beneath a silver cobra-3.png",
+        "alt": "Omkareshwar Pink Sandstone Pooja Cabin – Omkareshwar Shivling beneath a silver cobra",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-04",
+        "file": "omkareshwar-pink-sandstone-pooja-cabin/omkareshwar-pink-sandstone-pooja-cabin-front-view-narmada-sanctuary.png",
+        "alt": "Omkareshwar Pink Sandstone Pooja Cabin – Front view narmada sanctuary",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-04",
+        "file": "omkareshwar-pink-sandstone-pooja-cabin/Sacred Lingam Beneath a Silver Cobra-7.png",
+        "alt": "Omkareshwar Pink Sandstone Pooja Cabin – Sacred Lingam Beneath a Silver Cobra",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-04",
+        "file": "omkareshwar-pink-sandstone-pooja-cabin/Twilight Omkareshwar Pavilion with Silver Cobra-8.png",
+        "alt": "Omkareshwar Pink Sandstone Pooja Cabin – Twilight Omkareshwar Pavilion with Silver Cobra",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-04",
+        "file": "omkareshwar-pink-sandstone-pooja-cabin/Twilight teak mandir by the river-5.png",
+        "alt": "Omkareshwar Pink Sandstone Pooja Cabin – Twilight teak mandir by the river",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-05",
+        "file": "kedarnath-stone-roof-mountain-pooja-cabin/Luxury Kedarnath Home Shrine, Himalayan Valley View-1.png",
+        "alt": "Kedarnath Stone Roof Mountain Pooja Cabin – Luxury Kedarnath Home Shrine, Himalayan Valley View",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-05",
+        "file": "kedarnath-stone-roof-mountain-pooja-cabin/Kedarnath Luxury Shrine in Mountain Light-3.png",
+        "alt": "Kedarnath Stone Roof Mountain Pooja Cabin – Kedarnath Luxury Shrine in Mountain Light",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-05",
+        "file": "kedarnath-stone-roof-mountain-pooja-cabin/Kedarnath Sacred Rock Close-Up-6.png",
+        "alt": "Kedarnath Stone Roof Mountain Pooja Cabin – Kedarnath Sacred Rock Close Up",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-05",
+        "file": "kedarnath-stone-roof-mountain-pooja-cabin/Kedarnath shrine altar close-up-5.png",
+        "alt": "Kedarnath Stone Roof Mountain Pooja Cabin – Kedarnath shrine altar close up",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-05",
+        "file": "kedarnath-stone-roof-mountain-pooja-cabin/Kedarnath Shrine Gable and Tower-4.png",
+        "alt": "Kedarnath Stone Roof Mountain Pooja Cabin – Kedarnath Shrine Gable and Tower",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-05",
+        "file": "kedarnath-stone-roof-mountain-pooja-cabin/kedarnath-stone-roof-mountain-pooja-cabin-front-view-low-rock-shrine.png",
+        "alt": "Kedarnath Stone Roof Mountain Pooja Cabin – Front view low rock shrine",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-05",
+        "file": "kedarnath-stone-roof-mountain-pooja-cabin/Luxury Kedarnath Shrine in Himalayan Twilight-2.png",
+        "alt": "Kedarnath Stone Roof Mountain Pooja Cabin – Luxury Kedarnath Shrine in Himalayan Twilight",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-06",
+        "file": "bhimashankar-forest-bell-pooja-cabin/Bhimashankar teak shrine in a monsoon courtyard-2.png",
+        "alt": "Bhimashankar Forest Bell Pooja Cabin – Bhimashankar teak shrine in a monsoon courtyard",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-06",
+        "file": "bhimashankar-forest-bell-pooja-cabin/Bhimashankar Shrine in Monsoon Twilight-1.png",
+        "alt": "Bhimashankar Forest Bell Pooja Cabin – Bhimashankar Shrine in Monsoon Twilight",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-06",
+        "file": "bhimashankar-forest-bell-pooja-cabin/bhimashankar-forest-bell-pooja-cabin-front-view-garden-courtyard.png",
+        "alt": "Bhimashankar Forest Bell Pooja Cabin – Front view garden courtyard",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-06",
+        "file": "bhimashankar-forest-bell-pooja-cabin/Luxury Teak Home Shrine with Brass Bell-6.png",
+        "alt": "Bhimashankar Forest Bell Pooja Cabin – Luxury Teak Home Shrine with Brass Bell",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-06",
+        "file": "bhimashankar-forest-bell-pooja-cabin/Luxury Teak Shrine in Monsoon Forest-3.png",
+        "alt": "Bhimashankar Forest Bell Pooja Cabin – Luxury Teak Shrine in Monsoon Forest",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-06",
+        "file": "bhimashankar-forest-bell-pooja-cabin/Luxury Teak Shrine with Brass Bell-4.png",
+        "alt": "Bhimashankar Forest Bell Pooja Cabin – Luxury Teak Shrine with Brass Bell",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-06",
+        "file": "bhimashankar-forest-bell-pooja-cabin/Polished Lingam, Gold Cobra, Silver Yoni-5.png",
+        "alt": "Bhimashankar Forest Bell Pooja Cabin – Polished Lingam, Gold Cobra, Silver Yoni",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-07",
+        "file": "kashi-vishwanath-golden-dome-pooja-cabin/kashi-vishwanath-golden-dome-pooja-cabin-front-view-emerald-marble-evening.png",
+        "alt": "Kashi Vishwanath Golden Dome Pooja Cabin – Front view emerald marble evening",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-07",
+        "file": "kashi-vishwanath-golden-dome-pooja-cabin/kashi-vishwanath-golden-dome-pooja-cabin-front-view-sunset-living-room.png",
+        "alt": "Kashi Vishwanath Golden Dome Pooja Cabin – Front view sunset living room",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-07",
+        "file": "kashi-vishwanath-golden-dome-pooja-cabin/kashi-vishwanath-golden-dome-pooja-cabin-golden-roof-carving-detail.png",
+        "alt": "Kashi Vishwanath Golden Dome Pooja Cabin – Golden roof carving detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-07",
+        "file": "kashi-vishwanath-golden-dome-pooja-cabin/kashi-vishwanath-golden-dome-pooja-cabin-shiva-lingam-sanctum-closeup.png",
+        "alt": "Kashi Vishwanath Golden Dome Pooja Cabin – Shiva lingam sanctum closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-07",
+        "file": "kashi-vishwanath-golden-dome-pooja-cabin/kashi-vishwanath-golden-dome-pooja-cabin-three-quarter-blue-hour-terrace.png",
+        "alt": "Kashi Vishwanath Golden Dome Pooja Cabin – Three quarter blue hour terrace",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-07",
+        "file": "kashi-vishwanath-golden-dome-pooja-cabin/kashi-vishwanath-golden-dome-pooja-cabin-three-quarter-charcoal-penthouse.png",
+        "alt": "Kashi Vishwanath Golden Dome Pooja Cabin – Three quarter charcoal penthouse",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-08",
+        "file": "trimbakeshwar-dark-wood-pooja-cabin/Trimbakeshwar Threefold Mystery Shrine-5.png",
+        "alt": "Trimbakeshwar Dark Wood Pooja Cabin – Trimbakeshwar Threefold Mystery Shrine",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-08",
+        "file": "trimbakeshwar-dark-wood-pooja-cabin/Threefold Mystery Shrine at Twilight-1.png",
+        "alt": "Trimbakeshwar Dark Wood Pooja Cabin – Threefold Mystery Shrine at Twilight",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-08",
+        "file": "trimbakeshwar-dark-wood-pooja-cabin/Threefold Mystery Shrine Close-Up-6.png",
+        "alt": "Trimbakeshwar Dark Wood Pooja Cabin – Threefold Mystery Shrine Close Up",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-08",
+        "file": "trimbakeshwar-dark-wood-pooja-cabin/Threefold Mystery Shrine in Basalt Splendor-3.png",
+        "alt": "Trimbakeshwar Dark Wood Pooja Cabin – Threefold Mystery Shrine in Basalt Splendor",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-08",
+        "file": "trimbakeshwar-dark-wood-pooja-cabin/Threefold Mystery Shrine in Carved Black Stone-4.png",
+        "alt": "Trimbakeshwar Dark Wood Pooja Cabin – Threefold Mystery Shrine in Carved Black Stone",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-08",
+        "file": "trimbakeshwar-dark-wood-pooja-cabin/trimbakeshwar-dark-wood-pooja-cabin-front-view-recessed-basin.png",
+        "alt": "Trimbakeshwar Dark Wood Pooja Cabin – Front view recessed basin",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-08",
+        "file": "trimbakeshwar-dark-wood-pooja-cabin/Trimbakeshwar threefold mystery shrine-2.png",
+        "alt": "Trimbakeshwar Dark Wood Pooja Cabin – Trimbakeshwar threefold mystery shrine",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-09",
+        "file": "panchashul-ivory-teak-pooja-cabin/panchashul-ivory-teak-pooja-cabin-front-view-burgundy-evening.png",
+        "alt": "Panchashul Ivory Teak Pooja Cabin – Front view burgundy evening",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-09",
+        "file": "panchashul-ivory-teak-pooja-cabin/panchashul-ivory-teak-pooja-cabin-five-prong-crown-roof-detail.png",
+        "alt": "Panchashul Ivory Teak Pooja Cabin – Five prong crown roof detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-09",
+        "file": "panchashul-ivory-teak-pooja-cabin/panchashul-ivory-teak-pooja-cabin-front-view-white-dome-trishul.png",
+        "alt": "Panchashul Ivory Teak Pooja Cabin – Front view white dome trishul",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-09",
+        "file": "panchashul-ivory-teak-pooja-cabin/panchashul-ivory-teak-pooja-cabin-shiva-lingam-sanctum-closeup.png",
+        "alt": "Panchashul Ivory Teak Pooja Cabin – Shiva lingam sanctum closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-09",
+        "file": "panchashul-ivory-teak-pooja-cabin/panchashul-ivory-teak-pooja-cabin-three-quarter-blue-hour-conservatory.png",
+        "alt": "Panchashul Ivory Teak Pooja Cabin – Three quarter blue hour conservatory",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-09",
+        "file": "panchashul-ivory-teak-pooja-cabin/panchashul-ivory-teak-pooja-cabin-three-quarter-sage-marble-salon.png",
+        "alt": "Panchashul Ivory Teak Pooja Cabin – Three quarter sage marble salon",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-10",
+        "file": "nageshwar-teak-silver-serpent-pooja-cabin/nageshwar-teak-silver-serpent-pooja-cabin-front-view-navy-evening.png",
+        "alt": "Nageshwar Teak Silver Serpent Pooja Cabin – Front view navy evening",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-10",
+        "file": "nageshwar-teak-silver-serpent-pooja-cabin/nageshwar-teak-silver-serpent-pooja-cabin-red-shikhara-carving-detail.png",
+        "alt": "Nageshwar Teak Silver Serpent Pooja Cabin – Red shikhara carving detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-10",
+        "file": "nageshwar-teak-silver-serpent-pooja-cabin/nageshwar-teak-silver-serpent-pooja-cabin-shiva-naga-sanctum-closeup.png",
+        "alt": "Nageshwar Teak Silver Serpent Pooja Cabin – Shiva naga sanctum closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-10",
+        "file": "nageshwar-teak-silver-serpent-pooja-cabin/nageshwar-teak-silver-serpent-pooja-cabin-three-quarter-blue-hour-conservatory.png",
+        "alt": "Nageshwar Teak Silver Serpent Pooja Cabin – Three quarter blue hour conservatory",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-10",
+        "file": "nageshwar-teak-silver-serpent-pooja-cabin/nageshwar-teak-silver-serpent-pooja-cabin-three-quarter-forest-marble-salon.png",
+        "alt": "Nageshwar Teak Silver Serpent Pooja Cabin – Three quarter forest marble salon",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-10",
+        "file": "nageshwar-teak-silver-serpent-pooja-cabin/nageshwar-teak-silver-serpent-pooja-cabin-three-quarter-view-living-room.png",
+        "alt": "Nageshwar Teak Silver Serpent Pooja Cabin – Three quarter view living room",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-11",
+        "file": "ramanathaswamy-sacred-passage-gopuram-pooja-cabin/Rameswaram Sacred Passage Shrine-1.png",
+        "alt": "Ramanathaswamy Sacred Passage Gopuram Pooja Cabin – Rameswaram Sacred Passage Shrine",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-11",
+        "file": "ramanathaswamy-sacred-passage-gopuram-pooja-cabin/ramanathaswamy-sacred-passage-gopuram-pooja-cabin-three-quarter-view-hall.png",
+        "alt": "Ramanathaswamy Sacred Passage Gopuram Pooja Cabin – Three quarter view hall",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-11",
+        "file": "ramanathaswamy-sacred-passage-gopuram-pooja-cabin/Rosewood Glass Shrine with Ivory Gopuram-6.png",
+        "alt": "Ramanathaswamy Sacred Passage Gopuram Pooja Cabin – Rosewood Glass Shrine with Ivory Gopuram",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-11",
+        "file": "ramanathaswamy-sacred-passage-gopuram-pooja-cabin/Sacred Lingam Altar Close-Up-4.png",
+        "alt": "Ramanathaswamy Sacred Passage Gopuram Pooja Cabin – Sacred Lingam Altar Close Up",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-11",
+        "file": "ramanathaswamy-sacred-passage-gopuram-pooja-cabin/Sacred Passage to the Shiva Altar-5.png",
+        "alt": "Ramanathaswamy Sacred Passage Gopuram Pooja Cabin – Sacred Passage to the Shiva Altar",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-11",
+        "file": "ramanathaswamy-sacred-passage-gopuram-pooja-cabin/Twilight Gopuram Shrine Pavilion-2.png",
+        "alt": "Ramanathaswamy Sacred Passage Gopuram Pooja Cabin – Twilight Gopuram Shrine Pavilion",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-11",
+        "file": "ramanathaswamy-sacred-passage-gopuram-pooja-cabin/Rameswaram Sacred Passage Shrine-3.png",
+        "alt": "Ramanathaswamy Sacred Passage Gopuram Pooja Cabin – Rameswaram Sacred Passage Shrine",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-12",
+        "file": "grishneshwar-five-tier-pink-shikhara-pooja-cabin/grishneshwar-five-tier-pink-shikhara-pooja-cabin-front-view-living-room.png",
+        "alt": "Grishneshwar Five-Tier Pink Shikhara Pooja Cabin – Front view living room",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-12",
+        "file": "grishneshwar-five-tier-pink-shikhara-pooja-cabin/grishneshwar-five-tier-pink-shikhara-pooja-cabin-five-tier-shikhara-detail.png",
+        "alt": "Grishneshwar Five-Tier Pink Shikhara Pooja Cabin – Five tier shikhara detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-12",
+        "file": "grishneshwar-five-tier-pink-shikhara-pooja-cabin/grishneshwar-five-tier-pink-shikhara-pooja-cabin-front-view-emerald-evening.png",
+        "alt": "Grishneshwar Five-Tier Pink Shikhara Pooja Cabin – Front view emerald evening",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-12",
+        "file": "grishneshwar-five-tier-pink-shikhara-pooja-cabin/grishneshwar-five-tier-pink-shikhara-pooja-cabin-shiva-nandi-sanctum-closeup.png",
+        "alt": "Grishneshwar Five-Tier Pink Shikhara Pooja Cabin – Shiva nandi sanctum closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-12",
+        "file": "grishneshwar-five-tier-pink-shikhara-pooja-cabin/grishneshwar-five-tier-pink-shikhara-pooja-cabin-three-quarter-blue-hour-garden.png",
+        "alt": "Grishneshwar Five-Tier Pink Shikhara Pooja Cabin – Three quarter blue hour garden",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "JYL-12",
+        "file": "grishneshwar-five-tier-pink-shikhara-pooja-cabin/grishneshwar-five-tier-pink-shikhara-pooja-cabin-three-quarter-plum-marble-salon.png",
+        "alt": "Grishneshwar Five-Tier Pink Shikhara Pooja Cabin – Three quarter plum marble salon",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-01",
+        "file": "kinnaur-deodar-mandir/kinnaur-deodar-mandir-front-view-with-idols.png",
+        "alt": "Kinnaur Deodar Wood Mandir – Front view with idols",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-01",
+        "file": "kinnaur-deodar-mandir/kinnaur-deodar-mandir-front-view-alternate-idol-set.png",
+        "alt": "Kinnaur Deodar Wood Mandir – Front view alternate idol set",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-01",
+        "file": "kinnaur-deodar-mandir/kinnaur-deodar-mandir-front-view-empty-altar.png",
+        "alt": "Kinnaur Deodar Wood Mandir – Front view empty altar",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-02",
+        "file": "kalinga-sandstone-mandir/kalinga-sandstone-mandir-front-view-with-idols.png",
+        "alt": "Kalinga Sandstone Mandir – Front view with idols",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-02",
+        "file": "kalinga-sandstone-mandir/kalinga-sandstone-mandir-front-view-alternate-idol-set.png",
+        "alt": "Kalinga Sandstone Mandir – Front view alternate idol set",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-02",
+        "file": "kalinga-sandstone-mandir/kalinga-sandstone-mandir-front-view-empty-altar.png",
+        "alt": "Kalinga Sandstone Mandir – Front view empty altar",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-03",
+        "file": "bishnupur-terracotta-mandir/bishnupur-terracotta-mandir-front-view-with-idols.png",
+        "alt": "Bishnupur Terracotta Mandir – Front view with idols",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-03",
+        "file": "bishnupur-terracotta-mandir/bishnupur-terracotta-mandir-front-view-alternate-idol-set.png",
+        "alt": "Bishnupur Terracotta Mandir – Front view alternate idol set",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-03",
+        "file": "bishnupur-terracotta-mandir/bishnupur-terracotta-mandir-front-view-empty-altar.png",
+        "alt": "Bishnupur Terracotta Mandir – Front view empty altar",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-04",
+        "file": "maru-marble-mandir/maru-marble-mandir-front-view-with-idols.png",
+        "alt": "Maru Marble Mandir – Front view with idols",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-04",
+        "file": "maru-marble-mandir/maru-marble-mandir-front-view-alternate-idol-set.png",
+        "alt": "Maru Marble Mandir – Front view alternate idol set",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-04",
+        "file": "maru-marble-mandir/maru-marble-mandir-front-view-empty-altar.png",
+        "alt": "Maru Marble Mandir – Front view empty altar",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-05",
+        "file": "malabar-teak-mandir/malabar-teak-mandir-front-view-with-idols.png",
+        "alt": "Malabar Teak Mandir – Front view with idols",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-05",
+        "file": "malabar-teak-mandir/malabar-teak-mandir-front-view-alternate-idol-set.png",
+        "alt": "Malabar Teak Mandir – Front view alternate idol set",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "RHM-05",
+        "file": "malabar-teak-mandir/malabar-teak-mandir-front-view-empty-altar.png",
+        "alt": "Malabar Teak Mandir – Front view empty altar",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-01",
+        "file": "krishna-kerala-gabled-roof-mandir/krishna-kerala-gabled-roof-mandir-front-view.png",
+        "alt": "Krishna Kerala Gabled Roof Mandir – Front view",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-01",
+        "file": "krishna-kerala-gabled-roof-mandir/krishna-kerala-gabled-roof-mandir-glass-door-and-lamp-detail.png",
+        "alt": "Krishna Kerala Gabled Roof Mandir – Glass door and lamp detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-01",
+        "file": "krishna-kerala-gabled-roof-mandir/krishna-kerala-gabled-roof-mandir-krishna-idol-closeup.png",
+        "alt": "Krishna Kerala Gabled Roof Mandir – Krishna idol closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-01",
+        "file": "krishna-kerala-gabled-roof-mandir/krishna-kerala-gabled-roof-mandir-three-quarter-view-garden.png",
+        "alt": "Krishna Kerala Gabled Roof Mandir – Three quarter view garden",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-01",
+        "file": "krishna-kerala-gabled-roof-mandir/krishna-kerala-gabled-roof-mandir-tiled-roof-detail.png",
+        "alt": "Krishna Kerala Gabled Roof Mandir – Tiled roof detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-02",
+        "file": "dark-wood-shiva-linga-mandir/dark-wood-shiva-linga-mandir-front-view-studio.png",
+        "alt": "Dark Wood Shiva Linga Mandir – Front view studio",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-02",
+        "file": "dark-wood-shiva-linga-mandir/dark-wood-shiva-linga-mandir-fluted-glass-door-detail.png",
+        "alt": "Dark Wood Shiva Linga Mandir – Fluted glass door detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-02",
+        "file": "dark-wood-shiva-linga-mandir/dark-wood-shiva-linga-mandir-shiva-linga-closeup.png",
+        "alt": "Dark Wood Shiva Linga Mandir – Shiva linga closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-02",
+        "file": "dark-wood-shiva-linga-mandir/dark-wood-shiva-linga-mandir-three-quarter-view-city-skyline.png",
+        "alt": "Dark Wood Shiva Linga Mandir – Three quarter view city skyline",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-02",
+        "file": "dark-wood-shiva-linga-mandir/dark-wood-shiva-linga-mandir-tiered-roof-detail.png",
+        "alt": "Dark Wood Shiva Linga Mandir – Tiered roof detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-03",
+        "file": "ivory-durga-indigo-trim-mandir/ivory-durga-indigo-trim-mandir-three-quarter-view-rose-wall.png",
+        "alt": "Ivory Durga Indigo Trim Mandir – Three quarter view rose wall",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-03",
+        "file": "ivory-durga-indigo-trim-mandir/ivory-durga-indigo-trim-mandir-durga-and-lion-mirrored-niche-closeup.png",
+        "alt": "Ivory Durga Indigo Trim Mandir – Durga and lion mirrored niche closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-03",
+        "file": "ivory-durga-indigo-trim-mandir/ivory-durga-indigo-trim-mandir-durga-idol-closeup.png",
+        "alt": "Ivory Durga Indigo Trim Mandir – Durga idol closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-03",
+        "file": "ivory-durga-indigo-trim-mandir/ivory-durga-indigo-trim-mandir-three-quarter-view-blue-hour.png",
+        "alt": "Ivory Durga Indigo Trim Mandir – Three quarter view blue hour",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-03",
+        "file": "ivory-durga-indigo-trim-mandir/ivory-durga-indigo-trim-mandir-three-quarter-view-palace-terrace.png",
+        "alt": "Ivory Durga Indigo Trim Mandir – Three quarter view palace terrace",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-03",
+        "file": "ivory-durga-indigo-trim-mandir/ivory-durga-indigo-trim-mandir-three-quarter-view-purple-evening.png",
+        "alt": "Ivory Durga Indigo Trim Mandir – Three quarter view purple evening",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-04",
+        "file": "golden-crown-vishnu-mandir/golden-crown-vishnu-mandir-front-view-living-room.png",
+        "alt": "Golden Crown Vishnu Mandir – Front view living room",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-04",
+        "file": "golden-crown-vishnu-mandir/golden-crown-vishnu-mandir-front-view-evening-light.png",
+        "alt": "Golden Crown Vishnu Mandir – Front view evening light",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-04",
+        "file": "golden-crown-vishnu-mandir/golden-crown-vishnu-mandir-front-view-white-background.png",
+        "alt": "Golden Crown Vishnu Mandir – Front view white background",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-04",
+        "file": "golden-crown-vishnu-mandir/golden-crown-vishnu-mandir-golden-crown-roof-detail.png",
+        "alt": "Golden Crown Vishnu Mandir – Golden crown roof detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-04",
+        "file": "golden-crown-vishnu-mandir/golden-crown-vishnu-mandir-three-quarter-view-studio.png",
+        "alt": "Golden Crown Vishnu Mandir – Three quarter view studio",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-04",
+        "file": "golden-crown-vishnu-mandir/golden-crown-vishnu-mandir-vishnu-idol-closeup.png",
+        "alt": "Golden Crown Vishnu Mandir – Vishnu idol closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-05",
+        "file": "lotus-crown-lakshmi-mandir/lotus-crown-lakshmi-mandir-front-view.png",
+        "alt": "Lotus Crown Lakshmi Mandir – Front view",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-05",
+        "file": "lotus-crown-lakshmi-mandir/lotus-crown-lakshmi-mandir-fluted-glass-door-detail.png",
+        "alt": "Lotus Crown Lakshmi Mandir – Fluted glass door detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-05",
+        "file": "lotus-crown-lakshmi-mandir/lotus-crown-lakshmi-mandir-lakshmi-idol-closeup.png",
+        "alt": "Lotus Crown Lakshmi Mandir – Lakshmi idol closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-05",
+        "file": "lotus-crown-lakshmi-mandir/lotus-crown-lakshmi-mandir-lotus-crown-detail.png",
+        "alt": "Lotus Crown Lakshmi Mandir – Lotus crown detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-05",
+        "file": "lotus-crown-lakshmi-mandir/lotus-crown-lakshmi-mandir-three-quarter-view-skyline.png",
+        "alt": "Lotus Crown Lakshmi Mandir – Three quarter view skyline",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-06",
+        "file": "radha-krishna-ivory-dome-mandir/radha-krishna-ivory-dome-mandir-front-view.png",
+        "alt": "Radha Krishna Ivory Dome Mandir – Front view",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-06",
+        "file": "radha-krishna-ivory-dome-mandir/radha-krishna-ivory-dome-mandir-base-cabinet-detail.png",
+        "alt": "Radha Krishna Ivory Dome Mandir – Base cabinet detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-06",
+        "file": "radha-krishna-ivory-dome-mandir/radha-krishna-ivory-dome-mandir-carved-jali-arch-closeup.png",
+        "alt": "Radha Krishna Ivory Dome Mandir – Carved jali arch closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-06",
+        "file": "radha-krishna-ivory-dome-mandir/radha-krishna-ivory-dome-mandir-three-quarter-view.png",
+        "alt": "Radha Krishna Ivory Dome Mandir – Three quarter view",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-06",
+        "file": "radha-krishna-ivory-dome-mandir/radha-krishna-ivory-dome-mandir-side-angle-view.png",
+        "alt": "Radha Krishna Ivory Dome Mandir – Side angle view",
+        "altSource": "filename",
+        "score": 0.25,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-07",
+        "file": "himalayan-hanuman-stone-roof-mandir/himalayan-hanuman-stone-roof-mandir-front-view-open-doors.png",
+        "alt": "Himalayan Hanuman Stone Roof Mandir – Front view open doors",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-07",
+        "file": "himalayan-hanuman-stone-roof-mandir/himalayan-hanuman-stone-roof-mandir-hanuman-idol-closeup.png",
+        "alt": "Himalayan Hanuman Stone Roof Mandir – Hanuman idol closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-07",
+        "file": "himalayan-hanuman-stone-roof-mandir/himalayan-hanuman-stone-roof-mandir-left-angle-view.png",
+        "alt": "Himalayan Hanuman Stone Roof Mandir – Left angle view",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-07",
+        "file": "himalayan-hanuman-stone-roof-mandir/himalayan-hanuman-stone-roof-mandir-right-angle-view.png",
+        "alt": "Himalayan Hanuman Stone Roof Mandir – Right angle view",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-07",
+        "file": "himalayan-hanuman-stone-roof-mandir/himalayan-hanuman-stone-roof-mandir-slate-roof-detail.png",
+        "alt": "Himalayan Hanuman Stone Roof Mandir – Slate roof detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-08",
+        "file": "jagannath-red-rosewood-mandir/jagannath-red-rosewood-mandir-front-view-carved-arch.png",
+        "alt": "Jagannath Red Rosewood Mandir – Front view carved arch",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-08",
+        "file": "jagannath-red-rosewood-mandir/jagannath-red-rosewood-mandir-carved-drawer-base-detail.png",
+        "alt": "Jagannath Red Rosewood Mandir – Carved drawer base detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-08",
+        "file": "jagannath-red-rosewood-mandir/jagannath-red-rosewood-mandir-three-quarter-view-with-flower-vase.png",
+        "alt": "Jagannath Red Rosewood Mandir – Three quarter view with flower vase",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-08",
+        "file": "jagannath-red-rosewood-mandir/jagannath-red-rosewood-mandir-tiered-crown-roof-detail.png",
+        "alt": "Jagannath Red Rosewood Mandir – Tiered crown roof detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-08",
+        "file": "jagannath-red-rosewood-mandir/jagannath-red-rosewood-mandir-front-view-open-doors.png",
+        "alt": "Jagannath Red Rosewood Mandir – Front view open doors",
+        "altSource": "filename",
+        "score": 0.33,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-09",
+        "file": "rosewood-reclining-vishnu-gopuram-mandir/rosewood-reclining-vishnu-gopuram-mandir-front-view-dark-wall-evening.png",
+        "alt": "Rosewood Reclining Vishnu Gopuram Mandir – Front view dark wall evening",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-09",
+        "file": "rosewood-reclining-vishnu-gopuram-mandir/rosewood-reclining-vishnu-gopuram-mandir-front-view-maroon-marble-wall.png",
+        "alt": "Rosewood Reclining Vishnu Gopuram Mandir – Front view maroon marble wall",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-09",
+        "file": "rosewood-reclining-vishnu-gopuram-mandir/rosewood-reclining-vishnu-gopuram-mandir-front-view-open-doors-hallway.png",
+        "alt": "Rosewood Reclining Vishnu Gopuram Mandir – Front view open doors hallway",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-09",
+        "file": "rosewood-reclining-vishnu-gopuram-mandir/rosewood-reclining-vishnu-gopuram-mandir-reclining-vishnu-on-shesha-closeup.png",
+        "alt": "Rosewood Reclining Vishnu Gopuram Mandir – Reclining vishnu on shesha closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-09",
+        "file": "rosewood-reclining-vishnu-gopuram-mandir/rosewood-reclining-vishnu-gopuram-mandir-shesha-shayana-vishnu-altar-closeup.png",
+        "alt": "Rosewood Reclining Vishnu Gopuram Mandir – Shesha shayana vishnu altar closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-09",
+        "file": "rosewood-reclining-vishnu-gopuram-mandir/rosewood-reclining-vishnu-gopuram-mandir-vishnu-and-brahma-lotus-detail.png",
+        "alt": "Rosewood Reclining Vishnu Gopuram Mandir – Vishnu and brahma lotus detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-10",
+        "file": "grand-rosewood-ram-darbar-mandir/grand-rosewood-ram-darbar-mandir-front-view-dark-hall.png",
+        "alt": "Grand Rosewood Ram Darbar Mandir – Front view dark hall",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-10",
+        "file": "grand-rosewood-ram-darbar-mandir/grand-rosewood-ram-darbar-mandir-amber-glass-three-quarter-view.png",
+        "alt": "Grand Rosewood Ram Darbar Mandir – Amber glass three quarter view",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-10",
+        "file": "grand-rosewood-ram-darbar-mandir/grand-rosewood-ram-darbar-mandir-courtyard-view.png",
+        "alt": "Grand Rosewood Ram Darbar Mandir – Courtyard view",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-10",
+        "file": "grand-rosewood-ram-darbar-mandir/grand-rosewood-ram-darbar-mandir-front-view-interior-closeup.png",
+        "alt": "Grand Rosewood Ram Darbar Mandir – Front view interior closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-10",
+        "file": "grand-rosewood-ram-darbar-mandir/grand-rosewood-ram-darbar-mandir-marble-wall-view.png",
+        "alt": "Grand Rosewood Ram Darbar Mandir – Marble wall view",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-10",
+        "file": "grand-rosewood-ram-darbar-mandir/grand-rosewood-ram-darbar-mandir-villa-three-quarter-view.png",
+        "alt": "Grand Rosewood Ram Darbar Mandir – Villa three quarter view",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-11",
+        "file": "saraswati-terracotta-roof-mandir/saraswati-terracotta-roof-mandir-front-view.png",
+        "alt": "Saraswati Terracotta Roof Mandir – Front view",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-11",
+        "file": "saraswati-terracotta-roof-mandir/saraswati-terracotta-roof-mandir-lotus-carved-panel-detail.png",
+        "alt": "Saraswati Terracotta Roof Mandir – Lotus carved panel detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-11",
+        "file": "saraswati-terracotta-roof-mandir/saraswati-terracotta-roof-mandir-saraswati-idol-closeup.png",
+        "alt": "Saraswati Terracotta Roof Mandir – Saraswati idol closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-11",
+        "file": "saraswati-terracotta-roof-mandir/saraswati-terracotta-roof-mandir-three-quarter-view-garden-room.png",
+        "alt": "Saraswati Terracotta Roof Mandir – Three quarter view garden room",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-12",
+        "file": "ganesh-copper-roof-mandir/ganesh-copper-roof-mandir-front-view-courtyard.png",
+        "alt": "Ganesh Copper Roof Mandir – Front view courtyard",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-12",
+        "file": "ganesh-copper-roof-mandir/ganesh-copper-roof-mandir-base-and-door-detail.png",
+        "alt": "Ganesh Copper Roof Mandir – Base and door detail",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-12",
+        "file": "ganesh-copper-roof-mandir/ganesh-copper-roof-mandir-ganesha-idol-closeup.png",
+        "alt": "Ganesh Copper Roof Mandir – Ganesha idol closeup",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-12",
+        "file": "ganesh-copper-roof-mandir/ganesh-copper-roof-mandir-three-quarter-view.png",
+        "alt": "Ganesh Copper Roof Mandir – Three quarter view",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-13",
+        "file": "bengal-navaratna-terracotta-kali-ma-mandir/bengal-navaratna-terracotta-kali-ma-mandir-front-view-open-doors.png",
+        "alt": "Bengal Navaratna Terracotta Kali Ma Mandir – Front view open doors",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-14",
+        "file": "kurinji-rosewood-murugan-mandir/kurinji-rosewood-murugan-mandir-front-view-open-doors.png",
+        "alt": "Kurinji Rosewood Murugan Mandir – Front view open doors",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-15",
+        "file": "kanchi-rosewood-kamakshi-mandir/kanchi-rosewood-kamakshi-mandir-front-view-open-doors.png",
+        "alt": "Kanchi Rosewood Kamakshi Mandir – Front view open doors",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      },
+      {
+        "sku": "SDM-16",
+        "file": "devaragiri-teak-yoga-narasimha-mandir/devaragiri-teak-yoga-narasimha-mandir-front-view-open-doors.png",
+        "alt": "Devaragiri Teak Yoga Narasimha Mandir – Front view open doors",
+        "altSource": "CSV",
+        "score": 1,
+        "kind": "render"
+      }
+    ],
+    "unmatchedFiles": [],
+    "skusWithoutImages": [],
+    "countMismatch": [
+      {
+        "sku": "SDM-06",
+        "csv": 4,
+        "folder": 5
+      },
+      {
+        "sku": "SDM-08",
+        "csv": 4,
+        "folder": 5
+      }
+    ],
+    "lowQuality": [],
+    "kind": {
+      "render": 162
+    }
+  },
+  "validation": [],
+  "resolutions": [
+    {
+      "sku": "RHM-05",
+      "column": "Key Features",
+      "find": "Two-tier family altar with drawers",
+      "replace": "Three-tier family altar with drawers",
+      "why": "RHM-05 has a three-tier altar, tiers at 60 / 80 / 100 cm from the floor.",
+      "status": "applied"
+    },
+    {
+      "sku": "RHM-05",
+      "column": "Long Description (HTML)",
+      "find": "Two-tier family altar with drawers",
+      "replace": "Three-tier family altar with drawers",
+      "why": "RHM-05 has a three-tier altar, tiers at 60 / 80 / 100 cm from the floor.",
+      "status": "applied"
+    },
+    {
+      "sku": "RHM-05",
+      "column": "Long Description (HTML)",
+      "find": "behind a two-tier altar",
+      "replace": "behind a three-tier altar",
+      "why": "RHM-05 has a three-tier altar, tiers at 60 / 80 / 100 cm from the floor.",
+      "status": "applied"
+    },
+    {
+      "sheet": "Idol Sizes",
+      "sku": "JYL-10",
+      "where": {
+        "Figure / element": "Yoni / peetham"
+      },
+      "column": "Material",
+      "find": "Black stone",
+      "replace": "Black stone, silver-plated",
+      "why": "JYL-10 yoni / peetham is black stone, silver-plated, to match the silver five-headed Naga. Sizes unchanged (20 H × 45 W × 60 L cm).",
+      "status": "applied"
+    }
+  ]
+}

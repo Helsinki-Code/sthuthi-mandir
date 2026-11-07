@@ -1,0 +1,39 @@
+---
+import Page from '../layouts/Page.astro';
+import { products, collections, productUrl } from '../lib/catalog.js';
+const rows = products.map((p) => ({ p, figures: p.idolSets.find((s) => s.key !== 'Alternate')?.figures.length || 0, sets: p.idolSets.length, kit: p.kit.reduce((n, k) => n + (k.qty || 0), 0), lines: p.kit.length }));
+---
+<Page title="What's included in a complete sanctum" h1="What comes with every mandir" path="/complete-sanctum/" crumbName="What's included"
+  description="Every Sthuthi mandir includes the structure, its idols, the pooja items, and delivery and installation anywhere in India. See exactly what comes with each design."
+  lede="One price covers four things: the structure, its idols, the pooja items, and delivery and installation anywhere in India. Here is what that means for each design.">
+  <section class="wrap section-tight">
+    <ol class="ledger" style="max-width:60rem">
+      <li><span class="n">1</span><h2 style="font-size:1.35rem;margin:0">The structure</h2><p>The cabinet or walk-in cabin, its doors, altar and crown, made to order. Sizes are on each product page, with a drawing to scale.</p></li>
+      <li><span class="n">2</span><h2 style="font-size:1.35rem;margin:0">The idols</h2><p>Each figure is listed with its material, form, size and place on the altar. Configurable heritage altars offer two deity sets, or can come empty.</p></li>
+      <li><span class="n">3</span><h2 style="font-size:1.35rem;margin:0">The pooja items</h2><p>Lamps, bells, kalash, vessels and cloth chosen for that mandir's worship, each listed with quantity, material and size.</p></li>
+      <li><span class="n">4</span><h2 style="font-size:1.35rem;margin:0">Delivery and installation</h2><p>Anywhere in India, in modules sized for lifts and doors, installed by our team. <a class="link" href="/policies/delivery-installation/">Delivery and installation policy</a></p></li>
+    </ol>
+  </section>
+  {collections.map((c) => (
+    <section class="wrap section-tight" aria-labelledby={`inc-${c.slug}`}>
+      <h2 id={`inc-${c.slug}`}>{c.shortName}</h2>
+      <div class="table-wrap">
+        <table class="spec data">
+          <caption>Counts from the Sthuthi measurements sheet. Kit pieces count each item's quantity.</caption>
+          <thead><tr><th scope="col">Mandir</th><th scope="col">Idol figures</th><th scope="col">Pooja kit</th><th scope="col">Delivery and installation</th></tr></thead>
+          <tbody>
+            {rows.filter((x) => x.p.collection === c.slug).map(({ p, figures, sets, kit, lines }) => (
+              <tr>
+                <th scope="row"><a class="link" href={productUrl(p)}>{p.name}</a><span class="sub">{p.sku}</span></th>
+                <td class="num">{figures}{sets > 1 && <span class="sub">{sets} deity sets to choose from</span>}</td>
+                <td class="num">{kit} pieces<span class="sub">{lines} item types</span></td>
+                <td>Included in India</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  ))}
+  <section class="wrap section-tight"><a class="btn btn-primary" href="/book-consultation/">Book a design consultation</a></section>
+</Page>

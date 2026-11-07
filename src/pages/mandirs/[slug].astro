@@ -1,0 +1,213 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Gallery from '../../components/Gallery.astro';
+import Diagram from '../../components/Diagram.astro';
+import FitChecker from '../../components/FitChecker.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import UnitToggle from '../../components/UnitToggle.astro';
+import { BUSINESS, SITE, leadTime, waLink, tierOf } from '../../site.config.js';
+import { buyLabel, enquiryMessage } from '../../lib/tier.js';
+import { formatLakh } from '../../lib/units.js';
+import BuyOnline from '../../components/BuyOnline.astro';
+import { products, collections, collectionUrl, productUrl, related, std, standards } from '../../lib/catalog.js';
+import { productLd } from '../../lib/seo.js';
+import { formatINR, cmToFtIn, cmToIn, m2ToFt2 } from '../../lib/units.js';
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props;
+const s = p.structure;
+const coll = collections.find((c) => c.slug === p.collection);
+const crumbs = [{ name: 'Home', href: '/' }, { name: coll.shortName, href: collectionUrl(coll) }, { name: p.name, href: productUrl(p) }];
+const rel = related(p);
+const site = Astro.site.toString().replace(/\/$/, '');
+const dims = (w, d, h) => ({ 'data-cm': `${w} × ${d} × ${h} cm`, 'data-ft': `${cmToFtIn(w)} × ${cmToFtIn(d)} × ${cmToFtIn(h)}` });
+const one = (cm) => ({ 'data-cm': `${cm} cm`, 'data-ft': cmToFtIn(cm) });
+const idolDims = (f) => {
+  const parts = [f.h, f.w, f.d].filter((x) => x !== null);
+  return { 'data-cm': `${parts.join(' × ')} cm`, 'data-ft': `${parts.map(cmToIn).join(' × ')} in` };
+};
+const kitSize = (k) => {
+  const bits = [];
+  if (k.h !== null) bits.push(['H', k.h]);
+  if (k.dia !== null) bits.push(['Ø / W', k.dia]);
+  if (k.len !== null) bits.push(['L / D', k.len]);
+  if (!bits.length) return null;
+  return { 'data-cm': bits.map(([l, v]) => `${l} ${v} cm`).join(' · '), 'data-ft': bits.map(([l, v]) => `${l} ${cmToIn(v)} in`).join(' · ') };
+};
+const range = (a, b, u) => (a === b ? `${a} ${u}` : `${a}–${b} ${u}`);
+const nicheLabel = s?.walkIn ? 'Interior clear space (W × D × H)' : 'Deity niche (W × D × H)';
+const waMsg = `Hello Sthuthi, I would like to know more about the ${p.name} (${p.sku}).`;
+const temple = p.templeInspired;
+const tier = tierOf(p);
+---
+<Base title={p.seo.title} description={p.seo.description} image={p.images[0] ? `${p.images[0].base}-${p.images[0].widths[p.images[0].widths.length - 1]}.webp` : undefined}
+  imageAlt={p.images[0]?.alt} type="product" breadcrumbs={crumbs} jsonld={[productLd(site, p)]}>
+  <Breadcrumbs items={crumbs} />
+  <div class="wrap pdp">
+    <div class="pdp-media">
+      {p.images.length > 0 && <Gallery p={p} />}
+    </div>
+    <div class="pdp-info">
+      <p class="kicker"><a href={collectionUrl(coll)} style="text-decoration:none">{coll.shortName}</a> · <span class="code">{p.sku}</span></p>
+      <h1>{p.name}</h1>
+      <p class="lede" style="font-size:1.08rem">{p.short}</p>
+      {temple && (
+        <p class="note">Inspired by {p.inspiredBy}. An original Sthuthi design, inspired by this tradition; Sthuthi has no affiliation with any temple.</p>
+      )}
+      <dl class="facts" style="margin:1.25rem 0 0">
+        <div><dt>Material</dt><dd style="font-size:1.1rem">{p.material}</dd></div>
+        {s && <div><dt>Overall size</dt><dd class="num" style="font-size:1.1rem"><span {...dims(s.widthCm, s.depthCm, s.heightCm)}>{s.widthCm} × {s.depthCm} × {s.heightCm} cm</span></dd></div>}
+        <div><dt>Availability</dt><dd style="font-size:1.1rem">{p.availability}</dd></div>
+      </dl>
+      {p.ivory && <p class="note"><strong>Ivory-finish paint. No animal ivory used.</strong></p>}
+      <div class="price-block">
+        <p class="muted" style="font-size:var(--fs-sm);margin:0 0 .35rem">{tier === 'buy' ? 'Price, paid in full online' : 'Indicative price'}</p>
+        <p class="amount num" style="margin:0">{formatINR(p.priceINR)}</p>
+        <p class="incl">Includes the structure, {p.idolSets.length ? 'its idols' : 'idols'}, the pooja items, and delivery and installation anywhere in India.</p>
+        <p class="incl" style="font-size:var(--fs-sm)">Made to order in {leadTime(p)}, {BUSINESS.leadTimes.basis}.</p>
+      </div>
+      <div class="cta-stack" data-tier={tier}>
+        {tier === 'buy'
+          ? <a class="btn btn-primary" href="#buy" data-buy-cta>{buyLabel(p.priceINR)}</a>
+          : <a class="btn btn-primary" href={waLink(enquiryMessage(p.sku, p.name, p.priceINR))} target="_blank" rel="noopener" data-wa-cta>Chat with us on WhatsApp</a>}
+        <a class="btn btn-ghost" href={`/book-consultation/?sku=${p.sku}`}>Book a design consultation</a>
+      </div>
+      <p class="muted" style="font-size:var(--fs-sm);margin-top:1.25rem">{p.customisation}</p>
+      <p style="font-size:var(--fs-sm);margin-top:1rem"><a class="link" href="#fit">Will it fit my space?</a></p>
+      {tier === 'buy'
+        ? <p class="muted" style="font-size:var(--fs-sm)">Pay in full online, after a fit check for your room. Questions first? <a class="link" href={waLink(waMsg)} target="_blank" rel="noopener">Chat on WhatsApp</a></p>
+        : <p class="muted" style="font-size:var(--fs-sm)">Mandirs priced at {formatLakh(SITE.fullPaymentMaxInr)} and above are not sold online. Chat with us on WhatsApp or book a design consultation. <a class="link" href="/how-it-works/">How it works</a></p>}
+    </div>
+  </div>
+
+  <div class="wrap">
+    {tier === 'buy' && <div class="pdp-section"><BuyOnline p={p} /></div>}
+    <section class="pdp-section" aria-labelledby="about-h">
+      <div class="split">
+        <header style="display:block"><h2 id="about-h">About this mandir</h2>
+          <ul class="chips" aria-label="Deities">{p.principalDeities.map((d) => <li>{d}</li>)}</ul>
+        </header>
+        <div class="desc-html prose" set:html={p.longHtml} />
+      </div>
+    </section>
+
+    {s && (
+      <section class="pdp-section" id="specifications" aria-labelledby="spec-h">
+        <header><h2 id="spec-h">Specifications</h2><UnitToggle /></header>
+        <div class="spec-grid">
+          <div class="table-wrap">
+            <table class="spec">
+              <caption>Source: Sthuthi measurements sheet. Made to order; final dimensions are confirmed on your approved design.</caption>
+              <tbody>
+                <tr><th scope="row">Overall (W × D × H)</th><td class="num"><span {...dims(s.widthCm, s.depthCm, s.heightCm)}>{s.widthCm} × {s.depthCm} × {s.heightCm} cm</span></td></tr>
+                <tr><th scope="row">Footprint</th><td class="num">{s.footprintM2} m² <span class="sub">{m2ToFt2(s.footprintM2)} sq ft</span></td></tr>
+                <tr><th scope="row">{nicheLabel}</th><td class="num"><span {...dims(s.niche.w, s.niche.d, s.niche.h)}>{s.niche.w} × {s.niche.d} × {s.niche.h} cm</span></td></tr>
+                <tr><th scope="row">Altar / deity platform height</th><td class="num"><span {...one(s.altarCm)}>{s.altarCm} cm</span> <span class="sub">from the floor</span></td></tr>
+                <tr><th scope="row">{s.walkIn ? 'Door opening' : 'Doors'}</th><td>{s.walkIn ? `${s.door} cm` : s.door}</td></tr>
+                <tr><th scope="row">Weight</th><td class="num">{range(s.weightMin, s.weightMax, 'kg')}</td></tr>
+                <tr><th scope="row">Minimum clear ceiling{s.hasApartmentEdition ? ' (villa edition)' : ''}</th><td class="num"><span {...one(s.minCeilingCm)}>{s.minCeilingCm} cm</span> <span class="sub">Height plus {std.ceilingClearance} cm clearance</span></td></tr>
+                <tr><th scope="row">Apartment edition</th><td class="num">{s.hasApartmentEdition
+                  ? <><span {...one(s.aptHeightCm)}>{s.aptHeightCm} cm</span> high <span class="sub">{standards.aptMaxHeight.detail} Needs a <span {...one(s.aptMinCeilingCm)}>{s.aptMinCeilingCm} cm</span> ceiling.</span></>
+                  : <>No separate edition <span class="sub">The single edition is {s.heightCm} cm high.</span></>}</td></tr>
+                <tr><th scope="row">Floor load{s.walkIn ? ` incl. ${std.occupancy} people` : ''}</th><td class="num">{s.floorLoad} kg/m² <span class="sub">{s.walkIn ? `Residential floor design load: ${std.floorLoad} kg/m².` : `Cabinets are assessed by total weight: sign-off is needed above ${std.signOffWeight} kg.`}</span></td></tr>
+                <tr><th scope="row">Installation requirement</th><td>{s.structuralSignOff
+                  ? <><strong>A structural engineer must sign off the floor before installation.</strong> <span class="sub">{s.walkIn ? `Floor load exceeds ${std.floorLoad} kg/m².` : `Weight exceeds ${std.signOffWeight} kg.`}</span></>
+                  : <>Standard RCC floor. <span class="sub">No structural sign-off needed.</span></>}</td></tr>
+                {s.notes && <tr><th scope="row">Design notes</th><td>{s.notes}</td></tr>}
+              </tbody>
+            </table>
+          </div>
+          <Diagram p={p} clearance={std.ceilingClearance} />
+        </div>
+      </section>
+    )}
+
+    {p.idolSets.length > 0 && (
+      <section class="pdp-section" id="idols" aria-labelledby="idols-h">
+        <header><h2 id="idols-h">Idols</h2><UnitToggle /></header>
+        {p.idolSets.length > 1 && <p class="muted" style="max-width:62ch">This altar is configurable. Choose a deity set below; the altar can also be supplied empty for your own idols.</p>}
+        <div data-tabs>
+          {p.idolSets.length > 1 && (
+            <div class="tabs" role="tablist" aria-label="Deity sets">
+              {p.idolSets.map((set, i) => <button type="button" role="tab" id={`tab-${set.key}`} aria-controls={`panel-${set.key}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{set.label}</button>)}
+            </div>
+          )}
+          {p.idolSets.map((set, i) => (
+            <div class="table-wrap" role={p.idolSets.length > 1 ? 'tabpanel' : undefined} id={`panel-${set.key}`} aria-labelledby={p.idolSets.length > 1 ? `tab-${set.key}` : undefined} hidden={i > 0}>
+              <table class="spec data">
+                <caption>{set.figures.length} figure{set.figures.length > 1 ? 's' : ''}. Sizes are height × width × depth. Weights are a range.</caption>
+                <thead><tr><th scope="col">Figure</th><th scope="col">Material</th><th scope="col">Form</th><th scope="col">Size</th><th scope="col">Weight</th><th scope="col">Placement</th></tr></thead>
+                <tbody>
+                  {set.figures.map((f) => (
+                    <tr>
+                      <th scope="row">{f.figure}{f.notes && <span class="sub">{f.notes}</span>}</th>
+                      <td>{f.material}</td><td>{f.form}</td>
+                      <td class="num" style="white-space:nowrap"><span {...idolDims(f)}>{[f.h, f.w, f.d].join(' × ')} cm</span></td>
+                      <td class="num" style="white-space:nowrap">{range(f.weightMin, f.weightMax, 'kg')}</td>
+                      <td>{f.placement}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {p.kit.length > 0 && (
+      <section class="pdp-section" id="pooja-kit" aria-labelledby="kit-h">
+        <header><h2 id="kit-h">Pooja kit</h2><UnitToggle /></header>
+        <div class="table-wrap">
+          <table class="spec data">
+            <caption>Every item supplied with this mandir. H = height, Ø / W = diameter or width, L / D = length or depth.</caption>
+            <thead><tr><th scope="col">Item</th><th scope="col">Qty</th><th scope="col">Material</th><th scope="col">Size</th></tr></thead>
+            <tbody>
+              {p.kit.map((k) => {
+                const sz = kitSize(k);
+                return (
+                  <tr>
+                    <th scope="row">{k.item}{k.notes && <span class="sub">{k.notes}</span>}</th><td class="num">{k.qty}</td><td>{k.material}</td>
+                    <td class="num">{sz ? <span {...sz}>{sz['data-cm']}</span> : <span class="muted">No fixed size</span>}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
+
+    {s && <div class="pdp-section"><FitChecker p={p} /></div>}
+
+    {rel.length > 0 && (
+      <section class="pdp-section" aria-labelledby="rel-h">
+        <header><h2 id="rel-h">You may also consider</h2><a class="link" href="/mandirs/">All mandirs</a></header>
+        <div class="cards">{rel.map(({ q, reasons }) => <ProductCard p={q} reasons={reasons} />)}</div>
+      </section>
+    )}
+  </div>
+</Base>
+<script>
+  document.querySelectorAll('[data-tabs]').forEach((box) => {
+    const tabs = [...box.querySelectorAll<HTMLElement>('[role="tab"]')];
+    const select = (t: HTMLElement) => {
+      tabs.forEach((x) => {
+        const on = x === t;
+        x.setAttribute('aria-selected', String(on)); x.tabIndex = on ? 0 : -1;
+        (document.getElementById(x.getAttribute('aria-controls')!) as HTMLElement).hidden = !on;
+      });
+      t.focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(t));
+      t.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') select(tabs[(i + 1) % tabs.length]);
+        if (e.key === 'ArrowLeft') select(tabs[(i - 1 + tabs.length) % tabs.length]);
+      });
+    });
+  });
+</script>

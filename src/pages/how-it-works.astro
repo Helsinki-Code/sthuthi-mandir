@@ -1,0 +1,49 @@
+---
+import Page from '../layouts/Page.astro';
+import { std, standards, products } from '../lib/catalog.js';
+import { BUSINESS, SITE, WHATSAPP_URL, tierOf } from '../site.config.js';
+import { formatLakh } from '../lib/units.js';
+import { policies, policyUrl } from '../lib/policies.js';
+const signOff = products.filter((p) => p.structure?.structuralSignOff).length;
+const configurable = products.filter((p) => p.configurable).length;
+const apt = products.filter((p) => p.structure?.hasApartmentEdition).length;
+const lt = BUSINESS.leadTimes;
+const buyCount = products.filter((p) => tierOf(p) === 'buy').length;
+const max = formatLakh(SITE.fullPaymentMaxInr);
+const pay = policies.find((p) => p.slug === 'deposit-payment-cancellation');
+const delivery = policies.find((p) => p.slug === 'delivery-installation');
+---
+<Page title="How it works" h1="How a Sthuthi mandir is commissioned" path="/how-it-works/"
+  description={`Consultation, design approval, crafting in ${lt.cabinet} (cabinets) or ${lt.walkInCabin} (walk-in cabins), then delivery and installation anywhere in India.`}
+  lede={buyCount ? `Every mandir is made to order. Mandirs priced under ${max} can be bought online in full, after a fit check for your room. Every other mandir is commissioned in five steps, and you approve the design before anything is made.` : 'Every mandir is made to order. A commission runs through five steps, and you approve the design before anything is made.'}>
+  <section class="wrap narrow section-tight">
+    <ol class="steps">
+      <li>
+        <h2 style="font-size:1.6rem" id="consultation">Design consultation</h2>
+        <p>You tell us which mandir you are drawn to, the deities your family worships, your budget, and where the mandir will stand. The measurements we need are the room's width and depth and the clear ceiling height. If you used the fit checker on a product page, those figures are already filled in on the booking form.</p>
+      </li>
+      <li>
+        <h2 style="font-size:1.6rem" id="approval">Design approval</h2>
+        <p>The designer confirms what fits: the edition ({apt} walk-in cabins have an apartment edition for lower ceilings), the deity set ({configurable} heritage altars are configurable, or can come empty for your own idols), metal finishes and idol material where the design allows it. You approve the drawings and the final price before work begins.</p>
+      </li>
+      <li>
+        <h2 style="font-size:1.6rem" id="order">Order Confirmation</h2>
+        <p>Your order is confirmed when you sign the Order Confirmation and we receive the design fee. The Order Confirmation lists the product, edition, idols, pooja set, finishes, total price, payment schedule and target installation date.</p>
+        <p class="muted">{buyCount ? `For mandirs priced at ${max} and above, payments` : 'Payments'} are made in four stages, each tied to a milestone and each with an invoice, and nothing is paid through this website. See the <a class="link" href={policyUrl(pay)}>{pay.title}</a>.</p>
+      </li>
+      <li>
+        <h2 style="font-size:1.6rem" id="crafting">Crafting</h2>
+        <p>The structure, the idols and the pooja kit are made to the approved design. Large cabins and cabinets are built as modules so that they can travel and be carried in.</p>
+        <p>Lead time is {lt.cabinet} for cabinets and {lt.walkInCabin} for walk-in cabins, {lt.basis}.</p>
+      </li>
+      <li>
+        <h2 style="font-size:1.6rem" id="installation">Delivery and installation</h2>
+        <p>Delivery and installation anywhere in India are included in the price. Modules are sized for residential lifts and doors: wood modules up to {standards.moduleWood.value}; stone and marble up to {standards.moduleStone.value}. {standards.moduleStone.detail}</p>
+        <p>Our installers leave at least {std.ceilingClearance} cm between the tallest point and the ceiling. {signOff} of our {products.length} designs are installed only after a structural engineer signs off the floor; we tell you at the design stage if yours is one of them.</p>
+        <p class="muted">Your delivery and installation date is set in the Order Confirmation. See the <a class="link" href={policyUrl(delivery)}>{delivery.title}</a> for the site checklist.</p>
+      </li>
+    </ol>
+    <div class="row"><a class="btn btn-primary" href="/book-consultation/">Book a design consultation</a><a class="btn btn-ghost" href={WHATSAPP_URL} target="_blank" rel="noopener">Chat on WhatsApp</a></div>
+    <p style="margin-top:var(--s-4)"><a class="link" href="/size-guide/">Measure your space first</a></p>
+  </section>
+</Page>

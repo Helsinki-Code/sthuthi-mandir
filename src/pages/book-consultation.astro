@@ -1,0 +1,57 @@
+---
+import Page from '../layouts/Page.astro';
+import { products, facets } from '../lib/catalog.js';
+import { SITE, BUSINESS, WHATSAPP_URL } from '../site.config.js';
+import { formatLakh } from '../lib/units.js';
+const bandLabel = (b) => b.max === null ? `${formatLakh(b.min)} and above` : b.min === 0 ? `Under ${formatLakh(b.max)}` : `${formatLakh(b.min)} – ${formatLakh(b.max)}`;
+const today = new Date().toISOString().slice(0, 10);
+---
+<Page title="Book a design consultation" path="/book-consultation/" crumbName="Book a consultation"
+  description="Request a design consultation for a Sthuthi home mandir or walk-in pooja cabin. Share your room size, ceiling height and budget."
+  lede="Tell us about the space and the mandir you have in mind. A designer will reply with the designs that fit and the edition each one needs.">
+  <section class="wrap narrow section-tight">
+    <form class="form" novalidate data-consult data-endpoint={SITE.consultEndpoint} data-wa={BUSINESS.phone.whatsapp}>
+      <div class="field"><label for="f-name">Full name</label><input id="f-name" name="name" autocomplete="name" required minlength="2" maxlength="120" aria-describedby="e-name" /><p class="error" id="e-name"></p></div>
+      <div class="field"><label for="f-phone">Phone or WhatsApp number</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required aria-describedby="h-phone e-phone" /><p class="hint" id="h-phone">Include the country code if you are outside India.</p><p class="error" id="e-phone"></p></div>
+      <div class="field"><label for="f-city">City</label><input id="f-city" name="city" autocomplete="address-level2" required maxlength="80" aria-describedby="e-city" /><p class="error" id="e-city"></p></div>
+      <div class="field"><label for="f-prop">Property type</label>
+        <select id="f-prop" name="propertyType" required aria-describedby="e-prop">
+          <option value="">Choose one</option><option>Apartment</option><option>Villa or independent house</option><option>Farmhouse</option><option>Other</option>
+        </select><p class="error" id="e-prop"></p></div>
+      <fieldset class="full field" style="border:0;padding:0;margin:0">
+        <legend class="flabel" style="padding:0;margin-bottom:.35rem">Room size, in centimetres</legend>
+        <p class="hint" style="margin:0 0 .5rem">Approximate figures are fine. Ceiling height is to the underside of any false ceiling or beam. <a class="link" href="/size-guide/#measure">How to measure</a></p>
+        <div class="form">
+          <div class="field"><label for="f-w">Room width (cm)</label><input id="f-w" name="roomWidthCm" type="number" inputmode="numeric" min="50" max="3000" required aria-describedby="e-w" /><p class="error" id="e-w"></p></div>
+          <div class="field"><label for="f-d">Room depth (cm)</label><input id="f-d" name="roomDepthCm" type="number" inputmode="numeric" min="50" max="3000" required aria-describedby="e-d" /><p class="error" id="e-d"></p></div>
+          <div class="field"><label for="f-c">Ceiling height (cm)</label><input id="f-c" name="ceilingHeightCm" type="number" inputmode="numeric" min="150" max="1500" required aria-describedby="e-c" /><p class="error" id="e-c"></p></div>
+        </div>
+      </fieldset>
+      <div class="field"><label for="f-budget">Budget</label>
+        <select id="f-budget" name="budgetBand" required aria-describedby="e-budget">
+          <option value="">Choose a band</option>
+          {facets.priceBands.map((b) => <option value={bandLabel(b)}>{bandLabel(b)}</option>)}
+          <option value="Not sure yet">Not sure yet</option>
+        </select><p class="error" id="e-budget"></p></div>
+      <div class="field"><label for="f-sku">Mandir you are interested in</label>
+        <select id="f-sku" name="sku" required aria-describedby="e-sku">
+          <option value="">Choose one</option>
+          <option value="undecided">Not decided yet</option>
+          {products.map((p) => <option value={p.sku}>{p.name} ({p.sku})</option>)}
+        </select><p class="error" id="e-sku"></p></div>
+      <div class="field"><label for="f-date">Expected handover date</label><input id="f-date" name="handoverDate" type="date" min={today} required aria-describedby="h-date e-date" /><p class="hint" id="h-date">When the room will be ready for installation.</p><p class="error" id="e-date"></p></div>
+      <div class="field full"><label for="f-msg">Anything else <span class="muted">(optional)</span></label><textarea id="f-msg" name="message" maxlength="2000"></textarea></div>
+      <div class="field full">
+        <label class="optin" for="f-consent" style="font-size:.95rem;color:var(--ink)"><input id="f-consent" name="consent" type="checkbox" value="yes" required aria-describedby="e-consent" />
+          <span>I agree that Sthuthi may contact me by phone or WhatsApp about this enquiry, and I have read the <a class="link" href="/policies/privacy/">privacy notice</a>.</span></label>
+        <p class="error" id="e-consent"></p>
+      </div>
+      <div class="full row"><button class="btn btn-primary" type="submit">Book a design consultation</button></div>
+      <div class="full form-status" role="status" aria-live="polite" data-status hidden></div>
+    </form>
+    <p class="muted" style="margin-top:var(--s-5);font-size:var(--fs-sm)">Prefer to talk first? <a class="link" href={WHATSAPP_URL} target="_blank" rel="noopener">Chat on WhatsApp</a>.</p>
+  </section>
+</Page>
+<script>
+  import '../scripts/consult.js';
+</script>

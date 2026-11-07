@@ -1,0 +1,13 @@
+---
+import Page from '../layouts/Page.astro';
+import { guides } from '../content/journal.js';
+interface Props { slug: string; lede: string }
+const { slug, lede } = Astro.props;
+const g = guides.find((x) => x.slug === slug);
+const ld = { '@context': 'https://schema.org', '@type': 'Article', headline: g.title, description: g.description, author: { '@type': 'Organization', name: 'Sthuthi' }, publisher: { '@id': `${Astro.site.toString().replace(/\/$/, '')}/#org` }, mainEntityOfPage: new URL(`/journal/${slug}/`, Astro.site).toString() };
+---
+<Page title={g.title} path={`/journal/${slug}/`} description={g.description} lede={lede} parent={{ name: 'Journal', href: '/journal/' }} kicker="Guide" jsonld={[ld]}>
+  <article class="wrap narrow section-tight"><div class="prose"><slot /></div>
+    <p style="margin-top:var(--s-7)"><a class="btn btn-primary" href="/book-consultation/">Book a design consultation</a></p>
+  </article>
+</Page>

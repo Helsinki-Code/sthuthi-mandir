@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import UnitToggle from '../../components/UnitToggle.astro';
+import Picture from '../../components/Picture.astro';
+import { collections, productsIn, collectionUrl, bySku } from '../../lib/catalog.js';
+import { collectionCopy } from '../../content/collections.js';
+import { formatLakh, cmToFtIn } from '../../lib/units.js';
+export function getStaticPaths() { return collections.map((c) => ({ params: { slug: c.slug }, props: { c } })); }
+const { c } = Astro.props;
+const ps = productsIn(c.slug);
+const copy = collectionCopy[c.slug] || { title: c.name, intro: `${c.count} mandirs in the ${c.shortName} collection.`, note: '' };
+const crumbs = [{ name: 'Home', href: '/' }, { name: c.shortName, href: collectionUrl(c) }];
+const cover = bySku(c.cover);
+const r = (a) => (a[0] === a[1] ? `${a[0]}` : `${a[0]}–${a[1]}`);
+const rFt = (a) => (a[0] === a[1] ? cmToFtIn(a[0]) : `${cmToFtIn(a[0])} – ${cmToFtIn(a[1])}`);
+const desc = `${copy.intro.split('. ')[0]}. ${c.count} designs, ${formatLakh(c.price[0])} to ${formatLakh(c.price[1])}, idols, pooja items and installation included.`;
+const ld = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: c.name, description: desc,
+  mainEntity: { '@type': 'ItemList', numberOfItems: ps.length, itemListElement: ps.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(`/mandirs/${p.slug}/`, Astro.site).toString(), name: p.name })) } };
+---
+<Base title={`${c.shortName} | ${c.count} designs`} description={desc.slice(0, 158)} breadcrumbs={crumbs} jsonld={[ld]}
+  image={cover?.images[0] ? `${cover.images[0].base}-${cover.images[0].widths[cover.images[0].widths.length - 1]}.webp` : undefined}>
+  <Breadcrumbs items={crumbs} />
+  <section class="wrap section-tight">
+    <div class="hero-grid" style="align-items:center">
+      <div>
+        <span class="kicker">{c.name}</span>
+        <h1>{copy.title}</h1>
+        <p class="lede">{copy.intro}</p>
+        <dl class="facts">
+          <div><dt>Designs</dt><dd class="num">{c.count}</dd></div>
+          <div><dt>Indicative prices</dt><dd class="num">{formatLakh(c.price[0])} – {formatLakh(c.price[1])}</dd></div>
+          <div><dt>Width</dt><dd class="num"><span data-cm={`${r(c.width)} cm`} data-ft={rFt(c.width)}>{r(c.width)} cm</span></dd></div>
+          <div><dt>Height</dt><dd class="num"><span data-cm={`${r(c.height)} cm`} data-ft={rFt(c.height)}>{r(c.height)} cm</span></dd></div>
+          <div><dt>Ceiling needed</dt><dd class="num"><span data-cm={`${r(c.minCeiling)} cm`} data-ft={rFt(c.minCeiling)}>{r(c.minCeiling)} cm</span></dd></div>
+          {c.apt && <div><dt>Apartment editions</dt><dd class="num"><span data-cm={`${r(c.apt)} cm high`} data-ft={`${rFt(c.apt)} high`}>{r(c.apt)} cm high</span></dd></div>}
+        </dl>
+        {copy.note && <p class="note">{copy.note}</p>}
+        <div class="row" style="margin-top:var(--s-5)"><a class="btn btn-primary" href="/book-consultation/">Book a design consultation</a><a class="btn btn-ghost" href={`/mandirs/?collection=${c.slug}`}>Filter this collection</a><UnitToggle /></div>
+      </div>
+      {cover?.images[0] && <div class="arch-frame arch media hero-media"><Picture img={cover.images[0]} eager sizes="(min-width: 960px) 40vw, 100vw" /></div>}
+    </div>
+  </section>
+  <section class="wrap section" aria-labelledby="list-h">
+    <h2 id="list-h" class="visually-hidden">Designs in this collection</h2>
+    <div class="cards">{ps.map((p) => <ProductCard p={p} />)}</div>
+    {c.signOff.length > 0 && <p class="muted" style="margin-top:var(--s-6);font-size:var(--fs-sm)">{c.signOff.length === ps.length ? 'Every design in this collection is' : `${c.signOff.length} of these ${ps.length} designs are`} installed after a structural engineer signs off the floor. <a class="link" href="/size-guide/#floor">Why</a></p>}
+  </section>
+</Base>

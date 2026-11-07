@@ -1,0 +1,22 @@
+---
+import GuidePage from '../../components/GuidePage.astro';
+import { products, std, productUrl } from '../../lib/catalog.js';
+// Worked example: the first walk-in cabin and the first cabinet in the catalogue.
+const ex = products.find((p) => p.structure.walkIn) || products[0];
+const ex2 = products.find((p) => !p.structure.walkIn) || products[0];
+const s = ex.structure, t = ex2.structure;
+---
+<GuidePage slug="reading-a-mandir-specification" lede={`Every product page has the same specification table. Here is what each line means, using the ${ex.name} and the ${ex2.name} as examples.`}>
+  <h2>Overall size</h2>
+  <p>Width × depth × height of the whole mandir, to the top of the finial. The {ex.name} is {s.widthCm} × {s.depthCm} × {s.heightCm} cm ({s.ftIn.w} × {s.ftIn.d} × {s.ftIn.h}). Footprint is width × depth in square metres: {s.footprintM2} m².</p>
+  <h2>Interior or niche</h2>
+  <p>For a walk-in cabin, the clear space inside ({s.niche.w} × {s.niche.d} × {s.niche.h} cm). For a cabinet, the deity niche: the {ex2.name}'s niche is {t.niche.w} × {t.niche.d} × {t.niche.h} cm, and its altar sits {t.altarCm} cm above the floor.</p>
+  <h2>Minimum clear ceiling</h2>
+  <p>Height plus {std.ceilingClearance} cm. The {ex.name} needs {s.minCeilingCm} cm{s.hasApartmentEdition ? `; its apartment edition (${s.aptHeightCm} cm) needs ${s.aptMinCeilingCm} cm` : ''}.</p>
+  <h2>Weight and floor load</h2>
+  <p>Weight is given as a range, because carving and finishes vary piece to piece: {s.weightMin}–{s.weightMax} kg for the {ex.name}. For walk-in cabins, floor load adds {std.occupancy} people at {std.occupantWeight} kg and spreads the total over the footprint: {s.floorLoad} kg/m², against a residential design load of {std.floorLoad} kg/m².</p>
+  <h2>Installation requirement</h2>
+  <p>Either “Standard RCC floor” or a structural engineer's sign-off before installation. The {ex.name}: {s.installRequirement.toLowerCase()}. The {ex2.name}: {t.installRequirement.toLowerCase()}.</p>
+  <h2>Idols and pooja kit</h2>
+  <p>Every figure is listed with its material, form, size (height × width × depth) and placement, and every pooja item with its quantity, material and size. See them on the <a class="link" href={productUrl(ex)}>{ex.name}</a> page.</p>
+</GuidePage>

@@ -1,0 +1,154 @@
+---
+import Base from '../layouts/Base.astro';
+import Picture from '../components/Picture.astro';
+import ProductCard from '../components/ProductCard.astro';
+import Rule from '../components/Rule.astro';
+import { products, collections, collectionUrl, bySku, productsIn, std, standards, facets } from '../lib/catalog.js';
+import { collectionCopy } from '../content/collections.js';
+import { formatLakh, cmToFtIn } from '../lib/units.js';
+import { BUSINESS, SITE, WHATSAPP_URL, tierOf } from '../site.config.js';
+
+const first = collections[0];
+const heroP = bySku(first.cover);
+const heroImg = heroP.images.find((im) => im.height > im.width) || heroP.images[0];
+const figures = products.flatMap((p) => p.idolSets.flatMap((s) => s.figures));
+const minClear = Math.min(...figures.map((f) => f.clearance));
+const kitCounts = products.map((p) => p.kit.length);
+const kitMaterials = Object.entries(products.flatMap((p) => p.kit.map((k) => k.material)).filter((m) => /brass|copper|silver|gold|bronze/i.test(m)).reduce((a, m) => { a[m] = (a[m] || 0) + 1; return a; }, {}))
+  .sort((a, b) => b[1] - a[1]).slice(0, 3).map(([m]) => m.toLowerCase());
+const widths = facets.width, depths = facets.depth;
+const lowestCeil = facets.minCeiling[0];
+const mats = facets.materials.map((m) => [m, products.filter((p) => p.materials.includes(m)).length]).sort((a, b) => b[1] - a[1]).slice(0, 4).map((x) => x[0]);
+const aptCount = products.filter((p) => p.structure?.hasApartmentEdition).length;
+const featured = collections.map((c) => productsIn(c.slug).slice().sort((a, b) => b.images.length - a.images.length)[0]).filter(Boolean);
+const strip = [...featured, ...products.filter((p) => !featured.includes(p)).sort((a, b) => b.images.length - a.images.length)].slice(0, 8);
+const steps = ['Design consultation', 'Design approval', 'Order Confirmation', 'Crafting', 'Delivery and installation'];
+const lt = BUSINESS.leadTimes;
+const buyCount = products.filter((p) => tierOf(p) === 'buy').length;
+const r = (a) => (a[0] === a[1] ? `${a[0]}` : `${a[0]}–${a[1]}`);
+const both = (cm) => ({ 'data-cm': `${cm} cm`, 'data-ft': cmToFtIn(cm) });
+---
+<Base title="Sthuthi | Complete home mandirs and walk-in pooja cabins"
+  description={`Made-to-order home mandirs with idols, pooja items, delivery and installation anywhere in India. ${products.length} designs, from cabinets to walk-in pooja cabins.`}
+  image={`${heroImg.base}-${heroImg.widths[heroImg.widths.length - 1]}.webp`} imageAlt={heroImg.alt}
+  jsonld={[{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'Sthuthi', url: Astro.site.toString() }]}>
+  <section class="hero wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="kicker">Home mandirs, made to order</span>
+        <h1>The whole sanctum, <em>made, delivered and installed</em> for you.</h1>
+        <p class="lede">Each Sthuthi mandir arrives complete. The structure, its idols, the pooja items, and delivery and installation anywhere in India come in one commission, planned with a designer around your room's measurements.</p>
+        <ul class="includes-line" aria-label="Included with every mandir">
+          <li>Structure</li><li>Idols</li><li>Pooja items</li><li>Delivery and installation</li>
+        </ul>
+        <div class="row">
+          <a class="btn btn-primary" href="/book-consultation/">Book a design consultation</a>
+          <a class="btn btn-ghost" href={WHATSAPP_URL} target="_blank" rel="noopener">Chat on WhatsApp</a>
+        </div>
+        <p style="margin:var(--s-4) 0 0"><a class="link" href="/mandirs/">See all {products.length} mandirs</a></p>
+        <dl class="facts" style="margin-top:var(--s-7);max-width:36rem">
+          <div><dt>Designs</dt><dd class="num">{products.length}</dd></div>
+          <div><dt>Indicative prices from</dt><dd class="num">{formatLakh(facets.price[0])}</dd></div>
+          <div><dt>Lowest ceiling</dt><dd class="num"><span {...both(lowestCeil)}>{lowestCeil} cm</span></dd></div>
+        </dl>
+      </div>
+      <a class="arch-frame arch media hero-media" href={`/mandirs/${heroP.slug}/`}>
+        <Picture img={heroImg} eager sizes="(min-width: 960px) 42vw, 100vw" />
+      </a>
+    </div>
+  </section>
+
+  <section class="band section" aria-labelledby="complete-h">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <h2 id="complete-h">What “complete” means</h2>
+          <p class="muted">You do not have to source the idols separately, find someone to fit the shelves, or work out which lamps suit the altar. Every part below is designed for the mandir it goes into.</p>
+          <a class="link" href="/complete-sanctum/">What's included, mandir by mandir</a>
+        </div>
+        <ol class="ledger">
+          <li><span class="n">1</span><h3>The structure</h3><p>From cabinets <span {...both(widths[0])}>{widths[0]} cm</span> wide to walk-in cabins <span {...both(depths[1])}>{depths[1]} cm</span> deep, made to order in {mats.join(', ').toLowerCase()} and more.</p></li>
+          <li><span class="n">2</span><h3>Its idols</h3><p>{figures.length} figures across the range, each sized to its niche with at least {minClear} cm of clear space above.</p></li>
+          <li><span class="n">3</span><h3>The pooja items</h3><p>Between {Math.min(...kitCounts)} and {Math.max(...kitCounts)} kinds of item per mandir, the metalware mostly in {kitMaterials.slice(0, -1).join(', ')} and {kitMaterials[kitMaterials.length - 1]}.</p></li>
+          <li><span class="n">4</span><h3>Delivery and installation</h3><p>Anywhere in India. Large pieces travel as modules no wider than {String(standards.moduleWood.value).match(/(\d+)\s*W/)?.[1]} cm, sized for residential lifts and doors.</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="coll-h">
+    <h2 id="coll-h" style="max-width:20ch">Three collections, from a wall cabinet to a room of its own</h2>
+    <div>
+      {collections.map((c) => {
+        const cp = bySku(c.cover);
+        const im = cp.images.find((x) => x.height >= x.width) || cp.images[0];
+        return (
+          <article class="coll-row">
+            <a class="coll-media arch-frame arch media" href={collectionUrl(c)} tabindex="-1" aria-hidden="true"><Picture img={im} sizes="(min-width: 900px) 40vw, 100vw" /></a>
+            <div>
+              <span class="kicker">{c.count} designs</span>
+              <h3 style="font-size:var(--fs-lg);font-weight:500"><a href={collectionUrl(c)} style="text-decoration:none">{c.shortName}</a></h3>
+              <p class="muted" style="max-width:52ch">{collectionCopy[c.slug]?.intro}</p>
+              <dl class="facts">
+                <div><dt>{c.walkIn ? 'Cabin footprint' : 'Width'}</dt><dd class="num">{c.walkIn ? `${r(c.width)} × ${r(c.depth)} cm` : `${r(c.width)} cm`}</dd></div>
+                <div><dt>Height</dt><dd class="num">{r(c.height)} cm</dd></div>
+                <div><dt>From</dt><dd class="num">{formatLakh(c.price[0])}</dd></div>
+              </dl>
+              <a class="btn btn-ghost" href={collectionUrl(c)}>Explore {c.shortName}</a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+
+  <section class="sanctum section" aria-labelledby="space-h">
+    <div class="wrap split">
+      <div>
+        <h2 id="space-h">Measure before you fall in love with a design</h2>
+        <p class="muted">A mandir has to clear the ceiling by {std.ceilingClearance} cm for installation, lighting and the smoke detector. {aptCount} of our walk-in cabins come in an apartment edition with a lower shikhara for false ceilings.</p>
+        <a class="btn btn-primary" href="/size-guide/#room-check" style="background:#8e1d15">Check which mandirs fit your room</a>
+      </div>
+      <ol class="ledger">
+        <li><span class="n">{facets.minCeiling[0]}</span><h3>cm</h3><p>The lowest ceiling any of our mandirs needs, apartment editions included.</p></li>
+        <li><span class="n">{std.aptMaxHeight + std.ceilingClearance}</span><h3>cm</h3><p>The false ceiling our apartment editions are designed for. Their shikhara or vimana is reduced so the cabin stands no taller than <span {...both(std.aptMaxHeight)}>{std.aptMaxHeight} cm</span>.</p></li>
+        <li><span class="n">{std.floorLoad}</span><h3>kg/m²</h3><p>The residential floor design load. Heavier pieces are installed only after a structural engineer signs off.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="how-h">
+    <div class="row" style="justify-content:space-between;align-items:end;margin-bottom:var(--s-5)">
+      <h2 id="how-h" style="margin:0">From first call to first aarti</h2>
+      <a class="link" href="/how-it-works/">How it works, step by step</a>
+    </div>
+    <ol class="ledger">
+      {steps.map((s, i) => <li><span class="n">{i + 1}</span><h3>{s}</h3><p>{[
+        'Share your room, ceiling height, deity and budget with a Sthuthi designer.',
+        'Approve the drawings, the edition (villa or apartment) and the deity set.',
+        buyCount ? `You sign the Order Confirmation. Mandirs under ${formatLakh(SITE.fullPaymentMaxInr)} can be bought online in full instead.` : 'You sign the Order Confirmation.',
+        `Made to the approved design: ${lt.cabinet} for cabinets, ${lt.walkInCabin} for walk-in cabins, ${lt.basis}.`,
+        'Delivered in modules and installed in place, anywhere in India.',
+      ][i]}</p></li>)}
+    </ol>
+  </section>
+
+  <section class="band section" aria-labelledby="feat-h">
+    <div class="wrap">
+      <div class="row" style="justify-content:space-between;align-items:end;margin-bottom:var(--s-5)">
+        <h2 id="feat-h" style="margin:0">A few to begin with</h2>
+        <a class="link" href="/mandirs/">All mandirs</a>
+      </div>
+      <div class="strip">{strip.map((p) => <ProductCard p={p} />)}</div>
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="cta-h">
+    <Rule />
+    <div style="text-align:center;max-width:44rem;margin:0 auto">
+      <h2 id="cta-h" class="display" style="font-size:var(--fs-xl)">Begin with a conversation</h2>
+      <p class="muted">Tell us about the room, the deities your family worships and the budget you have in mind. A designer comes back with the mandirs that fit, and the edition each one needs.</p>
+      <div class="row" style="justify-content:center"><a class="btn btn-primary" href="/book-consultation/">Book a design consultation</a><a class="btn btn-ghost" href={WHATSAPP_URL} target="_blank" rel="noopener">Chat on WhatsApp</a></div>
+    </div>
+  </section>
+</Base>

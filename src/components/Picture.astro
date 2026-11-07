@@ -1,0 +1,26 @@
+---
+// Responsive AVIF/WebP picture from the pipeline's image record. Never collages: one image per element.
+interface Props { img: any; sizes?: string; eager?: boolean; class?: string; label?: boolean; fit?: string; defer?: boolean; }
+const { img, sizes = '(min-width: 1000px) 33vw, 100vw', eager = false, class: cls = '', label = true, defer = false } = Astro.props;
+const srcset = (fmt: string) => img.widths.map((w: number) => `${img.base}-${w}.${fmt} ${w}w`).join(', ');
+const fallbackW = img.widths.find((w: number) => w >= 720) || img.widths[img.widths.length - 1];
+const h = Math.round((img.height / img.width) * fallbackW);
+---
+{defer ? (
+  <>
+    <picture class={cls} data-defer>
+      <source type="image/avif" data-srcset={srcset('avif')} sizes={sizes} />
+      <source type="image/webp" data-srcset={srcset('webp')} sizes={sizes} />
+      <img data-src={`${img.base}-${fallbackW}.webp`} width={fallbackW} height={h} alt={img.alt} decoding="async" />
+    </picture>
+    <noscript><img src={`${img.base}-${fallbackW}.webp`} width={fallbackW} height={h} alt={img.alt} loading="lazy" /></noscript>
+  </>
+) : (
+<picture class={cls}>
+  <source type="image/avif" srcset={srcset('avif')} sizes={sizes} />
+  <source type="image/webp" srcset={srcset('webp')} sizes={sizes} />
+  <img src={`${img.base}-${fallbackW}.webp`} width={fallbackW} height={h} alt={img.alt}
+    loading={eager ? 'eager' : 'lazy'} decoding={eager ? 'sync' : 'async'} fetchpriority={eager ? 'high' : 'auto'} />
+</picture>
+)}
+{label && img.kind !== 'photo' && <span class="vis-label">Visualisation</span>}

@@ -1,0 +1,15 @@
+{
+  "_source": "Owner resolutions of CSV/workbook conflicts, 6 November 2026. Applied by the data pipeline and the audit before any check. Each entry is skipped (and reported) once the master files already say the same thing.",
+  "csv": [
+    { "sku": "RHM-05", "column": "Key Features", "find": "Two-tier family altar with drawers", "replace": "Three-tier family altar with drawers",
+      "why": "RHM-05 has a three-tier altar, tiers at 60 / 80 / 100 cm from the floor." },
+    { "sku": "RHM-05", "column": "Long Description (HTML)", "find": "Two-tier family altar with drawers", "replace": "Three-tier family altar with drawers",
+      "why": "RHM-05 has a three-tier altar, tiers at 60 / 80 / 100 cm from the floor." },
+    { "sku": "RHM-05", "column": "Long Description (HTML)", "find": "behind a two-tier altar", "replace": "behind a three-tier altar",
+      "why": "RHM-05 has a three-tier altar, tiers at 60 / 80 / 100 cm from the floor." }
+  ],
+  "workbook": [
+    { "sheet": "Idol Sizes", "sku": "JYL-10", "where": { "Figure / element": "Yoni / peetham" }, "column": "Material", "find": "Black stone", "replace": "Black stone, silver-plated",
+      "why": "JYL-10 yoni / peetham is black stone, silver-plated, to match the silver five-headed Naga. Sizes unchanged (20 H × 45 W × 60 L cm)." }
+  ]
+}

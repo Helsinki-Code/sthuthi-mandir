@@ -1,0 +1,53 @@
+---
+import Page from '../layouts/Page.astro';
+import { products, facets, standards, productUrl } from '../lib/catalog.js';
+const structure = facets.materials.map((m) => ({ m, ps: products.filter((p) => p.materials.includes(m)) }));
+const tally = (arr) => Object.entries(arr.reduce((a, x) => { a[x] = (a[x] || 0) + 1; return a; }, {})).sort((a, b) => b[1] - a[1]);
+const idolMats = tally(products.flatMap((p) => p.idolSets.flatMap((s) => s.figures.map((f) => f.material))));
+const kitMats = tally(products.flatMap((p) => p.kit.map((k) => k.material)));
+const ivory = products.filter((p) => p.ivory);
+const notes = products.filter((p) => p.structure?.notes && /stone|marble|sandstone|silver|gold|copper|slate|ivory|segment|modular|ships/i.test(p.structure.notes));
+---
+<Page title="Materials and craftsmanship" path="/materials-craftsmanship/" crumbName="Materials and craft"
+  description="The woods, stones, metals and finishes used across Sthuthi mandirs, their idols and pooja kits, taken from our product records."
+  lede="What each mandir is made of, drawn directly from our product records: the structure, the idols and the pooja items.">
+  <section class="wrap section-tight" aria-labelledby="struct-h">
+    <h2 id="struct-h">Structure</h2>
+    <div class="table-wrap">
+      <table class="spec data">
+        <caption>Grouped from each mandir's primary material.</caption>
+        <thead><tr><th scope="col">Material</th><th scope="col">Used in</th></tr></thead>
+        <tbody>{structure.map(({ m, ps }) => <tr><th scope="row">{m}<span class="sub">{ps.length} design{ps.length > 1 ? 's' : ''}</span></th><td>{ps.map((p, i) => <>{i > 0 && ', '}<a class="link" href={productUrl(p)}>{p.name}</a></>)}</td></tr>)}</tbody>
+      </table>
+    </div>
+  </section>
+  <section class="wrap section-tight" aria-labelledby="ivory-h">
+    <div class="callout">
+      <h2 id="ivory-h" style="font-size:1.4rem">A note on “ivory”</h2>
+      <p style="margin:0"><strong>Ivory-finish paint. No animal ivory used.</strong> Where “ivory” appears in a design's name or finish ({ivory.length} designs), it describes the colour of the painted finish.</p>
+    </div>
+  </section>
+  <section class="wrap section-tight">
+    <div class="grid cols-2">
+      <div>
+        <h2>Idols</h2>
+        <div class="table-wrap"><table class="spec data"><caption>Number of idol figures in each material, across all deity sets.</caption>
+          <thead><tr><th scope="col">Material</th><th scope="col">Figures</th></tr></thead>
+          <tbody>{idolMats.map(([m, n]) => <tr><th scope="row">{m}</th><td class="num">{n}</td></tr>)}</tbody></table></div>
+      </div>
+      <div>
+        <h2>Pooja items</h2>
+        <div class="table-wrap"><table class="spec data"><caption>Number of kit line items in each material.</caption>
+          <thead><tr><th scope="col">Material</th><th scope="col">Items</th></tr></thead>
+          <tbody>{kitMats.map(([m, n]) => <tr><th scope="row">{m}</th><td class="num">{n}</td></tr>)}</tbody></table></div>
+      </div>
+    </div>
+  </section>
+  <section class="wrap section-tight" aria-labelledby="notes-h">
+    <h2 id="notes-h">From the workshop's design notes</h2>
+    <ul class="ledger" style="list-style:none">
+      {notes.map((p) => <li><span class="n code" style="font-size:.85rem">{p.sku}</span><h3 style="font-size:1.1rem"><a class="link" href={productUrl(p)}>{p.name}</a></h3><p>{p.structure.notes}</p></li>)}
+    </ul>
+    <p class="muted" style="margin-top:var(--s-5)">{standards.moduleStone.detail}</p>
+  </section>
+</Page>

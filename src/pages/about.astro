@@ -1,0 +1,38 @@
+---
+import Page from '../layouts/Page.astro';
+import { BUSINESS, SITE, tierOf } from '../site.config.js';
+import { formatLakh } from '../lib/units.js';
+import Rule from '../components/Rule.astro';
+import { products, collections } from '../lib/catalog.js';
+import brand from '../generated/brand.json';
+const buyCount = products.filter((p) => tierOf(p) === 'buy').length;
+const full = brand.variants.find((v) => v.name === 'logo-full');
+---
+<Page title="About Sthuthi" path="/about/" crumbName="About"
+  description="Sthuthi makes complete home mandirs to order: the structure, idols, pooja items, delivery and installation anywhere in India."
+  lede="Sthuthi means praise. We make the place where a family offers it: a complete mandir, from the carved structure to the last diya, made to order and installed in your home.">
+  <section class="wrap section-tight">
+    <div class="split">
+      <div class="logo-plate" style="justify-self:start;padding:1.5rem;background:#fef9f2;border-radius:6px"><img src="/brand/logo-full.webp" width={full.width} height={full.height} alt="Sthuthi" style="width:min(260px,60vw);height:auto" /></div>
+      <div class="prose">
+        <h2>What we make</h2>
+        <p>{products.length} designs in {collections.length} collections: walk-in pooja cabins, tiered family altars in regional traditions, and mandirs built around a single deity. Each one comes with its idols, its pooja items, and delivery and installation anywhere in India.</p>
+        <h2>How we work</h2>
+        {buyCount > 0
+          ? <p>Mandirs priced under {formatLakh(SITE.fullPaymentMaxInr)} ({buyCount} of our {products.length} designs) can be bought online in full, after a fit check for your room. Every other mandir starts with a conversation and an approved design, because a home sanctum has to suit the room, the ceiling, the floor and the family's worship.</p>
+          : <p>A home sanctum has to suit the room, the ceiling, the floor and the family's worship, so every commission starts with a conversation and an approved design.</p>}
+        <h2>What we hold to</h2>
+        <ul>
+          <li>Deities and sacred forms are presented with care and shown as they are worshipped.</li>
+          <li>Temple-inspired designs are original Sthuthi work inspired by a tradition. We have no affiliation with any temple.</li>
+          <li>“Ivory” always means an ivory-finish paint. No animal ivory is used.</li>
+          <li>Every size, weight and ceiling figure we publish comes from our measurements sheet.</li>
+          <li>Our images are visualisations of made-to-order designs.</li>
+        </ul>
+        <Rule />
+        <h2>Who we are</h2>
+        <p>{BUSINESS.footerLine} Registered office: {BUSINESS.seller.registeredOffice}.</p>
+      </div>
+    </div>
+  </section>
+</Page>

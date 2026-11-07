@@ -1,0 +1,18 @@
+---
+import GuidePage from '../../components/GuidePage.astro';
+import { products, std, standards, productUrl } from '../../lib/catalog.js';
+const target = std.aptMaxHeight + std.ceilingClearance;
+const fitStd = products.filter((p) => p.structure.minCeilingCm <= target);
+const fitApt = products.filter((p) => p.structure.hasApartmentEdition && p.structure.minCeilingCm > target && p.structure.aptMinCeilingCm <= target);
+const none = products.filter((p) => !fitStd.includes(p) && !fitApt.includes(p));
+---
+<GuidePage slug="mandir-for-an-apartment-ceiling" lede={`Our apartment editions are designed around a ${target} cm false ceiling. Here is what fits under one.`}>
+  <p>{standards.aptMaxHeight.detail} With the {std.ceilingClearance} cm clearance our installers need above the tallest point, a {target} cm ceiling takes a mandir up to {std.aptMaxHeight} cm tall.</p>
+  <h2>Fits in its standard form ({fitStd.length})</h2>
+  <ul>{fitStd.map((p) => <li><a class="link" href={productUrl(p)}>{p.name}</a>: {p.structure.heightCm} cm high, needs {p.structure.minCeilingCm} cm.</li>)}</ul>
+  <h2>Fits as an apartment edition ({fitApt.length})</h2>
+  <ul>{fitApt.map((p) => <li><a class="link" href={productUrl(p)}>{p.name}</a>: villa edition {p.structure.heightCm} cm; apartment edition {p.structure.aptHeightCm} cm, needs {p.structure.aptMinCeilingCm} cm.</li>)}</ul>
+  {none.length > 0 && <><h2>Needs a higher ceiling ({none.length})</h2><ul>{none.map((p) => <li><a class="link" href={productUrl(p)}>{p.name}</a>: needs {p.structure.hasApartmentEdition ? p.structure.aptMinCeilingCm : p.structure.minCeilingCm} cm.</li>)}</ul></>}
+  <h2>Check your own ceiling</h2>
+  <p>Measure to the lowest point above where the mandir will stand: false ceiling, beam, light or fan. Then use the <a class="link" href="/size-guide/#room-check">room checker</a> to see every design that fits.</p>
+</GuidePage>

@@ -1,0 +1,34 @@
+{
+  "_source": "Owner instruction and the 'Sthuthi Store Policies' document, 6 November 2026. Edit here, then rebuild.",
+  "brand": "Sthuthi",
+  "seller": {
+    "legalName": "Vrance Agency Private Limited",
+    "cin": "U73200AP2023PTC112905",
+    "pan": "AAJCV7674H",
+    "registeredOffice": "D.No. 20-1-416/1b, Subhash Nagar, Korlagunta, Tirupati (Urban), Chittoor, Andhra Pradesh 517501, India",
+    "address": {
+      "streetAddress": "D.No. 20-1-416/1b, Subhash Nagar, Korlagunta, Tirupati (Urban), Chittoor",
+      "addressLocality": "Tirupati",
+      "addressRegion": "Andhra Pradesh",
+      "postalCode": "517501",
+      "addressCountry": "IN"
+    }
+  },
+  "footerLine": "Sthuthi is a brand of Vrance Agency Private Limited (CIN U73200AP2023PTC112905), Tirupati, Andhra Pradesh.",
+  "phone": {
+    "display": "+91 8951618186",
+    "e164": "+918951618186",
+    "whatsapp": "918951618186"
+  },
+  "grievanceOfficer": {
+    "name": "Vikram",
+    "designation": "CEO",
+    "hours": "Monday to Saturday, 10:00 to 18:00 IST"
+  },
+  "leadTimes": {
+    "cabinet": "10–16 weeks",
+    "walkInCabin": "18–28 weeks",
+    "basis": "counted from drawing approval"
+  },
+  "policiesEffective": "6 November 2026"
+}

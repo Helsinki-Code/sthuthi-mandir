@@ -1,0 +1,54 @@
+---
+// Stripe returns buyers here. The page shows an order as confirmed only after the verified Stripe
+// webhook has recorded it (GET /api/order-status); until then it says the payment is being confirmed.
+import Page from '../../layouts/Page.astro';
+import { WHATSAPP_URL } from '../../site.config.js';
+---
+<Page title="Your order" h1="Thank you" path="/order/confirmed/" crumbName="Order" noindex
+  description="Order confirmation for a Sthuthi mandir paid for online. The order is confirmed once Stripe confirms the payment.">
+  <section class="wrap narrow section-tight" data-order>
+    <div class="callout" data-order-pending>
+      <h2 style="font-size:1.5rem">Confirming your payment</h2>
+      <p class="muted" data-order-msg>We are waiting for Stripe to confirm your payment. This page updates by itself, usually within a few seconds.</p>
+    </div>
+    <div data-order-done hidden>
+      <p class="lede" data-order-lede></p>
+      <div class="table-wrap">
+        <table class="spec"><tbody data-order-rows></tbody></table>
+      </div>
+      <p style="margin-top:var(--s-5)">A Sthuthi designer will contact you to confirm the delivery and installation date. To message us now with your order details:</p>
+      <div class="row"><a class="btn btn-primary" data-order-wa href={WHATSAPP_URL} target="_blank" rel="noopener">Chat on WhatsApp</a></div>
+    </div>
+    <div class="callout" data-order-problem hidden>
+      <h2 style="font-size:1.5rem">We could not confirm this order yet</h2>
+      <p class="muted">If you completed the payment, your order is safe; it is being checked by our team. Please message us so that we can help.</p>
+      <a class="btn btn-primary" data-order-problem-wa href={WHATSAPP_URL} target="_blank" rel="noopener">Chat on WhatsApp</a>
+    </div>
+  </section>
+</Page>
+<script>
+  const q = new URLSearchParams(location.search).get('session_id') || '';
+  const $ = (s: string) => document.querySelector<HTMLElement>(s)!;
+  const show = (sel: string) => { for (const s of ['[data-order-pending]', '[data-order-done]', '[data-order-problem]']) $(s).hidden = s !== sel; };
+  let tries = 0;
+  async function poll() {
+    tries++;
+    try {
+      const r = await fetch(`/api/order-status?session_id=${encodeURIComponent(q)}`, { cache: 'no-store' });
+      const o = await r.json();
+      if (o.status === 'confirmed') {
+        const d = o.order;
+        $('[data-order-lede]').textContent = `${d.customerName ? `${d.customerName}, your` : 'Your'} order ${d.orderRef} is confirmed and paid.`;
+        const rows: [string, string][] = [['Order', d.orderRef], ['Mandir', `${d.name} (${d.sku})`], ['Edition', d.edition], ['Paid', d.amount], ['Delivery PIN code', d.pin]];
+        $('[data-order-rows]').replaceChildren(...rows.map(([k, v]) => { const tr = document.createElement('tr'); const th = document.createElement('th'); th.scope = 'row'; th.textContent = k; const td = document.createElement('td'); td.textContent = v; tr.append(th, td); return tr; }));
+        ($('[data-order-wa]') as HTMLAnchorElement).href = o.whatsapp;
+        show('[data-order-done]');
+        return;
+      }
+      if (o.status === 'review' || r.status === 400) { if (o.whatsapp) ($('[data-order-problem-wa]') as HTMLAnchorElement).href = o.whatsapp; show('[data-order-problem]'); return; }
+    } catch (_) { /* retry */ }
+    if (tries < 40) setTimeout(poll, tries < 10 ? 1500 : 4000);
+    else show('[data-order-problem]');
+  }
+  poll();
+</script>

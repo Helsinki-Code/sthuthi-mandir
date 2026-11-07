@@ -1,0 +1,95 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import UnitToggle from '../../components/UnitToggle.astro';
+import { products, collections, facets } from '../../lib/catalog.js';
+import { formatLakh } from '../../lib/units.js';
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'All mandirs', href: '/mandirs/' }];
+const count = (fn) => products.filter(fn).length;
+const bandLabel = (b) => b.max === null ? `${formatLakh(b.min)} and above` : b.min === 0 ? `Under ${formatLakh(b.max)}` : `${formatLakh(b.min)} – ${formatLakh(b.max)}`;
+const sorted = [...products];
+---
+<Base title="All home mandirs and walk-in pooja cabins" description={`Browse all ${products.length} Sthuthi mandirs. Filter by deity, material, size, budget and ceiling height, and compare up to three side by side.`} breadcrumbs={crumbs}>
+  <Breadcrumbs items={crumbs} />
+  <div class="wrap">
+    <header style="padding-top:var(--s-5)">
+      <h1>All mandirs</h1>
+      <p class="lede">{products.length} complete mandirs across {collections.length} collections. Every price includes the idols, the pooja items, and delivery and installation in India.</p>
+    </header>
+    <div class="listing" data-listing>
+      <div>
+        <button class="btn btn-ghost filters-toggle" type="button" aria-expanded="false" aria-controls="filters" data-filters-toggle>Filters</button>
+        <form class="filters" id="filters" aria-label="Filter mandirs" data-filters hidden>
+          <fieldset>
+            <legend>Collection</legend>
+            {collections.map((c) => <label class="opt"><input type="checkbox" name="collection" value={c.slug} /> {c.shortName}<span class="c">{c.count}</span></label>)}
+          </fieldset>
+          <fieldset>
+            <legend>Deity</legend>
+            {facets.deities.map((d) => <label class="opt"><input type="checkbox" name="deity" value={d} /> {d}<span class="c">{count((p) => p.deities.includes(d))}</span></label>)}
+          </fieldset>
+          <fieldset>
+            <legend>Deities in the mandir</legend>
+            <label class="opt"><input type="radio" name="multi" value="" checked /> Any</label>
+            <label class="opt"><input type="radio" name="multi" value="0" /> Single deity<span class="c">{count((p) => !p.multiDeity)}</span></label>
+            <label class="opt"><input type="radio" name="multi" value="1" /> Several deities<span class="c">{count((p) => p.multiDeity)}</span></label>
+          </fieldset>
+          <fieldset>
+            <legend>Material</legend>
+            {facets.materials.map((m) => <label class="opt"><input type="checkbox" name="material" value={m} /> {m}<span class="c">{count((p) => p.materials.includes(m))}</span></label>)}
+          </fieldset>
+          <fieldset>
+            <legend>Budget</legend>
+            {facets.priceBands.map((b, i) => <label class="opt"><input type="checkbox" name="band" value={`${b.min}-${b.max ?? ''}`} /> {bandLabel(b)}<span class="c">{count((p) => p.priceINR >= b.min && (b.max === null || p.priceINR < b.max))}</span></label>)}
+          </fieldset>
+          {[['maxw', 'Maximum width', facets.width, 'cm'], ['maxh', 'Maximum height', facets.height, 'cm'], ['maxfp', 'Maximum footprint', facets.footprint, 'm²']].map(([n, l, r, u]) => (
+            <fieldset>
+              <legend>{l}</legend>
+              <input type="range" name={n} aria-label={l} min={r[0]} max={r[1]} step={u === 'm²' ? 0.01 : 1} value={r[1]} aria-describedby={`${n}-v`} />
+              <div class="rangeval num" id={`${n}-v`} data-rangeval={n} data-unit={u}>Up to {r[1]} {u}</div>
+            </fieldset>
+          ))}
+          <fieldset>
+            <legend>Fits under my ceiling</legend>
+            <label class="visually-hidden" for="ceil">Ceiling height in cm</label>
+            <input id="ceil" type="number" name="ceil" inputmode="numeric" min="100" max="1000" placeholder={`e.g. ${facets.minCeiling[0] + 30}`} />
+            <p class="muted" style="font-size:var(--fs-xs);margin:.35rem 0 0">Clear height in cm. Includes the apartment edition where one exists.</p>
+          </fieldset>
+          <fieldset>
+            <label class="opt"><input type="checkbox" name="apt" value="1" /> Has an apartment edition<span class="c">{count((p) => p.structure?.hasApartmentEdition)}</span></label>
+          </fieldset>
+          <button class="btn btn-ghost btn-small" type="reset">Clear filters</button>
+        </form>
+      </div>
+      <div>
+        <div class="results-bar">
+          <p class="muted" style="margin:0" aria-live="polite" data-count>{products.length} mandirs</p>
+          <div class="row">
+            <UnitToggle />
+            <label class="visually-hidden" for="sort">Sort by</label>
+            <select id="sort" data-sort style="font:inherit;padding:.45rem .6rem;border:1px solid var(--line-strong);border-radius:2px;background:var(--paper);color:var(--ink)">
+              <option value="default">Sort: collection</option>
+              <option value="price-asc">Price, low to high</option>
+              <option value="price-desc">Price, high to low</option>
+              <option value="h-asc">Height, lowest first</option>
+              <option value="fp-asc">Footprint, smallest first</option>
+            </select>
+          </div>
+        </div>
+        <h2 class="visually-hidden">Results</h2>
+        <div class="cards" data-cards>{sorted.map((p) => <ProductCard p={p} compare />)}</div>
+        <p class="empty" data-empty hidden>No mandir matches every filter. Try widening the size or budget, or <a class="link" href="/book-consultation/">ask us about a custom size</a>.</p>
+      </div>
+    </div>
+  </div>
+  <div class="compare-tray" data-tray hidden role="region" aria-label="Compare selection">
+    <span data-tray-text></span>
+    <a class="btn btn-primary btn-small" href="/compare/" data-tray-link>Compare</a>
+    <button class="clear" type="button" data-tray-clear>Clear</button>
+  </div>
+</Base>
+<script>
+  import '../../scripts/listing.js';
+  import '../../scripts/compare-select.js';
+</script>

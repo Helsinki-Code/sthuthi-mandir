@@ -1,0 +1,37 @@
+---
+// One section of the owner's "Sthuthi Store Policies" document, rendered word for word.
+import Page from '../layouts/Page.astro';
+import { policies, policyUrl, policyDoc, inline, tableRows, cellHtml } from '../lib/policies.js';
+import { BUSINESS } from '../site.config.js';
+interface Props { blocks: any[]; title: string; path: string; description: string; kicker?: string; crumbName?: string; parent?: { name: string; href: string }; current?: number }
+const { blocks, title, path, description, kicker, crumbName, parent, current } = Astro.props;
+---
+<Page title={title} path={path} description={description} kicker={kicker} crumbName={crumbName} parent={parent}>
+  <div class="wrap section-tight policy-layout">
+    <nav class="policy-nav" aria-label="Store policies">
+      <p class="flabel"><a href="/policies/">{policyDoc.title}</a></p>
+      <ol>
+        {policies.map((p) => <li><a href={policyUrl(p)} aria-current={p.num === current ? 'page' : undefined}><span class="n num">{p.num}</span>{p.label}</a></li>)}
+      </ol>
+      <p class="muted" style="font-size:var(--fs-xs);margin-top:var(--s-4)">Effective from {BUSINESS.policiesEffective}</p>
+    </nav>
+    <div class="prose policy-body">
+      {blocks.map((b) => {
+        if (b.t === 'h3') return <h2>{b.text}</h2>;
+        if (b.t === 'p') return <p set:html={inline(b.text)} />;
+        if (b.t === 'ul') return <ul>{b.items.map((x) => <li set:html={inline(x)} />)}</ul>;
+        if (b.t === 'ol') return <ol>{b.items.map((x) => <li set:html={inline(x)} />)}</ol>;
+        if (b.t === 'table') return (
+          <div class="table-wrap">
+            <table class={b.head && b.head.length > 2 ? 'spec data' : 'spec'}>
+              {b.head && <thead><tr>{b.head.map((h) => <th scope="col">{h}</th>)}</tr></thead>}
+              <tbody>{tableRows(b).map((r) => <tr><th scope="row" set:html={cellHtml(r[0])} />{r.slice(1).map((c) => <td set:html={cellHtml(c)} />)}</tr>)}</tbody>
+            </table>
+          </div>
+        );
+        return null;
+      })}
+      <slot />
+    </div>
+  </div>
+</Page>

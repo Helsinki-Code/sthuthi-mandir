@@ -1,0 +1,47 @@
+---
+// Each image is its own slide (never a collage). Swipe on touch via scroll-snap; click opens a zoomable lightbox.
+import Picture from './Picture.astro';
+interface Props { p: any }
+const { p } = Astro.props;
+const big = (im: any) => `${im.base}-${im.widths[im.widths.length - 1]}`;
+---
+<div class="gallery" data-gallery>
+  <div class="g-track" role="region" aria-roledescription="carousel" aria-label={`${p.name} images`} tabindex="0" data-track>
+    {p.images.map((im: any, i: number) => (
+      <figure class="g-slide" role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${p.images.length}`} data-slide={i}>
+        <button type="button" data-open={i} aria-label={`Open image ${i + 1} full screen: ${im.alt}`}>
+          <Picture img={im} eager={i === 0} defer={i > 0} sizes="(min-width: 1000px) 56vw, calc(100vw - 2rem)" label={false} />
+        </button>
+        {im.kind !== 'photo' && <span class="vis-label">Visualisation</span>}
+        <span class="g-count num" aria-hidden="true">{i + 1} / {p.images.length}</span>
+      </figure>
+    ))}
+  </div>
+  {p.images.length > 1 && (
+    <div class="g-thumbs" aria-label="Choose image">
+      {p.images.map((im: any, i: number) => (
+        <button type="button" data-thumb={i} aria-label={`Show image ${i + 1}`} aria-current={i === 0 ? 'true' : 'false'}>
+          <img src={`${im.base}-${im.widths[0]}.webp`} width={im.widths[0]} height={Math.round(im.height / im.width * im.widths[0])} alt="" loading="lazy" />
+        </button>
+      ))}
+    </div>
+  )}
+  <dialog class="lightbox" aria-label={`${p.name} image viewer`} data-lightbox>
+    <div class="lb-bar">
+      <span class="num" data-lb-count></span>
+      <div class="row">
+        <button type="button" class="lb-btn" data-zoom-out aria-label="Zoom out">−</button>
+        <button type="button" class="lb-btn" data-zoom-in aria-label="Zoom in">+</button>
+        <button type="button" class="lb-btn" data-lb-close aria-label="Close viewer">✕</button>
+      </div>
+    </div>
+    <div class="lb-stage" data-stage><img alt="" data-lb-img draggable="false" /></div>
+    {p.images.length > 1 && <button type="button" class="lb-btn lb-nav lb-prev" data-lb-prev aria-label="Previous image">‹</button>}
+    {p.images.length > 1 && <button type="button" class="lb-btn lb-nav lb-next" data-lb-next aria-label="Next image">›</button>}
+    <p class="lb-caption" data-lb-caption></p>
+  </dialog>
+  <script type="application/json" data-gallery-json set:html={JSON.stringify(p.images.map((im: any) => ({ src: `${big(im)}.webp`, avif: `${big(im)}.avif`, alt: im.alt, kind: im.kind })))} />
+</div>
+<script>
+  import '../scripts/gallery.js';
+</script>

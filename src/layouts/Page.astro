@@ -1,0 +1,16 @@
+---
+import Base from './Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+interface Props { title: string; h1?: string; description: string; lede?: string; kicker?: string; path: string; crumbName?: string; parent?: { name: string; href: string }; jsonld?: any[]; noindex?: boolean }
+const { title, h1, description, lede, kicker, path, crumbName, parent, jsonld = [], noindex = false } = Astro.props;
+const crumbs = [{ name: 'Home', href: '/' }, ...(parent ? [parent] : []), { name: crumbName || title, href: path }];
+---
+<Base title={title} description={description} breadcrumbs={crumbs} jsonld={jsonld} noindex={noindex}>
+  <Breadcrumbs items={crumbs} />
+  <header class="wrap" style="padding-block:var(--s-5) var(--s-6)">
+    {kicker && <span class="kicker">{kicker}</span>}
+    <h1 style="max-width:22ch">{h1 || title}</h1>
+    {lede && <p class="lede">{lede}</p>}
+  </header>
+  <slot />
+</Base>

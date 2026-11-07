@@ -1,0 +1,11 @@
+import puppeteer from 'puppeteer-core';
+import lighthouse from 'lighthouse';
+const b = await puppeteer.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: true });
+const r = await lighthouse(process.argv[2], { port: +new URL(b.wsEndpoint()).port, output: 'json', logLevel: 'error', onlyCategories: ['performance'] });
+const a = r.lhr.audits;
+console.log('score', r.lhr.categories.performance.score, 'LCP', a['largest-contentful-paint'].displayValue, 'TBT', a['total-blocking-time'].displayValue);
+console.log(JSON.stringify((a['long-tasks']?.details?.items || []).slice(0, 6).map((i) => [i.url?.split('/').pop(), Math.round(i.duration)])));
+console.log(JSON.stringify((a['bootup-time']?.details?.items || []).slice(0, 5).map((i) => [i.url?.split('/').pop(), Math.round(i.total), Math.round(i.scripting)])));
+console.log(JSON.stringify((a['mainthread-work-breakdown']?.details?.items || []).slice(0, 6).map((i) => [i.groupLabel, Math.round(i.duration)])));
+console.log('lcp phases', JSON.stringify(a['lcp-breakdown-insight']?.details?.items?.[0]?.items || a['largest-contentful-paint-element']?.details?.items?.[1]?.items));
+await b.close();

@@ -1,0 +1,13 @@
+---
+import Page from '../../layouts/Page.astro';
+import { guides } from '../../content/journal.js';
+---
+<Page title="Journal: guides to planning a home mandir" h1="Journal" path="/journal/" crumbName="Journal"
+  description="Practical guides to planning a home mandir: ceiling heights, walk-in cabins vs cabinets, and reading a specification."
+  lede="Practical guides for planning a home mandir, written from our measurements.">
+  <section class="wrap section-tight">
+    <ol class="ledger">
+      {guides.map((g, i) => <li><span class="n">{i + 1}</span><h2 style="font-size:1.4rem;margin:0"><a href={`/journal/${g.slug}/`} style="text-decoration:none">{g.title}</a></h2><p>{g.description} <a class="link" href={`/journal/${g.slug}/`}>Read the guide</a></p></li>)}
+    </ol>
+  </section>
+</Page>

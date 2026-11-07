@@ -1,0 +1,9 @@
+---
+import PolicyPage from '../../components/PolicyPage.astro';
+import { policies, policyUrl } from '../../lib/policies.js';
+export function getStaticPaths() {
+  return policies.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props;
+---
+<PolicyPage blocks={p.blocks} title={p.title} path={policyUrl(p)} description={p.lede} kicker={`Store policies · Section ${p.num}`} crumbName={p.label} parent={{ name: 'Policies', href: '/policies/' }} current={p.num} />

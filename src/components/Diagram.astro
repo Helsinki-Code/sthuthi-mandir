@@ -1,0 +1,126 @@
+---
+// Front and side elevations drawn to scale from the measurements workbook. No stock imagery.
+// The outline is the overall envelope; roof and crown profiles are not drawn because the sheet does not give them.
+import { cmToFtIn } from '../lib/units.js';
+interface Props { p: any; clearance: number }
+const { p, clearance } = Astro.props;
+const s = p.structure;
+const door = (() => { const m = String(s.door || '').match(/(\d+)\s*W\s*×\s*(\d+)\s*H/i); return m ? { w: +m[1], h: +m[2] } : null; })();
+const minCeil = s.minCeilingCm;
+const both = (cm: number) => ({ 'data-cm': `${cm} cm`, 'data-ft': cmToFtIn(cm) });
+
+function frame(width: number) {
+  const big = Math.max(width, minCeil);
+  const fs = big / 24;
+  const m = { l: fs * 6.6, r: fs * 6.6, t: fs * 2.2, b: fs * 4.2 };
+  const vb = [-m.l, -m.t - minCeil, width + m.l + m.r, minCeil + m.t + m.b];
+  return { fs, m, vb: vb.map((v) => +v.toFixed(1)).join(' ') };
+}
+const F = frame(s.widthCm);
+const S = frame(s.depthCm);
+const y = (h: number) => -h; // floor at y = 0, heights go up
+const tick = (fs: number) => fs * 0.5;
+---
+<div class="drawing" aria-describedby={`dwg-note-${p.sku}`}>
+  <figure>
+    <svg viewBox={F.vb} role="img" aria-labelledby={`dwg-f-${p.sku}`}>
+      <title id={`dwg-f-${p.sku}`}>{`Front elevation: ${s.widthCm} cm wide, ${s.heightCm} cm high${s.hasApartmentEdition ? `, apartment edition ${s.aptHeightCm} cm` : ''}. Minimum ceiling ${minCeil} cm.`}</title>
+      <!-- ceiling -->
+      <line class="dwg-ceiling" x1={-F.m.l * 0.6} x2={s.widthCm + F.m.r * 0.6} y1={y(minCeil)} y2={y(minCeil)} />
+      <text class="dwg-text soft" x={s.widthCm + F.m.r * 0.6} y={y(minCeil) - F.fs * 0.4} font-size={F.fs * 0.82} text-anchor="end">min. ceiling <tspan {...both(minCeil)}>{minCeil} cm</tspan></text>
+      <!-- body -->
+      <rect class="dwg-body" x="0" y={y(s.heightCm)} width={s.widthCm} height={s.heightCm} />
+      {s.walkIn ? (
+        <>
+          <rect class="dwg-hidden" x={(s.widthCm - s.niche.w) / 2} y={y(s.niche.h)} width={s.niche.w} height={s.niche.h} />
+          {door && <rect class="dwg-fill" x={(s.widthCm - door.w) / 2} y={y(door.h)} width={door.w} height={door.h} />}
+          {door && <text class="dwg-text" x={s.widthCm / 2} y={y(door.h / 2)} font-size={F.fs * 0.8} text-anchor="middle">door</text>}
+          {door && <text class="dwg-text" x={s.widthCm / 2} y={y(door.h / 2) + F.fs} font-size={F.fs * 0.8} text-anchor="middle">{door.w} × {door.h}</text>}
+        </>
+      ) : (
+        <>
+          <rect class="dwg-fill" x={(s.widthCm - s.niche.w) / 2} y={y(s.altarCm + s.niche.h)} width={s.niche.w} height={s.niche.h} />
+          <text class="dwg-text" x={s.widthCm / 2} y={y(s.altarCm + s.niche.h / 2)} font-size={F.fs * 0.85} text-anchor="middle">niche</text>
+        </>
+      )}
+      {s.hasApartmentEdition && (
+        <>
+          <line class="dwg-apt" x1="0" x2={s.widthCm} y1={y(s.aptHeightCm)} y2={y(s.aptHeightCm)} />
+          <text class="dwg-text dim" x={s.widthCm / 2} y={y(s.aptHeightCm) + F.fs * 1.15} font-size={F.fs * 0.8} text-anchor="middle">apartment edition <tspan {...both(s.aptHeightCm)}>{s.aptHeightCm} cm</tspan></text>
+        </>
+      )}
+      <line class="dwg-floor" x1={-F.m.l * 0.6} x2={s.widthCm + F.m.r * 0.6} y1="0" y2="0" />
+      <!-- overall width -->
+      <g>
+        <line class="dwg-dim" x1="0" x2={s.widthCm} y1={F.fs * 1.6} y2={F.fs * 1.6} />
+        <line class="dwg-dim" x1="0" x2="0" y1={F.fs * 1.6 - tick(F.fs)} y2={F.fs * 1.6 + tick(F.fs)} />
+        <line class="dwg-dim" x1={s.widthCm} x2={s.widthCm} y1={F.fs * 1.6 - tick(F.fs)} y2={F.fs * 1.6 + tick(F.fs)} />
+        <text class="dwg-text dim" x={s.widthCm / 2} y={F.fs * 3.1} font-size={F.fs} text-anchor="middle" {...both(s.widthCm)}>{s.widthCm} cm</text>
+      </g>
+      <!-- overall height -->
+      <g>
+        <line class="dwg-dim" x1={s.widthCm + F.fs * 1.4} x2={s.widthCm + F.fs * 1.4} y1="0" y2={y(s.heightCm)} />
+        <line class="dwg-dim" x1={s.widthCm + F.fs * 0.9} x2={s.widthCm + F.fs * 1.9} y1={y(s.heightCm)} y2={y(s.heightCm)} />
+        <text class="dwg-text dim" x={s.widthCm + F.fs * 2.1} y={y(s.heightCm / 2)} font-size={F.fs} {...both(s.heightCm)}>{s.heightCm} cm</text>
+      </g>
+      <!-- left: altar and niche / interior heights -->
+      <g>
+        {s.walkIn ? (
+          <>
+            <line class="dwg-dim" x1={-F.fs * 1.4} x2={-F.fs * 1.4} y1="0" y2={y(s.niche.h)} />
+            <line class="dwg-dim" x1={-F.fs * 1.9} x2={-F.fs * 0.9} y1={y(s.niche.h)} y2={y(s.niche.h)} />
+            <text class="dwg-text dim" x={-F.fs * 1.8} y={y(s.niche.h / 2)} font-size={F.fs * 0.85} text-anchor="end">interior</text>
+            <text class="dwg-text dim" x={-F.fs * 1.8} y={y(s.niche.h / 2) + F.fs} font-size={F.fs * 0.85} text-anchor="end" {...both(s.niche.h)}>{s.niche.h} cm</text>
+          </>
+        ) : (
+          <>
+            <line class="dwg-dim" x1={-F.fs * 1.4} x2={-F.fs * 1.4} y1="0" y2={y(s.altarCm)} />
+            <line class="dwg-dim" x1={-F.fs * 1.9} x2={-F.fs * 0.9} y1={y(s.altarCm)} y2={y(s.altarCm)} />
+            <text class="dwg-text dim" x={-F.fs * 1.8} y={y(s.altarCm / 2) - F.fs * 0.15} font-size={F.fs * 0.85} text-anchor="end">altar</text>
+            <text class="dwg-text dim" x={-F.fs * 1.8} y={y(s.altarCm / 2) + F.fs * 0.85} font-size={F.fs * 0.85} text-anchor="end" {...both(s.altarCm)}>{s.altarCm} cm</text>
+            <line class="dwg-dim" x1={-F.fs * 1.4} x2={-F.fs * 1.4} y1={y(s.altarCm)} y2={y(s.altarCm + s.niche.h)} />
+            <line class="dwg-dim" x1={-F.fs * 1.9} x2={-F.fs * 0.9} y1={y(s.altarCm + s.niche.h)} y2={y(s.altarCm + s.niche.h)} />
+            <text class="dwg-text dim" x={-F.fs * 1.8} y={y(s.altarCm + s.niche.h / 2) - F.fs * 0.15} font-size={F.fs * 0.85} text-anchor="end">niche</text>
+            <text class="dwg-text dim" x={-F.fs * 1.8} y={y(s.altarCm + s.niche.h / 2) + F.fs * 0.85} font-size={F.fs * 0.85} text-anchor="end" {...both(s.niche.h)}>{s.niche.h} cm</text>
+          </>
+        )}
+      </g>
+    </svg>
+    <figcaption>Front elevation</figcaption>
+  </figure>
+  <figure>
+    <svg viewBox={S.vb} role="img" aria-labelledby={`dwg-s-${p.sku}`}>
+      <title id={`dwg-s-${p.sku}`}>{`Side elevation: ${s.depthCm} cm deep, ${s.heightCm} cm high. ${s.walkIn ? 'Interior' : 'Niche'} depth ${s.niche.d} cm.`}</title>
+      <line class="dwg-ceiling" x1={-S.m.l * 0.6} x2={s.depthCm + S.m.r * 0.6} y1={y(minCeil)} y2={y(minCeil)} />
+      <rect class="dwg-body" x="0" y={y(s.heightCm)} width={s.depthCm} height={s.heightCm} />
+      {s.walkIn
+        ? <rect class="dwg-hidden" x={(s.depthCm - s.niche.d) / 2} y={y(s.niche.h)} width={s.niche.d} height={s.niche.h} />
+        : <rect class="dwg-fill" x="0" y={y(s.altarCm + s.niche.h)} width={s.niche.d} height={s.niche.h} />}
+      {s.hasApartmentEdition && <line class="dwg-apt" x1="0" x2={s.depthCm} y1={y(s.aptHeightCm)} y2={y(s.aptHeightCm)} />}
+      <line class="dwg-floor" x1={-S.m.l * 0.6} x2={s.depthCm + S.m.r * 0.6} y1="0" y2="0" />
+      <text class="dwg-text soft" x="0" y={y(s.heightCm) - S.fs * 0.5} font-size={S.fs * 0.8}>front</text>
+      <g>
+        <line class="dwg-dim" x1="0" x2={s.depthCm} y1={S.fs * 1.6} y2={S.fs * 1.6} />
+        <line class="dwg-dim" x1="0" x2="0" y1={S.fs * 1.6 - tick(S.fs)} y2={S.fs * 1.6 + tick(S.fs)} />
+        <line class="dwg-dim" x1={s.depthCm} x2={s.depthCm} y1={S.fs * 1.6 - tick(S.fs)} y2={S.fs * 1.6 + tick(S.fs)} />
+        <text class="dwg-text dim" x={s.depthCm / 2} y={S.fs * 3.1} font-size={S.fs} text-anchor="middle" {...both(s.depthCm)}>{s.depthCm} cm</text>
+      </g>
+      <g>
+        <line class="dwg-dim" x1={s.walkIn ? (s.depthCm - s.niche.d) / 2 : 0} x2={s.walkIn ? (s.depthCm + s.niche.d) / 2 : s.niche.d}
+          y1={y(s.walkIn ? s.niche.h : s.altarCm + s.niche.h) - S.fs * 0.8} y2={y(s.walkIn ? s.niche.h : s.altarCm + s.niche.h) - S.fs * 0.8} />
+        <text class="dwg-text dim" x={s.depthCm / 2} y={y(s.walkIn ? s.niche.h : s.altarCm + s.niche.h) - S.fs * 1.3} font-size={S.fs * 0.85} text-anchor="middle">{s.walkIn ? 'interior' : 'niche'} <tspan {...both(s.niche.d)}>{s.niche.d} cm</tspan></text>
+      </g>
+      <g>
+        <line class="dwg-dim" x1={s.depthCm + S.fs * 1.4} x2={s.depthCm + S.fs * 1.4} y1="0" y2={y(s.heightCm)} />
+        <line class="dwg-dim" x1={s.depthCm + S.fs * 0.9} x2={s.depthCm + S.fs * 1.9} y1={y(s.heightCm)} y2={y(s.heightCm)} />
+        <text class="dwg-text dim" x={s.depthCm + S.fs * 2.1} y={y(s.heightCm / 2)} font-size={S.fs} {...both(s.heightCm)}>{s.heightCm} cm</text>
+      </g>
+    </svg>
+    <figcaption>Side elevation</figcaption>
+  </figure>
+  <p id={`dwg-note-${p.sku}`} class="muted" style="grid-column:1/-1;margin:0;font-size:var(--fs-sm)">
+    Drawn to scale from the measurements sheet. The outline is the overall envelope; roof and crown profiles are simplified.
+    {s.walkIn ? ' Dashed: interior clear space.' : ' Shaded: deity niche.'} Dotted: minimum ceiling, {clearance} cm above the tallest point.
+    {s.hasApartmentEdition ? ' Long dashes: apartment edition height.' : ''}
+  </p>
+</div>

@@ -1,0 +1,83 @@
+---
+import '../styles/fonts.css';
+import notoLatin from '@fontsource-variable/noto-sans/files/noto-sans-latin-wght-normal.woff2?url';
+import cormorantLatin from '@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-normal.woff2?url';
+import '@fontsource-variable/noto-sans-devanagari/index.css';
+import '@fontsource-variable/noto-serif-devanagari/index.css';
+import '@fontsource-variable/noto-sans-tamil/index.css';
+import '@fontsource-variable/noto-sans-telugu/index.css';
+import '@fontsource-variable/noto-sans-kannada/index.css';
+import '@fontsource-variable/noto-sans-malayalam/index.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../site.config.js';
+import { organizationLd, breadcrumbLd } from '../lib/seo.js';
+
+interface Props {
+  title: string; description: string; image?: string; imageAlt?: string; type?: string;
+  breadcrumbs?: { name: string; href?: string }[]; jsonld?: any[]; noindex?: boolean;
+}
+const { title, description, image, imageAlt, type = 'website', breadcrumbs, jsonld = [], noindex = false } = Astro.props;
+const site = Astro.site?.toString().replace(/\/$/, '') || SITE.url;
+const canonical = new URL(Astro.url.pathname, site + '/').toString();
+const ogImage = image ? new URL(image, site + '/').toString() : new URL('/brand/icon-512.png', site + '/').toString();
+const fullTitle = /sthuthi/i.test(title) ? title : `${title} | Sthuthi`;
+const ld = [organizationLd(site), ...(breadcrumbs ? [breadcrumbLd(site, breadcrumbs)] : []), ...jsonld];
+---
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="preload" href={notoLatin} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={cormorantLatin} as="font" type="font/woff2" crossorigin />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta name="theme-color" content="#fef9f2" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#17110f" media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href="/brand/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/brand/icon-180.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:site_name" content="Sthuthi" />
+  <meta property="og:type" content={type} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  {imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+  <meta property="og:locale" content="en_IN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script is:inline>
+    (function () {
+      var d = document.documentElement, mq = window.matchMedia('(prefers-color-scheme: dark)'), t = null;
+      try { t = localStorage.getItem('sthuthi-theme'); } catch (e) {}
+      d.dataset.theme = t === 'light' || t === 'dark' ? t : (mq.matches ? 'dark' : 'light');
+      if (t !== 'light' && t !== 'dark' && mq.addEventListener) mq.addEventListener('change', function (e) { var s = null; try { s = localStorage.getItem('sthuthi-theme'); } catch (_) {} if (!s) d.dataset.theme = e.matches ? 'dark' : 'light'; });
+      try { var u = localStorage.getItem('sthuthi-units'); if (u === 'ft') document.documentElement.dataset.units = 'ft'; } catch (e) {}
+    })();
+  </script>
+  {ld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <!-- Cusped arch from the Sthuthi logo, used to frame imagery -->
+      <clipPath id="arch-clip" clipPathUnits="objectBoundingBox">
+        <path d="M0,1 L0,0.27 C0,0.2 0.05,0.165 0.11,0.17 C0.13,0.1 0.24,0.075 0.31,0.1 C0.37,0.045 0.44,0.03 0.5,0 C0.56,0.03 0.63,0.045 0.69,0.1 C0.76,0.075 0.87,0.1 0.89,0.17 C0.95,0.165 1,0.2 1,0.27 L1,1 Z" />
+      </clipPath>
+    </defs>
+  </svg>
+  <Header />
+  <main id="main" tabindex="-1">
+    <slot />
+  </main>
+  <Footer />
+  <script>
+    import '../scripts/units.js';
+  </script>
+</body>
+</html>

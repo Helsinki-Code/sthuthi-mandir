@@ -1,0 +1,28 @@
+---
+import Picture from './Picture.astro';
+import { productUrl } from '../lib/catalog.js';
+import { formatINR, cmToFtIn } from '../lib/units.js';
+import { tierOf } from '../site.config.js';
+import { tierLabel } from '../lib/tier.js';
+interface Props { p: any; compare?: boolean; heading?: 'h2' | 'h3'; reasons?: string[] }
+const { p, compare = false, reasons = [] } = Astro.props;
+const s = p.structure;
+const tier = tierOf(p);
+const minCeil = s ? (s.hasApartmentEdition ? s.aptMinCeilingCm : s.minCeilingCm) : '';
+---
+<article class="card" data-sku={p.sku} data-collection={p.collection} data-price={p.priceINR}
+  data-deities={p.principalDeities.join('|')} data-alldeities={p.deities.join('|')} data-materials={p.materials.join('|')}
+  data-w={s?.widthCm} data-d={s?.depthCm} data-h={s?.heightCm} data-fp={s?.footprintM2} data-minceil={minCeil}
+  data-apt={s?.hasApartmentEdition ? '1' : '0'} data-multi={p.multiDeity ? '1' : '0'} data-name={p.name} data-tier={tier}>
+  <div class="media">
+    {p.images[0] && <Picture img={p.images[0]} sizes="(min-width: 1000px) 300px, (min-width: 560px) 45vw, 100vw" />}
+  </div>
+  <span class="sku code">{p.sku}</span>
+  <h3><a href={productUrl(p)}>{p.name}</a></h3>
+  <p class="meta">{p.collectionName.replace(/ Collection$/, '')}</p>
+  {s && <p class="meta num"><span data-cm={`${s.widthCm} × ${s.depthCm} × ${s.heightCm} cm`} data-ft={`${cmToFtIn(s.widthCm)} × ${cmToFtIn(s.depthCm)} × ${cmToFtIn(s.heightCm)}`}>{s.widthCm} × {s.depthCm} × {s.heightCm} cm</span></p>}
+  {reasons.length > 0 && <p class="meta">{reasons.join(' · ')}</p>}
+  <p class="price num">{formatINR(p.priceINR)}</p>
+  <span class={`tier ${tier}`} data-tier={tier}>{tierLabel(tier)}</span>
+  {compare && <label class="compare-toggle"><input type="checkbox" class="cmp" value={p.sku} /> Compare</label>}
+</article>

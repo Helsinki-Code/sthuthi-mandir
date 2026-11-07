@@ -1,0 +1,116 @@
+---
+import Page from '../layouts/Page.astro';
+import FitChecker from '../components/FitChecker.astro';
+import UnitToggle from '../components/UnitToggle.astro';
+import { products, std, standards, productUrl, facets } from '../lib/catalog.js';
+import { cmToFtIn } from '../lib/units.js';
+const both = (cm) => ({ 'data-cm': `${cm} cm`, 'data-ft': cmToFtIn(cm) });
+const byCeil = [...products].filter((p) => p.structure).sort((a, b) => a.structure.minCeilingCm - b.structure.minCeilingCm || a.priceINR - b.priceINR);
+const cabins = products.filter((p) => p.structure?.walkIn);
+const aptCabins = cabins.filter((p) => p.structure.hasApartmentEdition);
+const signOff = products.filter((p) => p.structure?.structuralSignOff);
+const cabinW = [Math.min(...cabins.map((p) => p.structure.widthCm)), Math.max(...cabins.map((p) => p.structure.widthCm))];
+const occupants = std.occupancy * std.occupantWeight;
+---
+<Page title="Size and space guide" h1="Will a mandir fit? A size and space guide" path="/size-guide/"
+  description="How to measure your room, the ceiling height each Sthuthi mandir needs, apartment vs villa editions, lift and door access, and floor-load requirements."
+  lede="Four things decide whether a mandir fits: floor area, ceiling height, the way in, and the floor's strength. Every figure on this page comes from our measurements sheet.">
+  <nav class="wrap" aria-label="On this page"><ul class="toc">
+    <li><a class="link" href="#measure">How to measure</a></li><li><a class="link" href="#room-check">Room checker</a></li>
+    <li><a class="link" href="#ceiling">Ceiling heights</a></li><li><a class="link" href="#editions">Apartment and villa editions</a></li>
+    <li><a class="link" href="#access">Lift and door access</a></li><li><a class="link" href="#floor">Floor load</a></li>
+  </ul></nav>
+
+  <section class="wrap section-tight" id="measure" aria-labelledby="measure-h">
+    <div class="split">
+      <div><h2 id="measure-h">How to measure your room</h2><UnitToggle /></div>
+      <ol class="ledger">
+        <li><span class="n">W</span><h3>Width</h3><p>Measure the wall the mandir will stand against, wall to wall or to the nearest obstruction such as a pillar, window frame or switchboard.</p></li>
+        <li><span class="n">D</span><h3>Depth</h3><p>Measure out from that wall to the nearest obstruction in front. For a walk-in cabin, measure the whole floor area it will occupy.</p></li>
+        <li><span class="n">C</span><h3>Clear ceiling height</h3><p>Measure from the finished floor to the lowest point above the spot: a false ceiling, beam, light fitting or fan. Our installers need {std.ceilingClearance} cm above the mandir's tallest point. {standards.ceilingClearance.detail}</p></li>
+        <li><span class="n">A</span><h3>The way in</h3><p>Note the narrowest door, corridor turn and lift door on the route from the street to the room. <a class="link" href="#access">Access sizes</a></p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="wrap section-tight" id="room-check">
+    <FitChecker all id="room-fit" />
+  </section>
+
+  <section class="wrap section-tight" id="ceiling" aria-labelledby="ceil-h">
+    <header class="row" style="justify-content:space-between;align-items:end;margin-bottom:var(--s-4)"><h2 id="ceil-h" style="margin:0">Ceiling height each mandir needs</h2><UnitToggle /></header>
+    <p class="muted" style="max-width:64ch">Minimum clear ceiling is the mandir's height plus {std.ceilingClearance} cm. Ceilings in this range run from <span {...both(facets.minCeiling[0])}>{facets.minCeiling[0]} cm</span> to <span {...both(byCeil[byCeil.length - 1].structure.minCeilingCm)}>{byCeil[byCeil.length - 1].structure.minCeilingCm} cm</span>.</p>
+    <div class="table-wrap">
+      <table class="spec data">
+        <caption>Sorted by the ceiling needed for the standard (villa) edition.</caption>
+        <thead><tr><th scope="col">Mandir</th><th scope="col">Height</th><th scope="col">Ceiling needed</th><th scope="col">Apartment edition</th><th scope="col">Ceiling needed (apartment)</th></tr></thead>
+        <tbody>
+          {byCeil.map((p) => { const s = p.structure; return (
+            <tr>
+              <th scope="row"><a class="link" href={productUrl(p)}>{p.name}</a><span class="sub">{p.sku}</span></th>
+              <td class="num"><span {...both(s.heightCm)}>{s.heightCm} cm</span></td>
+              <td class="num"><span {...both(s.minCeilingCm)}>{s.minCeilingCm} cm</span></td>
+              <td class="num">{s.hasApartmentEdition ? <span {...both(s.aptHeightCm)}>{s.aptHeightCm} cm</span> : <span class="muted">Not needed</span>}</td>
+              <td class="num">{s.hasApartmentEdition ? <span {...both(s.aptMinCeilingCm)}>{s.aptMinCeilingCm} cm</span> : <span class="muted">–</span>}</td>
+            </tr>); })}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="band section" id="editions" aria-labelledby="ed-h">
+    <div class="wrap split">
+      <div>
+        <h2 id="ed-h">Apartment edition or villa edition?</h2>
+        <p>{standards.aptMaxHeight.detail} The apartment edition of a walk-in cabin is no taller than <span {...both(std.aptMaxHeight)}>{std.aptMaxHeight} cm</span>, so it fits under a <span {...both(std.aptMaxHeight + std.ceilingClearance)}>{std.aptMaxHeight + std.ceilingClearance} cm</span> ceiling with the installation clearance.</p>
+        <p>The villa edition keeps the full spire. Choose it when the clear ceiling is at least the figure in the table above.</p>
+        <p class="muted">{aptCabins.length} of {cabins.length} walk-in cabins have an apartment edition. Cabinets in the other collections are already sized for homes and have a single edition.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="spec data">
+          <caption>Walk-in cabins: villa and apartment heights.</caption>
+          <thead><tr><th scope="col">Cabin</th><th scope="col">Villa</th><th scope="col">Apartment</th><th scope="col">Difference</th></tr></thead>
+          <tbody>{aptCabins.map((p) => <tr><th scope="row"><a class="link" href={productUrl(p)}>{p.name}</a></th><td class="num"><span {...both(p.structure.heightCm)}>{p.structure.heightCm} cm</span></td><td class="num"><span {...both(p.structure.aptHeightCm)}>{p.structure.aptHeightCm} cm</span></td><td class="num">{p.structure.heightCm - p.structure.aptHeightCm} cm lower</td></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="access" aria-labelledby="acc-h">
+    <div class="split">
+      <div>
+        <h2 id="acc-h">Lift and door access</h2>
+        <p class="muted">Cabins and large cabinets travel as modules, so the finished mandir can be larger than your lift or door.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="spec">
+          <caption>From the Installation Standards in our measurements sheet.</caption>
+          <tbody>
+            <tr><th scope="row">{standards.moduleWood.label}</th><td>{standards.moduleWood.value}<span class="sub">{standards.moduleWood.detail}</span></td></tr>
+            <tr><th scope="row">{standards.moduleStone.label}</th><td>{standards.moduleStone.value}<span class="sub">{standards.moduleStone.detail}</span></td></tr>
+            <tr><th scope="row">{standards.cabinDoor.label}</th><td>{standards.cabinDoor.value} {standards.cabinDoor.unit}<span class="sub">{standards.cabinDoor.detail}</span></td></tr>
+            <tr><th scope="row">{standards.cabinInteriorHeight.label}</th><td><span {...both(std.cabinInteriorHeight)}>{std.cabinInteriorHeight} cm</span><span class="sub">{standards.cabinInteriorHeight.detail}</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:var(--s-5);max-width:64ch">Measure your lift door, the inside of the lift car and the tightest turn on the route, and bring the figures to the consultation. Walk-in cabins range from <span {...both(cabinW[0])}>{cabinW[0]} cm</span> to <span {...both(cabinW[1])}>{cabinW[1]} cm</span> wide once assembled.</p>
+  </section>
+
+  <section class="sanctum section" id="floor" aria-labelledby="floor-h">
+    <div class="wrap split">
+      <div>
+        <h2 id="floor-h">Floor load</h2>
+        <p class="muted">{standards.floorLoad.detail} For walk-in cabins we add {std.occupancy} people at {std.occupantWeight} kg each ({occupants} kg) to the cabin's maximum weight and spread it over the footprint. Cabins above {std.floorLoad} kg/m², and free-standing cabinets above {std.signOffWeight} kg, are installed after a structural engineer signs off the floor.</p>
+        <p class="muted">That applies to {signOff.length} of our {products.length} designs.</p>
+      </div>
+      <div class="table-wrap" style="border-color:#3a2e28">
+        <table class="spec data" style="color:var(--on-dark)">
+          <caption style="color:var(--on-dark-2);border-color:#3a2e28">Designs installed after structural sign-off.</caption>
+          <thead><tr><th scope="col" style="background:#211915;color:var(--on-dark-2)">Mandir</th><th scope="col" style="background:#211915;color:var(--on-dark-2)">Max weight</th><th scope="col" style="background:#211915;color:var(--on-dark-2)">Floor load</th></tr></thead>
+          <tbody>{signOff.map((p) => <tr><th scope="row" style="border-color:#3a2e28"><a href={productUrl(p)}>{p.name}</a></th><td class="num" style="border-color:#3a2e28">{p.structure.weightMax} kg</td><td class="num" style="border-color:#3a2e28">{p.structure.floorLoad} kg/m²</td></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</Page>

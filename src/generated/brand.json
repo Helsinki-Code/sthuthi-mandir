@@ -1,0 +1,20 @@
+{
+ "paper": "#fef9f2",
+ "variants": [
+  {
+   "name": "logo-full",
+   "width": 900,
+   "height": 998
+  },
+  {
+   "name": "logo-mark",
+   "width": 400,
+   "height": 492
+  },
+  {
+   "name": "logo-wordmark",
+   "width": 640,
+   "height": 241
+  }
+ ]
+}
